@@ -244,7 +244,8 @@ def service_outage_reason(program, start, end, station=None):
     return False
 
 
-def add_service_outage(name, start, end, scope="all", target=None):
+def _service_outage_item(name, start, end, scope="all", target=None,
+                         outage_id=None):
     if not isinstance(start, datetime.datetime) or not isinstance(end, datetime.datetime):
         raise ValueError("invalid_datetime")
     if end <= start:
@@ -252,7 +253,7 @@ def add_service_outage(name, start, end, scope="all", target=None):
     if scope not in ("all", "program", "group", "station"):
         raise ValueError("invalid_scope")
     item = {
-        "id": uuid.uuid4().hex,
+        "id": str(outage_id or uuid.uuid4().hex),
         "name": str(name or "").strip(),
         "start": start.isoformat(timespec="minutes"),
         "end": end.isoformat(timespec="minutes"),
@@ -264,10 +265,37 @@ def add_service_outage(name, start, end, scope="all", target=None):
         item["group"] = str(target)
     elif scope == "station":
         item["stations"] = sorted(set(int(value) for value in (target or [])))
+    return item
+
+
+def add_service_outage(name, start, end, scope="all", target=None):
+    item = _service_outage_item(name, start, end, scope, target)
     outages = list(getattr(options, "calendar_service_outages", []) or [])
     outages.append(item)
     options.calendar_service_outages = outages
     return item
+
+
+def update_service_outage(outage_id, name, start, end, scope=None,
+                          target=None):
+    outages = list(getattr(options, "calendar_service_outages", []) or [])
+    for index, current in enumerate(outages):
+        if not isinstance(current, dict) or current.get("id") != str(outage_id):
+            continue
+        selected_scope = str(scope or current.get("scope", "all") or "all")
+        if scope is None:
+            if selected_scope == "program":
+                target = current.get("program")
+            elif selected_scope == "group":
+                target = current.get("group")
+            elif selected_scope == "station":
+                target = current.get("stations", [])
+        item = _service_outage_item(
+            name, start, end, selected_scope, target, outage_id=outage_id)
+        outages[index] = item
+        options.calendar_service_outages = outages
+        return item
+    return None
 
 
 def remove_service_outage(outage_id):

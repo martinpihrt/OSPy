@@ -37,10 +37,19 @@ Program exclusions are persisted as exact ISO dates in `excluded_dates` and as i
 
 When `exclude_holidays` is enabled, OSPy uses the Python `holidays` package and a two-letter country code. The country is detected from the configured weather coordinates through OpenStreetMap. An administrator may set **Options → Weather → Holiday country override** when a different calendar is required or automatic detection is unavailable. No weather API key is required for holiday calculation. The editor does not allow holiday exclusion when the library or country is unavailable. If an existing opted-in program is loaded after the package was removed or before an older installation ran the updated installer, its occurrences receive `holiday_calendar_unavailable`; the scheduler and unrelated programs continue normally.
 
+Pause between programs
+----
+
+The Programs page stores a global pause in `options.program_pause` as a number of seconds. The editor accepts separate hours, minutes and seconds and persists the result across OSPy restarts. A value of zero disables the feature.
+
+After normal station-duration, water-level and output-usage scheduling, OSPy compares complete occurrences of different automatic programs. When the next program would start before the preceding program's actual end plus the configured pause, every station interval belonging to that occurrence is shifted by the same amount. This preserves the program's internal station timing. An existing gap longer than the configured pause is left unchanged; blocked and manual runs neither move nor reserve the pause.
+
+Mobile API clients read and configure the same value through `GET/PUT /program-settings` using `pause_between_programs_seconds`. The accepted range is 0 to 31536000 seconds.
+
 Service outages
 ----
 
-Administrators create and remove global service outages on the Programs page. Each outage contains a name and a local half-open time interval `[start, end)`. An overlapping automatic occurrence remains in the predicted schedule with the `service_outage` block reason. Manual **Run Now** remains available, allowing an administrator to make a deliberate service test. Outages are stored in `options.calendar_service_outages` and survive a service restart.
+Administrators create and remove global service outages on the Programs page. The native mobile client can create, edit and remove the same records through Mobile API v1. Each outage contains a name and a local half-open time interval `[start, end)`. An overlapping automatic occurrence remains in the predicted schedule with the `service_outage` block reason. Manual **Run Now** remains available, allowing an administrator to make a deliberate service test. Outages are stored in `options.calendar_service_outages` and survive a service restart.
 
 Sunrise and sunset programs
 ----

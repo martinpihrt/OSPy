@@ -4,6 +4,14 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 25 2026
+-----------
+(Martin Pihrt)<br/>
+Added a persistent global **Pause between programs** setting to the Programs page, with separate hours, minutes and seconds fields. The scheduler now keeps the configured idle window between different automatic program occurrences, using the actual scheduler-resolved end of the complete preceding program. Stations within one program and manual runs remain unaffected. Added the matching read/configure Mobile API endpoint, scheduler and API regression coverage, Czech web translation and program/API documentation.
+
+(Martin Pihrt)<br/>
+Extended Mobile API v1 with administrator create, update and delete operations for service outages, while retaining the existing read list and preserving the scope of targeted outages during edits. Added rain-sensor configured/current-state fields to Home and irrigation responses. Plug-in manifests can now declare guarded mobile downloads, plug-ins return a file descriptor through `mobile_download()`, and the scoped download endpoint validates that the selected file remains inside the plug-in directory before streaming it. Updated OpenAPI, the complete Mobile API reference and regression coverage.
+
 ## August 24 2026
 -----------
 (Tomas Szepesi)<br/>

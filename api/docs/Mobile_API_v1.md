@@ -154,7 +154,7 @@ Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413
 | Push notifications | `GET/POST/PUT/DELETE /push`, `POST /push/test` |
 | Home | `GET /overview`, `GET/PUT /irrigation` |
 | Stations | `GET/PUT /stations`, `GET/PUT /stations/{id}`, `POST /stations/{id}/actions/start|stop`, `POST /stations/actions/stop-all` |
-| Programs and timeline | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop`, `GET /program-groups`, `POST /program-groups/{id}/postponements`, `DELETE /program-groups/{id}/postponements/{postponement_id}`, `GET /schedule` |
+| Programs and timeline | `GET/POST /programs`, `GET/PUT/DELETE /programs/{id}`, `POST /programs/{id}/actions/run|stop`, `GET/PUT /program-settings`, `GET /program-groups`, `POST /program-groups/{id}/postponements`, `DELETE /program-groups/{id}/postponements/{postponement_id}`, `GET /schedule` |
 | Run-once | `GET/PUT /run-once`, `POST /run-once/actions/start` |
 | Sensors | `GET /sensors`, `GET/PUT /sensors/{id}`, `GET /sensors/{id}/history` |
 | Weather | `GET /weather/current`, `/weather/forecast`, `/weather/status` |
@@ -162,10 +162,10 @@ Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413
 | Diagnostics | `GET /diagnostics/summary|components|incidents|security|translations` |
 | Notifications | `GET /notifications`, `POST /notifications/{id}/ack` |
 | Changes | `GET /stream`, `/changes` |
-| Plug-ins | `GET /plugins`, `/plugins/{id}`, `/plugins/{id}/mobile`, `POST /plugins/{id}/actions/{action}` |
+| Plug-ins | `GET /plugins`, `/plugins/{id}`, `/plugins/{id}/mobile`, `POST /plugins/{id}/actions/{action}`, `GET /plugins/{id}/downloads/{download_id}` |
 | Backups | `GET/POST /backups`, `GET /backups/{id}/download`, `POST /backups/{id}/restore` |
 | Updates | `GET /updates`, `POST /updates/actions/check|apply|rollback` |
-| System | `GET /service-outages`, `POST /system/actions/restart-ospy|reboot|poweroff` |
+| System | `GET/POST /service-outages`, `PUT/DELETE /service-outages/{id}`, `POST /system/actions/restart-ospy|reboot|poweroff` |
 | Operations | `GET /operations/{id}` |
 
 ## Main resources
@@ -196,7 +196,7 @@ Clients should refresh this lightweight resource periodically while Home is visi
 
 ### Global irrigation controls
 
-`GET /irrigation` returns `scheduler_enabled`, `manual_mode`, `rain_block`, `rain_block_seconds`, `rain_delay`, the effective fractional `level_adjustment`, the separately configured fractional `user_level_adjustment`, the convenient `level_adjustment_percent` and the current `active_stations`.
+`GET /irrigation` returns `scheduler_enabled`, `manual_mode`, `rain_block`, `rain_block_seconds`, `rain_sensor_enabled`, `rain_sensed`, `rain_delay`, the effective fractional `level_adjustment`, the separately configured fractional `user_level_adjustment`, the convenient `level_adjustment_percent` and the current `active_stations`.
 
 `PUT /irrigation` requires the `control` scope and accepts one or more fields:
 
@@ -269,6 +269,10 @@ Content-Type: application/json
 ```
 
 Cancel with `DELETE /program-groups/{group_id}/postponements/{postponement_id}`. Cancellation before the source time restores the normal occurrence; cancellation after the source time keeps the original occurrence suppressed, matching the scheduler's safe web behavior. Both actions require `control`.
+
+### Pause between programs
+
+`GET /program-settings` returns `pause_between_programs_seconds`. `PUT` accepts the same integer field in the range 0 to 31536000. The value is persisted by OSPy and inserts an idle window between different automatic program occurrences. It does not separate stations within one program and does not affect manual runs.
 
 Program types and `type_data` are deliberately the same scheduling model as OSPy. A client must preserve the returned type and use its corresponding shape:
 
@@ -398,9 +402,12 @@ mobile_cards()
 mobile_settings_schema()
 mobile_settings()
 mobile_action(action, payload)
+mobile_download(download_id)
 ```
 
-Only declared actions can be called. Arbitrary plug-in functions and HTML are never exposed. Legacy plug-ins remain visible but simply report that no native mobile contribution is available.
+Only manifest-declared actions and downloads can be called. A download descriptor contains a path inside the plug-in directory, a safe file name and a MIME type; the API validates the path before streaming it. Arbitrary plug-in functions and HTML are never exposed. Legacy plug-ins remain visible but simply report that no native mobile contribution is available.
+
+`mobile_download(download_id)` returns an object with `path`, `filename` and `mime_type`. `path` is server-internal and is never serialized to the JSON client. The download response is the raw file body with the declared MIME type and `Content-Disposition: attachment`; it does not use the normal JSON envelope. The core resolves both the plug-in root and returned path, rejects traversal or a file outside that root and verifies that the file still exists before opening it.
 
 The manifest fragment is:
 
@@ -408,12 +415,13 @@ The manifest fragment is:
 {
   "mobile": {
     "api_version": 1,
-    "actions": ["refresh", "reset-counter"]
+    "actions": ["refresh", "reset-counter"],
+    "downloads": ["latest-backup"]
   }
 }
 ```
 
-`GET /plugins` lists all installed plug-ins, run/enable state, compatibility, health and mobile capabilities. `/plugins/{id}/mobile` returns only available JSON contributions. `POST /plugins/{id}/actions/{declared_action}` rejects actions absent from the manifest. Plug-ins cannot inject mobile HTML or call arbitrary methods through the API.
+`GET /plugins` lists all installed plug-ins, run/enable state, compatibility, health and mobile capabilities. `/plugins/{id}/mobile` returns only available JSON contributions. `POST /plugins/{id}/actions/{declared_action}` and `GET /plugins/{id}/downloads/{download_id}` reject identifiers absent from the manifest. Plug-ins cannot inject mobile HTML or call arbitrary methods through the API.
 
 The response of `/plugins/{id}/mobile` can contain `status`, `cards`, `settings_schema` and `settings`. A card has a stable `kind` such as `metrics`, `status` or `chart`; a chart carries one or more named series made of numeric `value` points and optional display `time`. Native clients must ignore card kinds and fields they do not understand. A client must show history-range controls only for a `chart` card, a card with explicit `history` metadata, or a card containing at least one real series point. An absent `series` field or an empty compatibility placeholder is not a graph and must not produce empty history controls.
 
@@ -491,7 +499,7 @@ The official read-only adapters provide the following data without exposing conf
 | `lcd_display` | Display type, I2C address, worker state and last successful display update without writing to the display. |
 | `monthly_water_level` | Current monthly irrigation adjustment and the month used for the calculation. |
 | `mqtt_home_assistant` | Current MQTT/Home Assistant connection and publication state without the broker address, user name, password or topic configuration. |
-| `ospy_backup` | Plug-in backup scheduling and last-backup status. Creating, listing and downloading complete OSPy backups remains available through the scoped core backup endpoints. |
+| `ospy_backup` | Plug-in-data backup status plus the declared `create_backup` action and `latest_backup` ZIP download. Complete OSPy system backups remain separate under the scoped core backup endpoints. |
 | `real_time` | Current OSPy time, the last successful synchronization cycle and the latest available NTP and RTC values. |
 | `shelly_cloud_integrator` | Cached Shelly device name, model, address, online state, battery, voltage, RSSI, temperature, humidity, illuminance, outputs and power readings. The adapter never contacts Shelly Cloud itself and never exposes credentials or controls. |
 | `system_debug` | Current debug-log state, size and entry count without returning the debug-log contents in the plug-in overview. |
@@ -535,7 +543,7 @@ These administrator operations return an operation identifier. Follow `/operatio
 
 `GET /updates` returns System Update health. `/updates/actions/check|apply|rollback` requires the running System Update plug-in. `POST /updates/actions/apply` installs from the channel already selected in System Update; it does not silently change stable/beta selection. The mobile client should ask for confirmation, display the asynchronous operation state and reconnect after the controlled restart. System actions are `/system/actions/restart-ospy`, `/reboot` and `/poweroff`.
 
-`GET /service-outages` is a read-only list of the service outages configured on the OSPy Programs page. Each item contains stable `id`, display `name`, local ISO 8601 `start` and `end`, `scope` and a Boolean `active` value calculated by OSPy. Mobile clients may display this list but create and delete outages only through the authoritative web interface.
+`GET /service-outages` lists configured service outages. `POST /service-outages` creates one, while `PUT` and `DELETE /service-outages/{outage_id}` update and remove it. Writes require the `configuration` scope and accept `name`, local ISO 8601 `start` and `end`; the end must be later than the start. Mobile-created outages apply to all automatic programs. Updating an existing targeted outage preserves its program, group or station scope. Each response item also contains stable `id`, `scope` and a Boolean `active` value calculated by OSPy.
 
 Long operations return HTTP `202` with an operation object. Poll `GET /operations/{id}` until `status` is `completed` or `failed`; fields include `kind`, `progress`, `result`, `error`, `created` and `updated`.
 
@@ -623,6 +631,8 @@ Response shape:
       "manual_mode": false,
       "rain_block": false,
       "rain_block_seconds": 0,
+      "rain_sensor_enabled": true,
+      "rain_sensed": false,
       "rain_delay": null,
       "level_adjustment": 0.85,
       "active_stations": []
@@ -641,7 +651,7 @@ Response shape:
 }
 ```
 
-`rain_block` means that rain protection is currently blocking irrigation. It does not mean merely that a rain-delay value or rain sensor exists. `rain_block_seconds` is the non-negative time until the active block expires. Each `active_stations` item has the same contract as an item from `/stations`.
+`rain_block` means that rain protection is currently blocking irrigation. It does not mean merely that a rain-delay value or rain sensor exists. `rain_block_seconds` is the non-negative time until the active block expires. `rain_sensor_enabled` reports whether the configured rain input is enabled and `rain_sensed` reports its current logical state. Each `active_stations` item has the same contract as an item from `/stations`.
 
 ### Station object and actions
 

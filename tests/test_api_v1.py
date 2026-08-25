@@ -59,6 +59,7 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertIn("/stations", document["paths"])
         self.assertIn("put", document["paths"]["/stations/{station_id}"])
         self.assertIn("post", document["paths"]["/programs"])
+        self.assertIn("put", document["paths"]["/program-settings"])
         self.assertIn("delete", document["paths"]["/programs/{program_id}"])
         self.assertIn("delete", document["paths"]["/auth/devices/{device_id}"])
         self.assertIn("post", document["paths"]["/push"])
@@ -70,8 +71,14 @@ class MobileAPIV1Tests(unittest.TestCase):
             document["paths"]["/program-groups/{group_id}/postponements"],
         )
         self.assertIn("put", document["paths"]["/plugins/{plugin_id}"])
+        self.assertIn(
+            "/plugins/{plugin_id}/downloads/{download_id}", document["paths"]
+        )
         self.assertIn("/schedule", document["paths"])
         self.assertIn("/service-outages", document["paths"])
+        self.assertIn("post", document["paths"]["/service-outages"])
+        self.assertIn("put", document["paths"]["/service-outages/{outage_id}"])
+        self.assertIn("delete", document["paths"]["/service-outages/{outage_id}"])
 
     def test_protected_endpoint_requires_bearer_token(self):
         response = self._request("/stations")
@@ -144,6 +151,97 @@ class MobileAPIV1Tests(unittest.TestCase):
             self.assertIn("active", outage)
         finally:
             api.options.calendar_service_outages = previous
+
+    def test_configuration_scope_manages_service_outages(self):
+        from api.v1 import api
+
+        read_token, unused_refresh = self._token(("read",), role="user")
+        previous = api.options.calendar_service_outages
+        try:
+            api.options.calendar_service_outages = []
+            denied = self._request(
+                "/service-outages", read_token, method="POST", data={
+                    "name": "Pump maintenance",
+                    "start": "2026-08-25T10:00",
+                    "end": "2026-08-25T11:00",
+                })
+            self.assertEqual(denied.status, "403 Forbidden")
+
+            token, unused_refresh = self._token(
+                ("read", "configuration"), role="admin")
+
+            created = self._request(
+                "/service-outages", token, method="POST", data={
+                    "name": "Pump maintenance",
+                    "start": "2026-08-25T10:00",
+                    "end": "2026-08-25T11:00",
+                })
+            self.assertEqual(created.status, "201 Created")
+            outage = self._json(created)["data"]
+            self.assertEqual(outage["scope"], "all")
+
+            updated = self._request(
+                "/service-outages/" + outage["id"], token,
+                method="PUT", data={
+                    "name": "Extended maintenance",
+                    "start": "2026-08-25T09:30",
+                    "end": "2026-08-25T11:30",
+                })
+            self.assertEqual(updated.status, "200 OK")
+            self.assertEqual(
+                self._json(updated)["data"]["name"], "Extended maintenance")
+
+            invalid = self._request(
+                "/service-outages/" + outage["id"], token,
+                method="PUT", data={
+                    "name": "Invalid",
+                    "start": "2026-08-25T12:00",
+                    "end": "2026-08-25T11:00",
+                })
+            self.assertEqual(invalid.status, "422 Unprocessable Entity")
+
+            deleted = self._request(
+                "/service-outages/" + outage["id"], token, method="DELETE")
+            self.assertEqual(deleted.status, "200 OK")
+            self.assertTrue(self._json(deleted)["data"]["deleted"])
+            self.assertEqual(api.options.calendar_service_outages, [])
+        finally:
+            api.options.calendar_service_outages = previous
+
+    def test_program_pause_is_readable_and_configurable(self):
+        from api.v1 import api
+
+        read_token, unused_refresh = self._token(("read",), role="user")
+        previous = api.options.program_pause
+        try:
+            api.options.program_pause = 0
+            response = self._request("/program-settings", read_token)
+            self.assertEqual(response.status, "200 OK")
+            self.assertEqual(
+                self._json(response)["data"][
+                    "pause_between_programs_seconds"], 0)
+            denied = self._request(
+                "/program-settings", read_token, method="PUT", data={
+                    "pause_between_programs_seconds": 300,
+                })
+            self.assertEqual(denied.status, "403 Forbidden")
+
+            token, unused_refresh = self._token(
+                ("read", "configuration"), role="admin")
+            updated = self._request(
+                "/program-settings", token, method="PUT", data={
+                    "pause_between_programs_seconds": 300,
+                })
+            self.assertEqual(updated.status, "200 OK")
+            self.assertEqual(api.options.program_pause, 300)
+
+            invalid = self._request(
+                "/program-settings", token, method="PUT", data={
+                    "pause_between_programs_seconds": -1,
+                })
+            self.assertEqual(invalid.status, "422 Unprocessable Entity")
+        finally:
+            api.options.program_pause = previous
 
     def test_read_token_lists_stations_but_cannot_control(self):
         token, unused_refresh = self._token(("read",), role="user")
@@ -466,6 +564,21 @@ class MobileAPIV1Tests(unittest.TestCase):
         irrigation = self._json(response)["data"]["irrigation"]
         self.assertFalse(irrigation["rain_block"])
         self.assertEqual(irrigation["rain_block_seconds"], 0)
+
+    def test_overview_reports_rain_sensor_state(self):
+        from api.v1 import api
+
+        token, unused_refresh = self._token(("read",), role="user")
+        enabled_before = api.options.rain_sensor_enabled
+        try:
+            api.options.rain_sensor_enabled = True
+            with mock.patch("api.v1.api.inputs.rain_sensed", return_value=True):
+                response = self._request("/overview", token)
+            irrigation = self._json(response)["data"]["irrigation"]
+            self.assertTrue(irrigation["rain_sensor_enabled"])
+            self.assertTrue(irrigation["rain_sensed"])
+        finally:
+            api.options.rain_sensor_enabled = enabled_before
 
     def test_directly_active_station_has_unknown_remaining_time(self):
         from api.v1 import api
@@ -1024,6 +1137,31 @@ class MobileAPIV1Tests(unittest.TestCase):
             "example", "action", "refresh", {"value": 1}
         )
 
+    def test_declared_plugin_download_streams_only_plugin_file(self):
+        token, unused_refresh = self._token(("read", "plugins"), role="admin")
+        plugin_root = os.path.join(self.temp.name, "example")
+        os.makedirs(plugin_root)
+        path = os.path.join(plugin_root, "backup.zip")
+        with open(path, "wb") as target:
+            target.write(b"zip-data")
+        with mock.patch(
+                "api.v1.api.plugins.plugin_mobile_call",
+                return_value={
+                    "path": path,
+                    "filename": "backup.zip",
+                    "mime_type": "application/zip",
+                }) as mobile_call, mock.patch(
+                "api.v1.api.plugins.plugin_dir", return_value=plugin_root):
+            response = self._request(
+                "/plugins/example/downloads/latest", token
+            )
+        self.assertEqual(response.status, "200 OK")
+        self.assertEqual(response.data, b"zip-data")
+        self.assertEqual(response.headers["Content-Type"], "application/zip")
+        mobile_call.assert_called_once_with(
+            "example", "download", "latest"
+        )
+
     def test_plugin_mobile_forwards_valid_history_range(self):
         token, unused_refresh = self._token(("read",), role="user")
         with mock.patch(
@@ -1125,6 +1263,7 @@ class MobilePluginContractTests(unittest.TestCase):
         json.dumps(result)
         self.assertEqual(result["api_version"], 1)
         self.assertFalse(result["available"])
+        self.assertEqual(result["downloads"], [])
 
     def test_optional_mobile_arguments_are_filtered_for_legacy_method(self):
         import plugins

@@ -15,6 +15,7 @@ from ospy.backup import (
     stage_restore, system_backup_path,
 )
 from ospy.log import log, logEM, logEV
+from ospy.inputs import inputs
 from ospy.options import level_adjustments, options, rain_blocks
 from ospy.programs import ProgramType, programs
 from ospy.runonce import run_once
@@ -39,6 +40,7 @@ API_FEATURES = [
     "overview", "irrigation_control", "stations", "master", "programs",
     "schedule", "run_once", "sensors", "program_groups",
     "program_group_postponement", "program_calendar", "solar_programs",
+    "program_settings",
     "weather", "logs", "diagnostics", "notifications", "plugins",
     "backup", "update", "system", "sse", "push_notifications",
     "service_outages",
@@ -543,6 +545,10 @@ def _irrigation_data():
         "manual_mode": bool(_safe_attribute(options, "manual_mode", False)),
         "rain_block": rain_block_seconds > 0,
         "rain_block_seconds": rain_block_seconds,
+        "rain_sensor_enabled": bool(_safe_attribute(
+            options, "rain_sensor_enabled", False
+        )),
+        "rain_sensed": _rain_sensed(),
         "rain_delay": _safe_value(_safe_attribute(options, "rain_delay", None)),
         "level_adjustment": _safe_level_adjustment(),
         "user_level_adjustment": float(_safe_attribute(
@@ -553,6 +559,13 @@ def _irrigation_data():
         )), 2),
         "active_stations": active,
     }
+
+
+def _rain_sensed():
+    try:
+        return bool(inputs.rain_sensed())
+    except Exception:
+        return False
 
 
 def _safe_level_adjustment():
@@ -1142,6 +1155,10 @@ class Overview(object):
                 )),
                 "rain_block": rain_block_seconds > 0,
                 "rain_block_seconds": rain_block_seconds,
+                "rain_sensor_enabled": bool(_safe_attribute(
+                    options, "rain_sensor_enabled", False
+                )),
+                "rain_sensed": _rain_sensed(),
                 "rain_delay": _safe_value(_safe_attribute(
                     options, "rain_delay", None
                 )),
@@ -1419,6 +1436,43 @@ class ProgramAction(object):
             raise APIError(404, "unknown_action", "The program action is not supported.")
         event_stream.publish("program." + action, {"id": "program-{}".format(index)})
         return respond({"id": "program-{}".format(index), "action": action, "accepted": True})
+
+
+def _program_settings_data():
+    try:
+        pause = max(0, min(31536000, int(options.program_pause or 0)))
+    except (TypeError, ValueError):
+        pause = 0
+    return {"pause_between_programs_seconds": pause}
+
+
+class ProgramSettings(object):
+    @endpoint
+    @require_scope("read")
+    def GET(self):
+        return respond(_program_settings_data())
+
+    @endpoint
+    @require_scope("configuration")
+    def PUT(self):
+        value = json_body().get("pause_between_programs_seconds")
+        if (isinstance(value, bool) or not isinstance(value, int) or
+                value < 0 or value > 31536000):
+            raise APIError(
+                422, "invalid_program_pause",
+                "The pause between programs must be 0 to 31536000 seconds.",
+            )
+        options.program_pause = value
+        result = _program_settings_data()
+        event_stream.publish("program.settings", result)
+        threading.Timer(0.1, programs.calculate_balances).start()
+        logEV.save_events_log(
+            _("Pause between programs"),
+            _("User {} set the pause between programs to {} seconds.").format(
+                _actor(), value),
+            id="Programs", level="info", category="configuration",
+        )
+        return respond(result)
 
 
 class ProgramGroups(object):
@@ -2020,6 +2074,40 @@ class PluginAction(object):
         return respond(_safe_value(result))
 
 
+class PluginDownload(object):
+    @endpoint
+    @require_scope("plugins")
+    def GET(self, plugin_id, download_id):
+        result = plugins.plugin_mobile_call(
+            plugin_id, "download", download_id
+        )
+        if not isinstance(result, dict):
+            raise APIError(
+                500, "invalid_plugin_download",
+                "The plug-in returned an invalid download descriptor.",
+            )
+        path = os.path.realpath(str(result.get("path", "")))
+        plugin_root = os.path.realpath(plugins.plugin_dir(plugin_id))
+        try:
+            inside_plugin = os.path.commonpath([path, plugin_root]) == plugin_root
+        except ValueError:
+            inside_plugin = False
+        if not path or not inside_plugin or not os.path.isfile(path):
+            raise APIError(404, "not_found", "The plug-in file does not exist.")
+        filename = os.path.basename(str(
+            result.get("filename") or os.path.basename(path)
+        )).replace('"', "").replace("\r", "").replace("\n", "")
+        content_type = str(
+            result.get("mime_type") or "application/octet-stream"
+        ).replace("\r", "").replace("\n", "")
+        web.header("Content-Type", content_type)
+        web.header(
+            "Content-Disposition", 'attachment; filename="{}"'.format(filename)
+        )
+        with open(path, "rb") as source:
+            return source.read()
+
+
 class Backups(object):
     @endpoint
     @require_scope("backup")
@@ -2089,14 +2177,18 @@ def _service_outages_data():
             end = _program_datetime(source.get("end"))
         except (TypeError, ValueError, OverflowError):
             continue
-        result.append({
+        item = {
             "id": str(source.get("id", "")),
             "name": str(source.get("name", "")),
             "start": start.isoformat(timespec="minutes"),
             "end": end.isoformat(timespec="minutes"),
             "scope": str(source.get("scope", "all") or "all"),
             "active": start <= now < end,
-        })
+        }
+        for key in ("program", "group", "stations"):
+            if key in source:
+                item[key] = _safe_value(source[key])
+        result.append(item)
     return sorted(result, key=lambda item: (item["start"], item["id"]))
 
 
@@ -2105,6 +2197,80 @@ class ServiceOutages(object):
     @require_scope("read")
     def GET(self):
         return respond(_service_outages_data())
+
+    @endpoint
+    @require_scope("configuration")
+    def POST(self):
+        payload = json_body()
+        item = _save_service_outage(payload)
+        return respond(_service_outage_data(item), status=201)
+
+
+def _service_outage_data(source):
+    start = _program_datetime(source.get("start"))
+    end = _program_datetime(source.get("end"))
+    item = {
+        "id": str(source.get("id", "")),
+        "name": str(source.get("name", "")),
+        "start": start.isoformat(timespec="minutes"),
+        "end": end.isoformat(timespec="minutes"),
+        "scope": str(source.get("scope", "all") or "all"),
+        "active": start <= datetime.datetime.now() < end,
+    }
+    for key in ("program", "group", "stations"):
+        if key in source:
+            item[key] = _safe_value(source[key])
+    return item
+
+
+def _save_service_outage(payload, outage_id=None):
+    name = str(payload.get("name", "")).strip()
+    if not name or len(name) > 200:
+        raise APIError(
+            422, "invalid_service_outage",
+            "The service outage name must contain 1 to 200 characters.",
+        )
+    try:
+        start = _program_datetime(payload.get("start"))
+        end = _program_datetime(payload.get("end"))
+    except (TypeError, ValueError, OverflowError):
+        raise APIError(
+            422, "invalid_service_outage",
+            "The service outage start and end must be valid local date-times.",
+        )
+    if end <= start:
+        raise APIError(
+            422, "invalid_service_outage",
+            "The service outage end must be later than its start.",
+        )
+    try:
+        if outage_id is None:
+            return calendar_rules.add_service_outage(name, start, end)
+        item = calendar_rules.update_service_outage(
+            outage_id, name, start, end)
+    except (TypeError, ValueError):
+        raise APIError(
+            422, "invalid_service_outage",
+            "The service outage settings are invalid.",
+        )
+    if item is None:
+        raise APIError(404, "not_found", "The service outage was not found.")
+    return item
+
+
+class ServiceOutage(object):
+    @endpoint
+    @require_scope("configuration")
+    def PUT(self, outage_id):
+        return respond(_service_outage_data(
+            _save_service_outage(json_body(), outage_id)))
+
+    @endpoint
+    @require_scope("configuration")
+    def DELETE(self, outage_id):
+        if not calendar_rules.remove_service_outage(outage_id):
+            raise APIError(404, "not_found", "The service outage was not found.")
+        return respond({"deleted": True, "id": str(outage_id)})
 
 
 class UpdateAction(object):
@@ -2504,6 +2670,7 @@ URLS = (
     "/programs", Programs,
     "/programs/([^/]+)", Program,
     "/programs/([^/]+)/actions/([^/]+)", ProgramAction,
+    "/program-settings", ProgramSettings,
     "/program-groups", ProgramGroups,
     "/program-groups/([^/]+)/postponements", ProgramGroupPostponements,
     "/program-groups/([^/]+)/postponements/([^/]+)", ProgramGroupPostponement,
@@ -2526,12 +2693,14 @@ URLS = (
     "/plugins/([^/]+)", Plugin,
     "/plugins/([^/]+)/mobile", PluginMobile,
     "/plugins/([^/]+)/actions/([^/]+)", PluginAction,
+    "/plugins/([^/]+)/downloads/([^/]+)", PluginDownload,
     "/backups", Backups,
     "/backups/([^/]+)/download", BackupDownload,
     "/backups/([^/]+)/restore", BackupRestore,
     "/updates", Updates,
     "/updates/actions/([^/]+)", UpdateAction,
     "/service-outages", ServiceOutages,
+    "/service-outages/([^/]+)", ServiceOutage,
     "/system/actions/([^/]+)", SystemAction,
     "/operations/([^/]+)", Operation,
 )

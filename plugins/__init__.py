@@ -2572,6 +2572,7 @@ def plugin_mobile_capabilities(module):
         'settings_schema': 'mobile_settings_schema',
         'settings': 'mobile_settings',
         'action': 'mobile_action',
+        'download': 'mobile_download',
     }
     available_methods = {
         key: bool(plugin is not None and callable(getattr(plugin, name, None)))
@@ -2580,11 +2581,17 @@ def plugin_mobile_capabilities(module):
     actions = declared.get('actions', [])
     if not isinstance(actions, list):
         actions = []
+    downloads = declared.get('downloads', [])
+    if not isinstance(downloads, list):
+        downloads = []
     return {
         'api_version': int(declared.get('api_version', 1) or 1),
         'available': any(available_methods.values()),
         'methods': available_methods,
         'actions': sorted(set(str(action) for action in actions if action)),
+        'downloads': sorted(set(
+            str(download) for download in downloads if download
+        )),
     }
 
 
@@ -2596,6 +2603,7 @@ def plugin_mobile_call(module, capability, *args, **kwargs):
         'settings_schema': 'mobile_settings_schema',
         'settings': 'mobile_settings',
         'action': 'mobile_action',
+        'download': 'mobile_download',
     }
     if capability not in method_names:
         raise ValueError('Unknown mobile plug-in capability.')
@@ -2605,11 +2613,14 @@ def plugin_mobile_call(module, capability, *args, **kwargs):
     method = getattr(plugin, method_names[capability], None)
     if not callable(method):
         raise RuntimeError('The plug-in does not provide this mobile capability.')
-    if capability == 'action':
-        declared = plugin_mobile_capabilities(module).get('actions', [])
-        action = args[0] if args else kwargs.get('action')
-        if action not in declared:
-            raise ValueError('The plug-in action is not declared in plugin.json.')
+    if capability in ('action', 'download'):
+        declaration_key = 'actions' if capability == 'action' else 'downloads'
+        declared = plugin_mobile_capabilities(module).get(declaration_key, [])
+        item = args[0] if args else kwargs.get(capability)
+        if item not in declared:
+            raise ValueError(
+                'The plug-in {} is not declared in plugin.json.'.format(capability)
+            )
     # Mobile API v1 may add optional query parameters over time.  Filter them
     # for older plug-ins whose mobile methods do not accept keyword arguments,
     # so an OSPy update never breaks an otherwise valid legacy contribution.

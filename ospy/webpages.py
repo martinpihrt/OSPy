@@ -2514,6 +2514,30 @@ class programs_page(ProtectedPage):
             Timer(0.1, programs.calculate_balances).start()
             report_program_toggle()
 
+        elif action == 'set_program_pause':
+            try:
+                hours = int(qdict.get('pause_hours', '0'))
+                minutes = int(qdict.get('pause_minutes', '0'))
+                seconds = int(qdict.get('pause_seconds', '0'))
+                if (hours < 0 or hours > 8760 or minutes < 0 or
+                        minutes > 59 or seconds < 0 or seconds > 59):
+                    raise ValueError
+                total = hours * 3600 + minutes * 60 + seconds
+                if total > 31536000:
+                    raise ValueError
+                options.program_pause = total
+            except (TypeError, ValueError):
+                return self.core_render.notice(
+                    '/programs', _('The pause between programs is invalid.'))
+            Timer(0.1, programs.calculate_balances).start()
+            report_program_change()
+            logEV.save_events_log(
+                _('Pause between programs'),
+                _('User {} set the pause between programs to {} seconds.').format(
+                    session.get('visitor'), total),
+                id='Programs', level='info', category='configuration'
+            )
+
         elif action == 'add_service_outage':
             from ospy import calendar_rules
             try:

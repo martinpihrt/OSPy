@@ -81,12 +81,14 @@ class SchedulerPredictionTests(unittest.TestCase):
     def _predict(
             self, station_list, program_list, start, end,
             run_once=None, scheduler_enabled=True, rain_end=None,
-            station_delay=0, max_usage=0):
+            station_delay=0, max_usage=0, program_pause=0,
+            finished_runs=None, active_runs=None):
         options = SimpleNamespace(
             max_usage=max_usage,
             station_delay=station_delay,
             scheduler_enabled=scheduler_enabled,
             min_runtime=0,
+            program_pause=program_pause,
         )
         rain_end = rain_end or datetime.datetime.min
         with mock.patch.multiple(
@@ -97,7 +99,9 @@ class SchedulerPredictionTests(unittest.TestCase):
             run_once=run_once or _RunOnce(),
             rain_blocks=SimpleNamespace(block_end=lambda: rain_end),
             inputs=SimpleNamespace(rain_sensed=lambda: False),
-            log=SimpleNamespace(finished_runs=lambda: [], active_runs=lambda: []),
+            log=SimpleNamespace(
+                finished_runs=lambda: finished_runs or [],
+                active_runs=lambda: active_runs or []),
             level_adjustments=SimpleNamespace(total_adjustment=lambda: 1.0),
             program_level_adjustments={},
         ):
@@ -175,6 +179,58 @@ class SchedulerPredictionTests(unittest.TestCase):
         )
 
         self.assertEqual([item["start"] for item in result], [run_start, run_start])
+
+    def test_pause_is_inserted_between_different_automatic_programs(self):
+        now = datetime.datetime.now()
+        first_start = now + datetime.timedelta(minutes=1)
+        first_end = first_start + datetime.timedelta(minutes=20)
+        second_start = first_end
+        second_end = second_start + datetime.timedelta(minutes=40)
+
+        result = self._predict(
+            [self._station(0), self._station(1)],
+            [
+                self._program(0, [0], first_start, first_end),
+                self._program(1, [1], second_start, second_end),
+            ],
+            now, now + datetime.timedelta(hours=2),
+            max_usage=0, program_pause=300,
+        )
+
+        self.assertEqual(result[0]["start"], first_start)
+        self.assertEqual(
+            result[1]["start"], first_end + datetime.timedelta(minutes=5))
+        self.assertEqual(
+            result[1]["end"], second_end + datetime.timedelta(minutes=5))
+
+    def test_pause_does_not_separate_stations_in_the_same_program(self):
+        now = datetime.datetime.now()
+        run_start = now + datetime.timedelta(minutes=1)
+        run_end = run_start + datetime.timedelta(minutes=10)
+        result = self._predict(
+            [self._station(0), self._station(1)],
+            [self._program(0, [0, 1], run_start, run_end)],
+            now, now + datetime.timedelta(hours=1),
+            max_usage=0, program_pause=300,
+        )
+
+        self.assertEqual([item["start"] for item in result], [run_start, run_start])
+
+    def test_manual_run_does_not_reserve_program_pause(self):
+        now = datetime.datetime.now()
+        run_start = now + datetime.timedelta(minutes=1)
+        manual_end = run_start + datetime.timedelta(minutes=10)
+        automatic_end = run_start + datetime.timedelta(minutes=5)
+        result = self._predict(
+            [self._station(0), self._station(1)],
+            [self._program(0, [1], run_start, automatic_end)],
+            now, now + datetime.timedelta(hours=1),
+            run_once=_RunOnce({0: [{"start": run_start, "end": manual_end}]}),
+            max_usage=0, program_pause=300,
+        )
+
+        automatic = [item for item in result if not item["manual"]][0]
+        self.assertEqual(automatic["start"], run_start)
 
     def test_disabled_station_is_excluded_from_schedule(self):
         now = datetime.datetime.now()
