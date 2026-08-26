@@ -487,9 +487,78 @@ def predicted_schedule(start_time, end_time):
 
 
 
+    all_intervals = _apply_program_pause(
+        all_intervals, current_active,
+        getattr(options, 'program_pause', 0))
     all_intervals.sort(key=lambda inter: inter['start'])
 
     return all_intervals
+
+
+def _apply_program_pause(intervals, processed_intervals, pause_seconds):
+    """Shift automatic program occurrences to keep a global idle window.
+
+    Every station interval with the same program and original start belongs to
+    one occurrence and is shifted by the same amount. Manual and blocked runs
+    neither move nor reserve a pause.
+    """
+    try:
+        pause = max(0, min(31536000, int(pause_seconds)))
+    except (TypeError, ValueError):
+        pause = 0
+    if pause <= 0:
+        return intervals
+
+    delay = datetime.timedelta(seconds=pause)
+    previous_program = None
+    previous_end = None
+    completed = [
+        interval for interval in (processed_intervals or [])
+        if not interval.get('manual', False) and
+        not interval.get('blocked') and
+        isinstance(interval.get('program'), int) and
+        interval.get('program') >= 0 and
+        isinstance(interval.get('end'), datetime.datetime)
+    ]
+    if completed:
+        latest = max(completed, key=lambda interval: interval['end'])
+        previous_program = latest['program']
+        previous_end = max(
+            interval['end'] for interval in completed
+            if interval.get('program') == previous_program
+        )
+
+    occurrences = {}
+    for interval in intervals:
+        if (interval.get('manual', False) or interval.get('blocked') or
+                not isinstance(interval.get('program'), int) or
+                interval.get('program') < 0):
+            continue
+        key = (interval['program'], interval.get(
+            'original_start', interval.get('start')))
+        occurrences.setdefault(key, []).append(interval)
+
+    ordered = sorted(
+        occurrences.values(),
+        key=lambda occurrence: (
+            min(interval['start'] for interval in occurrence),
+            occurrence[0]['program'],
+        ),
+    )
+    for occurrence in ordered:
+        program_index = occurrence[0]['program']
+        occurrence_start = min(interval['start'] for interval in occurrence)
+        if (previous_end is not None and previous_program != program_index and
+                occurrence_start < previous_end + delay):
+            shift = previous_end + delay - occurrence_start
+            for interval in occurrence:
+                interval['start'] += shift
+                interval['end'] += shift
+        occurrence_end = max(interval['end'] for interval in occurrence)
+        if previous_end is None or occurrence_end > previous_end:
+            previous_end = occurrence_end
+            previous_program = program_index
+    return intervals
 
 
 def combined_schedule(start_time, end_time):

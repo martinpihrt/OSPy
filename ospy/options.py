@@ -293,6 +293,14 @@ class _Options(object):
             "name": _('Program service outages'),
             "default": []
         },
+        {
+            "key": "program_pause",
+            "name": _('Pause between programs'),
+            "default": 0,
+            "help": _('Persistent pause in seconds between different automatic programs.'),
+            "min": 0,
+            "max": 31536000
+        },
         #######################################################################
         # Users ############################################################
         {

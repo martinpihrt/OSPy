@@ -68,6 +68,9 @@ def document(server_url="/api/v1"):
         "GET": "read", "PUT": "configuration", "DELETE": "configuration",
     })
     add("/programs/{program_id}/actions/{action}", ["POST"], "Run or stop a program", "control")
+    add("/program-settings", ["GET", "PUT"], "Read or configure global program settings", {
+        "GET": "read", "PUT": "configuration",
+    })
     add("/program-groups", ["GET"], "List program groups, next runs and active postponements", "read")
     add("/program-groups/{group_id}/postponements", ["POST"], "Postpone the next run of a program group", "control")
     add("/program-groups/{group_id}/postponements/{postponement_id}", ["DELETE"], "Cancel a program group postponement", "control")
@@ -120,12 +123,17 @@ def document(server_url="/api/v1"):
         },
     ]
     add("/plugins/{plugin_id}/actions/{action}", ["POST"], "Declared plug-in mobile action", "plugins")
+    add("/plugins/{plugin_id}/downloads/{download_id}", ["GET"], "Declared plug-in mobile download", "plugins")
     add("/backups", ["GET", "POST"], "List or create backups", "backup")
     add("/backups/{backup_id}/download", ["GET"], "Download a backup", "backup")
     add("/backups/{backup_id}/restore", ["POST"], "Stage and restore a backup", "backup")
     add("/updates", ["GET"], "Update status", "read")
     add("/updates/actions/{action}", ["POST"], "Check, apply or roll back an update", "update")
-    add("/service-outages", ["GET"], "List service outages", "read")
+    add("/service-outages", ["GET", "POST"], "List or create service outages", {
+        "GET": "read", "POST": "configuration",
+    })
+    add("/service-outages/{outage_id}", ["PUT", "DELETE"],
+        "Update or delete a service outage", "configuration")
     add("/system/actions/{action}", ["POST"], "Restart OSPy, reboot or power off", "system")
     add("/operations/{operation_id}", ["GET"], "Long-running operation status", "read")
 
