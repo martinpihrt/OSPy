@@ -1,18 +1,227 @@
 # OSPy-plugins Changelog
 
+August 30 2026
+--------------
+(Martin Pihrt) - Wind Speed Monitor v1.2.3 and Venetian Blind v1.2.8<br/>
+Added an independent Wind Monitor sensor-failure safety program with a configurable consecutive-failure count and separate program selection. The program starts once during a continuous measurement fault and is armed again only after an accepted reading; intentional RS485 bus scans remain neutral pauses. Diagnostics expose the action state, and failed e-mail delivery is distinguished from a successful notification and retried after the reminder interval. Venetian Blind now immediately blocks and clears pending automatic raising and lowering while Wind Monitor is unavailable or faulty, without cancelling the one safety program started directly by Wind Monitor.
+
+August 29 2026
+--------------
+(Martin Pihrt) - RS485 Communication v1.0.3<br/>
+Expanded device discovery with the address 255 broadcast method used by ZTS and compatible sensors, a longer-timeout probe matrix for the likely factory address 1, one- and two-register requests, Modbus functions 03 and 04, addresses 1-254 and 8N1, 8E1 and 8O1 framing. The live page now reports the current scan phase, complete serial and Modbus parameters, transmitted request and latest received frame. The configured serial settings are restored after discovery.
+
+(Martin Pihrt) - Wind Speed Monitor v1.2.2 and RS485 Communication v1.0.2<br/>
+Handled a disabled, stopped or unavailable optional RS485 Communication provider as a visible Wind Monitor validation and health error instead of an internal page failure. Fixed fixed-length RS485 transactions treating an empty or partial response as successful communication: missing bytes now produce a timeout error, fail the queue job, preserve transmitted and received byte counters, and expose the real no-response condition in RS485 status and diagnostics. Added a background RS485 bus discovery action that scans Modbus addresses 1-247 at eight common sensor speeds, validates normal and exception response CRCs, pauses ordinary queue traffic during discovery, and reports live progress and all discovered devices. Updated documentation, versions, asset cache keys and regression coverage.
+
+August 26 2026
+--------------
+(Martin Pihrt) - Venetian Blind v1.2.7<br/>
+Changed native mobile blind captions from state adjectives to the Open, Stop and Close command verbs. Automatic opening in strong wind and closing for temperature shading now remain pending until every enabled Shelly confirms the requested end position. An active or queued program is never overlapped; after a minimum 60-second verification delay, an unconfirmed target is retried whenever its safety or shading conditions remain satisfied. Configured tilt captions remain unchanged. Updated documentation and regression coverage.
+
+(Martin Pihrt) - OSPy Backup v1.0.5<br/>
+Added stable native mobile metric IDs and marked `last_backup_size` as a byte-sized `data_size` quantity, allowing clients to display a readable B, kB or MB value instead of a raw integer.
+
+August 25 2026
+--------------
+(Martin Pihrt) - OSPy Backup v1.0.4<br/>
+Added native mobile creation and download of the newest plug-in-data ZIP. The manifest declares the guarded `create_backup` action and `latest_backup` download, mobile cards expose only the download currently available, and the download descriptor is restricted to a verified archive inside the plug-in data directory. Concurrent backup protection and the existing provider action remain authoritative. Updated the README, manifest and mobile-interface regression coverage. Downloading requires matching OSPy Mobile API v1 plug-in-download support.
+
+(Martin Pihrt) - System Update v1.2.7<br/>
+Replaced position-based mobile metric identifiers with stable language-neutral IDs for enabled state, automatic updates, check state, update availability, current and target commits, stable release, branch, channel and watchdog results. Native clients can now localize and safely bind Check and Install controls without depending on translated labels or metric order. Updated the README, manifest and regression coverage; update execution remains on the scoped core `/updates/actions/check|apply|rollback` endpoints.
+
+(Martin Pihrt) - Venetian Blind v1.2.5<br/>
+Exposed open, stop, close and all four configured tilt actions on every enabled mobile blind card. Each action carries the stable blind UID, uses the same validated control path as the web interface and Automation Rules, and displays the administrator's saved tilt label when present. Updated the README, manifest and regression coverage.
+
+August 23 2026
+--------------
+(Martin Pihrt) - Automation Rules v1.1.3, Venetian Blind v1.2.4, Water Meter v1.2.1, Pressure Monitor v1.1.1, Water Tank Monitor v1.1.1, Current Loop Tanks Monitor v1.1.1 and OSPy Backup v1.0.3<br/>
+Added concrete provider actions for opening, stopping, closing or tilting one Venetian blind, safely stopping ultrasonic or current-loop tank regulation, resetting the ultrasonic tank's recorded minimum and maximum, and creating a plug-in data backup. Automation Rules displays localized action names and uses only actions declared by running providers. Existing mobile blind control, tank regulation cleanup and guarded backup implementations are reused. Updated manifests, help, READMEs and regression coverage.
+
+(Martin Pihrt) - Automation Rules v1.1.2 and Water Meter v1.2.1<br/>
+Added bounded action-history records for every output-cycle start, pause, resumed run, failure and final stop, including the stop reason. Water Meter now declares and implements the first concrete external provider action, allowing an explicitly configured live Automation Rules rule to reset its total, current-minute and current-hour consumption counters through OSPy's validated provider-action entry point. Updated help, READMEs, manifests and regression coverage.
+
+(Martin Pihrt) - Venetian Blind v1.2.3<br/>
+Changed temperature shading to arm only on a confirmed transition of every enabled blind to fully open. One lowering action consumes the armed state, so manually tilting or partially moving a blind afterward no longer causes repeated closing while temperature remains high; a later full opening by strong-wind protection or by the user rearms the next cycle. Changed Mobile API status `updated` from a raw Unix timestamp to the same `YYYY-MM-DD HH:MM:SS` text used by other plug-ins. Updated help, READMEs, cache versions and regression coverage.
+
+(Martin Pihrt) - Venetian Blind v1.2.2<br/>
+Fixed complete blind records being discarded after an OSPy restart, update or live plug-in reload because the saved list did not match the `None` default type. The complete Gen1/Gen2/Custom configuration is now stored only as a structured list in OSPy `PluginOptions`; old parallel settings and migration paths were removed, and the plug-in creates no configuration JSON file. Profiles, hosts, labels and all tilt positions, labels and URLs now persist. Fixed the automation queue remaining blocked by OSPy's completed Run-Now object after its first raising or lowering program, so temperature shading and strong-wind protection can alternate repeatedly without restarting OSPy. Added a native Mobile API v1 status card for every configured blind with state, position, connection and profile data, plus declared open, stop, close and tilt actions for clients that support manual card controls. Updated both READMEs, the manifest and regression coverage.
+
+August 22 2026
+--------------
+(Martin Pihrt) - Automation Rules v1.1.1<br/>
+Added a bounded cyclic mode to the output-on action with configurable run duration, off pause and maximum total cycling time. Cycles continue only while all required rule data remains available and the rule still matches; disabling the rule, automation, control actions or manual mode, editing or deleting the rule, stopping the plug-in, losing a condition or reaching the limit cancels the cycle and switches its output off. Cycles are not resumed after restart and one output cannot be owned by multiple cycles. Corrected the minimum compatible OSPy version from 3.0.348 to 3.0.354 and replaced the ineffective `min_version` manifest key with the supported `min` key, so OSPy must be updated before installing this Automation Rules release. Updated help, READMEs, diagnostics, cache versions and regression coverage.
+
+(Martin Pihrt) - Automation Rules v1.1.0<br/>
+Added guarded one-shot control actions for selected stations, all outputs, scheduler disabling, running programs, bounded manual output control, global water-level adjustment and actions explicitly declared by another provider. Control execution is separately disabled by default, test mode simulates actions without touching OSPy or hardware, and every result is recorded without suppressing notifications. Optional incident locking requires administrator acknowledgement and refuses to unlock while conditions remain active or unavailable. Added action state to diagnostics and the mobile rule cards, updated localized help and expanded regression coverage.
+
+(Martin Pihrt) - CHMI v1.0.7<br/>
+Fixed manual CHMI rain-delay removal being undone by the next rainy radar evaluation. A manual removal is now persisted for the current rainy period and cleared only after a valid dry radar sample; disabling CHMI rain-delay control immediately removes the CHMI-owned block. The synchronized update path prevents the radar worker from recreating a block concurrently, while manual and other plug-in delays remain untouched. Added visible override status, diagnostics, help, README and regression coverage.
+
+(Martin Pihrt) - UPS Monitor v1.0.5<br/>
+Added an enabled-by-default Automatic system shutdown switch. Administrators can now keep power-line monitoring, logging and fault or recovery E-mail notifications active without pulsing the UPS shutdown output or shutting down OSPy. Countdown, health and mobile status text now distinguish automatic shutdown from monitor-only operation, and the help and README describe both modes.
+
+(Martin Pihrt) - Automation Rules v1.0.8<br/>
+Collapsed all saved rules and the New rule card on an ordinary page load. Saving an existing or new rule now returns to the same expanded card while every other rule remains collapsed. Added a compact localized header summary of configured conditions, AND/OR matching, limits, units and notification channels, with the complete summary available as hover text and responsive wrapping on narrow screens. Added native mobile API v1 metrics cards that report each rule as Disabled, Ready, Triggered, Conditions active, Unavailable or Automation disabled and expose every individual condition as Active, Inactive, Unavailable or Not evaluated using read-only cached provider values. Updated help, README, asset cache versions and regression coverage.
+
+(Martin Pihrt) - Automation Rules v1.0.7<br/>
+Added a built-in read-only OSPy status source for scheduler state, manual and scheduled modes, water-level adjustment, remaining rain delay, rain-sensor configuration and activity, cached OSPy update state, cached plug-in update state and known plug-in update count. The source never starts a network update check. General settings now stay on one readable desktop row, saved rule cards are collapsible, and rule headings distinguish Disabled, Ready and Triggered states with a plain green Triggered indicator. Updated help, READMEs, cache versions and regression coverage.
+
+August 21 2026
+--------------
+(Martin Pihrt) - Automation Rules v1.0.6<br/>
+Changed browser delivery to prefer the standards-based Service Worker notification path used by Firefox, with the direct Notification constructor retained as a fallback. The permission action now explicitly enables and tests notifications, asset cache versions force updated browser code, and delivery failures are displayed on the Automation Rules page instead of being silently discarded. Updated READMEs and regression coverage.
+
+(Martin Pihrt) - Automation Rules v1.0.5<br/>
+Added a built-in local Date and time source with ISO date, 24-hour time, weekday, month and day-of-month values. New in-range and outside-range comparisons accept `start..end` and correctly support overnight windows such as `22:00..06:00`, so time windows can be combined with measurements through AND. Trigger, repeat and recovery notifications now state each resource, value, actual reading, operator and configured limit, including structured details for the mobile app. Browser permission now sends an immediate visible test, browser delivery falls back to a Service Worker where the direct Notification API is unavailable, and Home messages preserve multiline details. Updated help, READMEs, asset cache versions and regression coverage.
+
+(Martin Pihrt) - Automation Rules v1.0.4<br/>
+Added every enabled built-in OSPy sensor as a read-only Automation Rules source independently of Pihrt or Shelly hardware. The adapter exposes each sensor's configured measurement without another hardware poll; Pihrt multi-contact and soil devices expose individual inputs, while ultrasonic tank sensors provide distance, derived water level, fill percentage and volume. Offline sensors and invalid probe values remain unavailable and cannot satisfy or silently clear a condition. Updated localized help, READMEs and regression coverage.
+
+(Martin Pihrt) - Automation Rules v1.0.3<br/>
+Enabled browser-notification polling on every authenticated OSPy page instead of only Home. Home popup cards remain exclusive to Home and are not marked as consumed while another page is open. Mobile push data now includes the stable rule ID, rule name and event so a matching application can localize Automation Rules notifications without parsing server display text. Updated asset cache versions, documentation and regression coverage.
+
+(Martin Pihrt) - Automation Rules v1.0.2<br/>
+Kept the general switches directly beside their labels so each control is visually unambiguous. Added a confirmed Test notifications action that ignores conditions and timing, sends one real message through every channel currently selected in the rule even while global test mode is enabled, records individual delivery results and does not alter incident state. Updated the help, README, asset cache versions and regression tests.
+
+(Martin Pihrt) - Automation Rules v1.0.1<br/>
+Replaced every visible settings checkbox and notification-channel checkbox with the red and green sliding switch used by other OSPy plug-ins. Added localized hover descriptions to editor fields, selectors, switches and action buttons, and versioned the browser assets so installed systems immediately load the updated interface.
+
+(Martin Pihrt) - Shelly Cloud Integration v1.0.8<br/>
+Fixed Shelly 2.5 roller and switch processing referencing an unassigned `a_voltage` variable even though the device response stores its shared voltage as `voltage`, which stopped the complete Integrator polling cycle with `UnboundLocalError`. Corrected the local switch-mode Wi-Fi response path and fixed Shelly 2PM Add-on and Shelly 1PM Add-on status lines so RSSI and update time are placed in their intended fields. Updated the version, cache key, help, READMEs and regression tests.
+
+(Martin Pihrt) - Energy Meter v1.0.6 and Shelly Cloud Integration v1.0.7<br/>
+Fixed Energy Meter reporting a configured Shelly meter as unavailable when it started before Shelly Cloud Integration had populated its runtime cache. Shelly Cloud Integration now safely exposes snapshots of configured identities and cached readings even before its worker starts, while Energy Meter also understands the previous parallel-list interface. Energy Meter distinguishes missing, disabled, offline and still-loading devices; a still-loading meter is retried every five seconds without logging a failure traceback, while other successful meters keep their configured sampling interval and Diagnostics reports a waiting state until data arrives. Shelly IDs are matched case-insensitively and labels remain exact. Updated versions, cache keys, help, READMEs and regression tests.
+
+(Martin Pihrt) - Venetian Blind v1.2.1<br/>
+Recognized complete standard Shelly Gen1 roller URL sets during both initial and already completed legacy migration, restoring the Shelly Gen1 profile and host instead of displaying them as Custom REST URLs while preserving nonstandard custom configurations unchanged. Test command buttons now return to the editor for the same blind, allowing consecutive command checks without reopening it. Updated the README, cache version and regression tests.
+
+(Martin Pihrt) - Venetian Blind v1.2.0<br/>
+Fixed temperature automation reading a nonexistent sensor attribute instead of the actual OSPy `last_read_value` channel, which prevented the lowering program from starting even above the configured limit. Replaced repeated cached-wind sampling with unique accepted Wind Monitor measurements and added a configurable minute window for the required strong-wind exceedances. Removed temperature hysteresis from the active settings because authoritative position checks now control re-entry. Mixed positions such as eight closed blinds and one open blind now start lowering when all environmental conditions are met; strong wind starts raising whenever any enabled blind is not confirmed open, including tilted, intermediate and unreachable devices. Continuous-condition guards prevent relay repetition, active external programs suppress duplicates, strong wind cancels pending lowering, and Diagnostics reports the current temperature, wind confirmation counts and confirmed blind-state count. Updated settings explanations, help, README and regression tests.
+
+August 20 2026
+--------------
+
+(Martin Pihrt) - Venetian Blind v1.1.1<br/>
+Replaced every visible settings checkbox with the same accessible red and green sliding switch used by other OSPy plug-ins. The change covers individual blind enablement, plug-in control, logging, footer output and temperature and wind automation while preserving all existing form names, saved values and backward compatibility.
+
+(Martin Pihrt) - Shelly Cloud Integration v1.0.6<br/>
+Restored local device previews in the add and edit form and added them to both the compact list and responsive card views. Changing the selected device type or generation refreshes the editor preview immediately, and selecting any preview opens the matching current official Shelly Knowledge Base page in a new tab. Reused the complete local image set already stored in the plug-in, corrected Shelly 2.5, Gen1 and Gen2 Plug S, 1 Mini and Add-on mappings, and avoided external image requests from the settings page.
+
+(Martin Pihrt) - Energy Meter v1.0.5<br/>
+Added a calendar-day selector to the overview, displayed historically calculated cost and feed-in income for every summary period, and applied the selected day to solar calculations. Fixed equal tariff start and end times to cover the complete selected day, replaced end-of-interval tariff assignment with time-weighted pricing across tariff boundaries, rejected non-finite price values, and exposed the stored import and feed-in prices in the history table. Local JSON, optional SQL and CSV now preserve the tariff, currency, applied unit prices, cost and income for every interval; the history uses the stored currency and overview monetary totals no longer combine records from different currencies. Clarified that calendar days use the OSPy server's local time from 00:00 inclusive to the next 00:00 exclusive without resetting Shelly cumulative counters. The delete-history confirmation, in-app help and README now state explicitly that overview totals are derived from retained interval history and are therefore cleared with it, while the preserved counter baseline only prevents a false spike in the next sample.
+
+(Martin Pihrt) - Wind Speed Monitor v1.2.1<br/>
+Added independent technical fault e-mail notifications for PCF8583/I2C setup and read failures, RS485 dependency, queue, serial and protocol failures, rejected implausible measurements and unexpected worker errors. Moved the shared e-mail subject and provider selection into a dedicated E-mail settings section, added a separate error-notification switch and a configurable one-to-168-hour reminder interval, and exposed active incident details through plug-in health diagnostics. The first failure sends immediately, repeated failures are bounded to the reminder interval, and one accepted measurement closes the incident; temporary I2C lock contention and valid zero wind remain non-error states. Updated the in-app help, README, cache version and regression tests.
+
+(Martin Pihrt) - Shelly Cloud Integration v1.0.5<br/>
+Replaced sensor-count based configuration with individual Add new Shelly, Edit and confirmed Delete actions. Existing installations retain their device order, enabled state, labels, Shelly IDs, types, generation, reading source, local addresses and add-on labels through a backward-compatible migration that adds stable internal device identifiers. Added a saved List or Cards display choice, responsive external styling, isolated global and per-device forms, immediate cache invalidation for changed or removed device IDs, bounded input normalization, updated help and README documentation, and regression tests.
+
+(Martin Pihrt) - Venetian Blind v1.1.0<br/>
+Replaced blind-count configuration with individual Add, Edit and confirmed Delete actions plus saved list or card display. Added backward-compatible migration of all existing labels and REST URLs, Shelly Gen1 roller and Gen2+ Cover RPC profiles, four configurable tilt positions, authoritative position classification and responsive manual controls. Added temperature-sensor shading inside a configurable time window after a required safe-wind sample window, continuous confirmed strong-wind raising through multiple sequentially queued programs, strong-wind priority over pending lowering actions, active-program observation for ESP32 or manual starts, and a state latch that prevents repeated relay commands while a condition remains active. Updated permissions, optional Wind Monitor dependency, help, README and regression coverage.
+
+August 19 2026
+--------------
+(Martin Pihrt) - RS485 Communication v1.0.1<br/>
+Added a central RS485 service plug-in for the Waveshare industrial CH343G USB-to-RS485 adapter. It owns one configurable serial interface, serializes dependent plug-in traffic through a bounded FIFO worker, supports synchronous, asynchronous and atomic multi-step operations, automatically detects the adapter, exposes protected status and health diagnostics, validates manual device paths and communication parameters, and safely tests the adapter without transmitting arbitrary bus data. Added CSRF-protected OSPy-themed settings, responsive local product images and adapter documentation, bounded frame/read/delay handling, the required pyserial dependency, and automated security, queue, manifest, template and validation tests.
+
+August 17 2026
+--------------
+(Martin Pihrt) - System Update v1.2.6<br/>
+Extended the external watchdog confirmation window from two to five minutes. Large installations that initialize many plug-ins sequentially now have enough time to start System Update, produce a fresh scheduler heartbeat and open the web interface before automatic rollback, while the existing commit, token and health checks remain unchanged.
+
+(Martin Pihrt) - Astro Sunrise and Sunset v1.0.6<br/>
+Replaced the placeholder Astral region `OSPy` with the region detected from the OSPy weather location. Existing installations fall back to the detected country code until the next weather location lookup stores the more precise region.
+
+(Martin Pihrt) - Astro Sunrise and Sunset v1.0.5<br/>
+Added a stable read-only astronomical provider for native OSPy sunrise and sunset program types. The provider reports whether Astral and location calculation are ready and returns validated dawn, sunrise, noon, sunset and dusk datetimes for a requested day without guessing fallback clock times. Existing plug-in scheduling and the mobile daylight interface remain available.
+
+August 14 2026
+--------------
+(Martin Pihrt) - Weather Dashboard v1.0.2, Astro Sunrise and Sunset v1.0.4 and Wind Speed Monitor v1.1.9<br/>
+Added a native Weather Dashboard mobile interface carrying the configured canvas/text mode, live gauge values, scale ticks and colored limits. Replaced Astro's synthetic history series with a fixed 24-hour sunrise/sunset timeline contract so mobile clients can render night/day bands without irrelevant history-range controls. Documented the stable Wind Speed Monitor mobile trend codes used by the Android application and its automatic expanded-panel refresh behavior.
+
+(Martin Pihrt) - Shelly Cloud Integration v1.0.4<br/>
+Preserved the full Shelly three-phase cumulative energy-counter precision in the integration cache. Energy Meter interval history no longer consists mostly of zero values followed by artificial 0.001 kWh steps at low power. Added a regression test for sub-Wh counter values.
+
+August 12 2026
+--------------
+(Martin Pihrt) - Energy Meter v1.0.4<br/>
+Expanded the overview into separate energy and power graphs. Energy now shows grid import and export L1/L2/L3/total plus solar production, while power shows L1/L2/L3/total for every configured meter. The history table now also displays phase power, and administrators can permanently clear local, SQL or dual history through a confirmed CSRF-protected action without losing the cumulative-counter baseline. Local interval storage now appends records to `history.jsonl` instead of rewriting the complete `history.json` list every sampling interval; existing JSON history remains readable and bounded retention compacts the journal periodically. Updated help, README and regression tests.
+
+August 9 2026
+-------------
+(Martin Pihrt) - Energy Meter v1.0.3 and Shelly Cloud Integration v1.0.3<br/>
+Added the multi-meter Energy Meter plug-in with direct local Shelly RPC as the recommended source and the Shelly Cloud Integration cache as an optional per-meter source. It supports Grid, Solar production, Load and Auxiliary roles, L1-L3 and total power/energy, separate import and grid export, today/yesterday/month/year totals, solar self-consumption and independence calculations, atomically persisted counter baselines across OSPy restarts, safe meter-reset/replacement handling, weekday/time tariffs with historically fixed prices, costs and feed-in income, local JSON and optional SQL history, CSV export, responsive graphs, Home summary, diagnostics and bounded mobile API data. Shelly three-phase cache payloads now also expose per-phase and total returned-energy counters required for feed-in logging.
+Fixed web.py template block indentation so settings, empty history and the overview render completely, kept the OSPy footer outside the history table, and aligned Energy Meter framing and cards with Wind Speed Monitor.
+Energy Meter settings now use the standard OSPy switch component for boolean values and localized Monday-through-Sunday push buttons instead of numeric weekday input.
+Added the switch CSS used by Air Temperature and Humidity Monitor so all Energy Meter boolean controls render as red/green sliders, and changed both dynamic enabled-column headings to the untranslated literal `Enabled`.
+
+August 8 2026
+-------------
+(Martin Pihrt) - Shelly Cloud Integration v1.0.2 and Weather Dashboard v1.0.1<br/>
+Fixed Shelly Pro 3EM and Shelly 3EM-63T Gen3 processing by using all three phase voltages, correcting the phase power and energy ordering, tolerating devices without an internal-temperature component and normalizing local and cloud status payloads. The Weather Dashboard can now display cached per-phase power, reverse power, voltage, current, power factor and energy plus total power and total energy. Added regression tests for the Shelly 3EM-63T Gen3 payload.
+
+(Martin Pihrt) - OSPy Package Backup v1.0.2<br/>
+Restored the latest successful plug-in backup status from existing ZIP archives after OSPy or the plug-in restarts. The native mobile status and diagnostics now report the newest persistent archive name, modification time and size instead of resetting to “no backup created”. Added regression tests for archive discovery.
+
+August 21 2026
+--------------
+(Martin Pihrt) - Automation Rules v1.0.0, Telegram Bot v1.0.1, E-mail Notifications v1.0.1 and E-mail Notifications SSL v1.1.6<br/>
+Added a responsive graphical rule builder over cached `ospy.provider.v1` values. Rules support up to twenty row/card conditions, AND/OR matching, confirmation time, notification repetition, recovery messages, severity, a separate default-on test state, bounded action history and diagnostics. Notification actions include an OSPy Home popup, explicitly permitted browser notifications, e-mail, Telegram and mobile push; provider failures are isolated and cannot clear an active incident. Automation Rules performs no irrigation control actions. Telegram Bot now exposes a bounded external-notification entry point for authorized chats, and both e-mail plug-ins return delivery success to callers without changing existing notification behavior.
+
+(Martin Pihrt) - Water Meter v1.2.0, Pressure Monitor v1.1.0, Water Tank Monitor v1.1.0 and Current Loop Tanks Monitor v1.1.0<br/>
+Added the shared read-only `ospy.provider.v1` capability and snapshot interface for Automation Rules and Irrigation Safety. The four adapters expose only cached values, stable identifiers, canonical units and machine-readable alerts, without additional I²C/GPIO operations or changes to their existing workers, pages, health reports and mobile contributions. Added contract and no-hardware-access regression tests.
+
 August 7 2026
 -------------
 (Martin Pihrt) - Water Meter v1.1.1<br/>
-Documented explicit three-byte PCF8583 reads from registers 0x01-0x03, automatic bus close and initialization retry after setup or measurement failure, safe worker-thread reinitialization after settings changes, and visible I2C errors on the overview.
+Fixed an enabled Water Meter remaining at zero after PCF8583 initialization or block-read failure. Counter data is now read explicitly as three bytes from registers 0x01-0x03, failed setup closes the bus and is retried automatically, setting changes request safe worker-thread reinitialization, and the overview reports the active I2C error instead of presenting a misleading running state.
 
 (Martin Pihrt) - Water Meter v1.1.0<br/>
-Documented uninterrupted one-second flow measurements, the separate responsive overview and settings pages, current/minute/hour/total values, local JSON and optional SQL logging, selectable graph/log source, seconds-based interval, zero-flow filtering, bounded or unlimited retention, CSV download, flow graph, optional Home `l/s (l/min)` value and mobile API v1 cards with bounded history.
+Changed the PCF8583 worker to uninterrupted one-second measurement cycles so the live liters-per-second value refreshes every second without discarding pulses during an extra sleep. Added a Wind Monitor-style responsive overview, per-second live refresh, liters-per-minute conversion, current-minute/current-hour/total cards, separate settings and log pages, local JSON and optional SQL logging, selectable graph/log source, seconds-based logging interval, zero-flow filtering, bounded or unlimited record retention, CSV download, and a flow history graph. Added an optional Home value in the format `current l/s (current l/min)` with lifecycle cleanup and mobile API v1 cards plus bounded flow history, declared Database Connector as optional, expanded help and README documentation, and added regression tests.
 
 (Martin Pihrt) - Wind Speed Monitor v1.1.8 and Water Meter v1.0.2<br/>
 Changed selectable-I2C settings conflicts from a standalone HTTP 400 error page to an inline red status bar on each plug-in settings page. A rejected submission keeps all preceding settings, remains on the form and exposes the message with alert semantics for assistive technology. Added regression tests and updated the repository, plug-in README and in-app help documentation.
 
 (Martin Pihrt) - Wind Speed Monitor v1.1.7 and Water Meter v1.0.1<br/>
 Declared PCF8583 addresses 0x50 and 0x51 as selectable alternatives instead of two simultaneously occupied I2C resources. Both plug-ins can now be installed from the official repository or a custom ZIP and run together on distinct addresses. During activation each plug-in keeps its preferred address when available or selects the free alternative; both settings pages reject an address already used by another enabled plug-in. Updated the repository, plug-in README and in-app help documentation.
+
+August 6 2026
+-------------
+(Martin Pihrt) - CHMI v1.0.6, E-mail Notifications SSL v1.1.5, LCD Display v1.0.2, Monthly Water Level v1.0.1, Home Assistant MQTT v1.0.1, OSPy Package Backup v1.0.1, System Debug Information v1.0.1, System Update v1.2.5, Thermostat v1.0.1, Usage Statistics v1.0.1 and Weather-based Water Level v1.1.2<br/>
+Added safe, read-only Mobile API v1 operating cards for the listed service and system plug-ins without exposing credentials or configuration. CHMI now marks the OSPy weather location on a generated copy of the current radar frame and formats compact radar timestamps as a readable local date and time. Cards without graph data no longer advertise an empty series, allowing native clients to omit irrelevant history controls.
+
+(Martin Pihrt) - Astro Sunrise and Sunset v1.0.3<br/>
+Fixed the native mobile card so its sunrise, sunset, twilight, moon phase and 24-hour daylight data are returned instead of being discarded by a datetime namespace error.
+
+(Martin Pihrt) - Air Temperature and Humidity Monitor v1.0.7, CHMI v1.0.5, Real Time and NTP v1.0.1, Shelly Cloud Integrator v1.0.1, Astro Sunrise and Sunset v1.0.2, System Information v1.0.1, UPS Monitor v1.0.4, Water Consumption Counter v1.2.7 and Weather-based Water Level v1.1.1<br/>
+Expanded the read-only Mobile API v1 adapters. Shelly Cloud now reports cached device readings, Astro supplies sunrise, sunset, twilight, moon phase and a 24-hour daylight series, Real Time reports recent synchronization state, System Information exposes cached host statistics, and Weather-based Water Level publishes the selected calculation method and its current result. Temperature, CHMI radar, UPS and virtual water-meter mobile data now follow the requested history source and range more accurately, preserve current runtime values, identify both master counters, use cubic metres from 1000 litres and provide the current radar frame with the geographic outline. No mobile adapter performs configuration or initiates a hardware, cloud or database measurement.
+
+July 30 2026
+------------
+(Martin Pihrt) - Air Temperature and Humidity Monitor v1.0.5, CHMI v1.0.4, Water Consumption Counter v1.2.6 and Wind Speed Monitor v1.1.5<br/>
+Refined the native mobile API data. Temperature history now contains only enabled sensors and stable series identifiers. CHMI supplies the latest radar image and a concise local rain state instead of an RGB history chart. Water consumption uses the live master and running-station counters, and wind metrics include stable identifiers for localized values and trend display.
+
+July 29 2026
+------------
+(Martin Pihrt) - Air Temperature and Humidity Monitor v1.0.4, Wind Speed Monitor v1.1.4, Water Consumption Counter v1.2.5, Current Loop Tanks Monitor v1.0.3, Water Tank Monitor v1.0.3, UPS Monitor v1.0.3 and CHMI v1.0.3<br/>
+Added the optional, read-only mobile API v1 contribution to the selected monitoring plug-ins. The Android application can now display each plug-in's current operating state and measurements; temperature, wind, tank and radar plug-ins also expose bounded local history series for native graphs. Mobile reads use existing in-memory values and local history files and never initiate hardware, network or SQL measurements.
+
+(Martin Pihrt) - Wind Speed Monitor v1.1.3<br/>
+Stopped the measurement loop from rewriting every normalized plug-in setting on every sample. Values are now persisted only when normalization actually corrects a value, reducing settings-database traffic and avoiding stale settings-object assignments during a live plug-in update.
+
+(Martin Pihrt) - Wind Speed Monitor v1.1.2<br/>
+Made every diagnostic and history file path explicitly target the Wind Speed Monitor data directory. Runtime files such as `diagnostic.log.1` can therefore no longer be created at the shared plug-in root and mistaken for an installable plug-in by OSPy.
+
+July 28 2026
+------------
+(Martin Pihrt) - Wind Speed Monitor v1.1.1<br/>
+Restored the point-hover tooltip in the automatically refreshed history graph. Each measured point again shows its time and current value, plus the preceding value when available. Tooltip handlers and data are rebuilt safely after every background graph refresh, point order is normalized chronologically, and the tooltip styling is kept in the plug-in CSS.
+
+August 5 2026
+-------------
+(Martin Pihrt) - Air Temperature and Humidity Monitor v1.0.6, Wind Speed Monitor v1.1.6, Water Tank Monitor v1.0.4 and Current Loop Tanks Monitor v1.0.4<br/>
+Extended the native mobile chart interface with ISO date-range selection, local/SQL history-source parity, bounded point counts and min/max-preserving downsampling. Mobile clients now receive actual timestamps, the selected source, returned-point count and last available record, so old local graph data is not presented as current SQL history and empty periods are reported clearly.
 
 July 27 2026
 ------------

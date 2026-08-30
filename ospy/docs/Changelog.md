@@ -4,6 +4,19 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 30 2026
+-----------
+(Martin Pihrt)<br/>
+Updated the bundled Wind Speed Monitor to v1.2.3 and Venetian Blind to v1.2.8. Wind Monitor now provides an independent safety program after a configurable number of consecutive measurement failures, starts it once per fault incident and rearms it only after a valid reading. Venetian Blind blocks pending automatic raising and lowering while wind measurement is unavailable, scanning or faulty, while allowing the safety program started by Wind Monitor to finish. Updated plug-in documentation and regression coverage.
+
+(Martin Pihrt)<br/>
+Updated the Czech gettext catalogue and compiled translation for the new Wind Monitor sensor-failure controls, validation, execution and error messages, and the Venetian Blind wind-measurement automation interlock.
+
+## August 29 2026
+-----------
+(Martin Pihrt)<br/>
+Updated the bundled RS485 Communication plug-in to v1.0.3 and Wind Speed Monitor to v1.2.2. Added background Modbus discovery across common speeds, addresses, framing and request variants with live progress, transmitted frames and received responses. Empty or partial fixed-length replies now report the real timeout instead of successful communication, and Wind Monitor handles a disabled, stopped or unavailable RS485 provider as a visible validation and health error. Updated plug-in documentation and regression coverage.
+
 ## August 25 2026
 -----------
 (Martin Pihrt)<br/>
