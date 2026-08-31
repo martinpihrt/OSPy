@@ -129,6 +129,8 @@ OSPy treats the Water Meter and Wind Speed Monitor declarations as one selectabl
 
 Water Meter v1.1.1 uses uninterrupted one-second measurements and separates its live overview from configuration. It supports local JSON and optional SQL history with selectable source, seconds-based interval, zero-flow filtering, bounded or unlimited records, CSV download and a flow graph. Its optional Home value shows current `l/s` with equivalent `l/min`, while mobile API v1 provides live consumption cards and bounded history. PCF8583 data is read explicitly from registers `0x01–0x03`; initialization and measurement failures close and retry the bus and are shown on the overview.
 
+Irrigation Safety v1.0.0 is a dedicated protection layer over cached Water Meter, optional Pressure Monitor and optional tank-provider data plus the actual OSPy output state. It provides per-station expected flow profiles, robust one-station automatic learning, combined limits for simultaneous stations, startup and confirmation timing, flow, pressure, tank and unavailable-data incidents, safe monitor-only commissioning, guarded output shutdown, scheduler disabling, persistent acknowledgement, bounded bypass, asynchronous e-mail and mobile push delivery and live page updates without manual refresh. Active protection remains off by default.
+
 Administrative permission approval
 ----
 

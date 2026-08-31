@@ -308,6 +308,11 @@ Das optionale Plug-in **Automation Rules** erstellt grafische AND/OR-Regeln aus 
 
 Kompatible laufende Anbieter fügen eigene geschützte Aktionen hinzu. Venetian Blind kann öffnen, stoppen, schließen oder die Neigung 1–4 wählen; Water Tank Monitor kann die Regelung stoppen und gespeicherte Minimal- und Maximalwerte zurücksetzen; Current Loop Tanks Monitor kann die Regelung für einen oder alle Tanks stoppen; OSPy Backup kann ein Archiv der Plug-in-Daten erstellen.
 
+# Irrigation Safety Plug-in
+Das optionale Plug-in **Irrigation Safety** verbindet den tatsächlichen Zustand der OSPy-Stationen und Master-Ausgänge mit zwischengespeicherten Werten von Water Meter, Pressure Monitor und Tank-Monitoren. Für jede Station können erwarteter Mindest- und Höchstdurchfluss, Anlaufverzögerung und Fehlerbestätigungszeit festgelegt werden. Das automatische Lernen übernimmt Werte erst nach der Anlaufverzögerung und nur beim alleinigen Lauf einer Station. Danach wird ein robuster Bereich mit einstellbarer Sicherheitsreserve gespeichert. Bei gleichzeitig laufenden, vollständig konfigurierten Stationen werden die Bereiche addiert. Zusätzlich werden Durchfluss ohne Bewässerung, fehlender Durchfluss oder Druck sowie niedrige oder nicht verfügbare Tankwerte erkannt.
+
+Zur Inbetriebnahme dient **Nur überwachen**. Der **Aktive Schutz** kann alle Ausgänge und das separate Master-Relais ausschalten, den Planer deaktivieren und den Vorfall bis zur Bestätigung durch einen Administrator sperren. Eine zeitlich begrenzte Überbrückung unterdrückt Eingriffe, während Überwachung und Benachrichtigungen weiterlaufen. Die Sicherheitsaktion erfolgt vor dem asynchronen Versand per E-Mail oder mobilem Push. Die Seite aktualisiert Messwerte, aktive Stationen, Lernfortschritt, Vorfälle und Verlauf im Hintergrund.
+
 ----
 
 # Zwei-Faktor-Sicherheit (2FA)

@@ -308,6 +308,11 @@ Voliteľný doplnok **Automation Rules** vytvára grafické pravidlá AND/OR z h
 
 Kompatibilní spustení poskytovatelia pridávajú vlastné chránené akcie. Venetian Blind môže otvoriť, zastaviť, zatvoriť alebo nastaviť náklon 1–4; Water Tank Monitor môže zastaviť reguláciu a vynulovať zaznamenané minimum a maximum; Current Loop Tanks Monitor môže zastaviť reguláciu jednej alebo všetkých nádrží; OSPy Backup môže vytvoriť archív dát doplnkov.
 
+# Doplnok Irrigation Safety
+Voliteľný doplnok **Irrigation Safety** prepája skutočný stav staníc a hlavných výstupov OSPy s hodnotami z vyrovnávacej pamäte Water Meter, Pressure Monitor a monitorov nádrží. Každá stanica môže mať očakávaný minimálny a maximálny prietok, oneskorenie po spustení a čas potvrdenia poruchy. Automatické učenie prijíma vzorky až po uplynutí oneskorenia a iba vtedy, keď beží práve jedna stanica; potom uloží robustný rozsah rozšírený o nastaviteľnú bezpečnostnú rezervu. Pri súbehu úplne nastavených staníc sa ich rozsahy sčítajú. Doplnok rozpozná aj prietok bez zavlažovania, nedostupný prietok, chýbajúci tlak a nízku alebo nedostupnú hladinu nádrže.
+
+Pri uvádzaní do prevádzky použite režim **Iba sledovanie**. **Aktívna ochrana** môže zastaviť všetky výstupy, vypnúť samostatné hlavné relé, zakázať plánovač a ponechať incident uzamknutý, kým ho správca po skončení poruchy nepotvrdí. Časovo obmedzené obídenie potlačí riadiace zásahy, ale sledovanie a upozornenia zostanú aktívne. Bezpečnostná akcia prebehne pred asynchrónnym odoslaním e-mailu alebo mobilnej push správy. Stránka na pozadí obnovuje merania, aktívne stanice, priebeh učenia, incidenty a históriu.
+
 ----
 
 # Dvojfázové zabezpečenie (2FA)

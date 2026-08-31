@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## August 31 2026
+-----------
+(Martin Pihrt)<br/>
+Documented the new optional Irrigation Safety 1.0.0 plug-in. It uses the existing read-only provider contract and actual OSPy output state for per-station flow profiles, robust one-station learning, combined simultaneous-station ranges, flow, pressure, tank and unavailable-data incidents, safe monitor-only commissioning, guarded output shutdown, scheduler disabling, persistent acknowledgement, bounded bypass, asynchronous e-mail and mobile push and a live page without manual refresh. Active protection remains off by default. Updated the root and plug-in documentation and regression coverage.
+
 ## August 30 2026
 -----------
 (Martin Pihrt)<br/>
