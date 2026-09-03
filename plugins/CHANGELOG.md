@@ -1,5 +1,10 @@
 # OSPy-plugins Changelog
 
+August 31 2026
+--------------
+(Martin Pihrt) - Irrigation Safety v1.0.0<br/>
+Added a dedicated irrigation protection plug-in over cached Water Meter, Pressure Monitor and tank-provider data. It provides per-station flow profiles, robust one-station automatic learning, combined ranges for simultaneous stations, startup and confirmation timing, unexpected-flow, pressure, tank and unavailable-data incidents, Off/Monitor only/Active protection modes, guarded output shutdown, scheduler disabling, persistent administrator acknowledgement, bounded temporary bypass, asynchronous e-mail and mobile push delivery, live background page updates, health/mobile/provider contributions, documentation and regression coverage. Active protection is never enabled by default.
+
 August 30 2026
 --------------
 (Martin Pihrt) - Wind Speed Monitor v1.2.3 and Venetian Blind v1.2.8<br/>

@@ -208,7 +208,10 @@ class SystemUpdateChannelTests(unittest.TestCase):
         if watchdog_supported:
             arm.assert_called_once_with("a" * 40, "b" * 40)
         self.assertLess(
-            required.index(["git", "fetch", "--prune", "origin"]),
+            required.index([
+                "git", "-c", "http.version=HTTP/1.1",
+                "fetch", "--prune", "origin"
+            ]),
             required.index(["git", "checkout", "-B", "beta", "origin/beta"]),
         )
         self.assertIn(["git", "checkout", "-B", "beta", "origin/beta"], required)
