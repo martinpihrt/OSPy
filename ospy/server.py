@@ -316,7 +316,10 @@ def start():
             level='warning', category='system'
         )
 
-    session = web.session.Session(app, web.session.ShelfStore(sessions),
+    # shelve can select a SQLite-backed dbm implementation. Its connection is
+    # bound to the startup thread, while HTTP requests run in worker threads.
+    # DiskStore uses atomic per-session files and is safe for those workers.
+    session = web.session.Session(app, web.session.DiskStore(session_file + '.sessions'),
                                   initializer={'validated': False,
                                                'pages': [],
                                                'category': 'public',
@@ -395,14 +398,17 @@ def reset_session_store(remove_files=False):
         if remove_files:
             for db_file in glob.glob(session_file + '*'):
                 try:
-                    os.remove(db_file)
+                    if os.path.isdir(db_file):
+                        shutil.rmtree(db_file)
+                    else:
+                        os.remove(db_file)
                     log.debug('server.py', _('Removed session file: {}').format(db_file))
                 except Exception as e:
                     log.error('server.py', _('Error removing session file {}: {}').format(db_file, e))
 
         sessions = _open_session_store(session_file)
         if session is not None:
-            session.store = web.session.ShelfStore(sessions)
+            session.store = web.session.DiskStore(session_file + '.sessions')
         log.info('server.py', _('Session database has been reset.'))
    
 def _safe_stop_outputs():
