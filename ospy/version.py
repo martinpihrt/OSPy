@@ -15,7 +15,7 @@ from ospy.log import log
 
 major_ver = 3
 minor_ver = 0
-old_count = 827   # update this to reset revision number.
+old_count = 826   # update this to reset revision number.
 
 
 def _current_branch():
