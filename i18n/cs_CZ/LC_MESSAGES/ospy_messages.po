@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OSPy sprinkler\n"
-"POT-Creation-Date: 2026-08-31 21:53+0200\n"
-"PO-Revision-Date: 2026-08-31 22:15+0200\n"
+"POT-Creation-Date: 2026-09-10 21:07+0200\n"
+"PO-Revision-Date: 2026-09-10 21:26+0200\n"
 "Last-Translator: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language-Team: Martin Pihrt <martinpihrt@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -877,7 +877,7 @@ msgstr "Nahraný soubor je větší než maximální konfigurovaná velikost."
 #: plugins/email_notifications/__init__.py:150
 #: plugins/email_notifications_ssl/__init__.py:215
 #: plugins/email_notifications_ssl/__init__.py:220
-#: plugins/mqtt_home_assistant/__init__.py:849
+#: plugins/mqtt_home_assistant/__init__.py:849 plugins/sms_adj/__init__.py:483
 #: plugins/thermostat/templates/thermostat.html:126
 #: plugins/thermostat/templates/thermostat.html:131
 msgid "Program"
@@ -3174,6 +3174,7 @@ msgid "Voltage"
 msgstr "Napětí"
 
 #: ospy/sensors.py:500 ospy/sensors.py:508 ospy/templates/log_sensor.html:79
+#: plugins/sms_adj/__init__.py:275
 msgid "Signal"
 msgstr "Signál"
 
@@ -4426,6 +4427,7 @@ msgstr "Konfigurace snímačů"
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:52
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:126
 #: plugins/signaling_examples/templates/signaling_examples.html:31
+#: plugins/sms_adj/templates/sms_adj.html:67
 #: plugins/speed_monitor/templates/speed_monitor.html:278
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:71
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:80
@@ -5970,7 +5972,9 @@ msgstr "Volba"
 #: plugins/remote_notifications/__init__.py:294
 #: plugins/rs485_communication/__init__.py:1407
 #: plugins/shelly_cloud_integrator/__init__.py:1599
-#: plugins/speed_monitor/__init__.py:195 plugins/speed_monitor/__init__.py:196
+#: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
+#: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
+#: plugins/speed_monitor/__init__.py:196
 #: plugins/sunrise_and_sunset/__init__.py:767
 #: plugins/sunrise_and_sunset/__init__.py:768
 #: plugins/sunrise_and_sunset/__init__.py:781
@@ -6020,7 +6024,9 @@ msgstr "Ano"
 #: plugins/remote_notifications/__init__.py:294
 #: plugins/rs485_communication/__init__.py:1407
 #: plugins/shelly_cloud_integrator/__init__.py:1599
-#: plugins/speed_monitor/__init__.py:195 plugins/speed_monitor/__init__.py:196
+#: plugins/sms_adj/__init__.py:183 plugins/sms_adj/__init__.py:185
+#: plugins/sms_adj/__init__.py:186 plugins/speed_monitor/__init__.py:195
+#: plugins/speed_monitor/__init__.py:196
 #: plugins/sunrise_and_sunset/__init__.py:767
 #: plugins/sunrise_and_sunset/__init__.py:768
 #: plugins/sunrise_and_sunset/__init__.py:781
@@ -6467,9 +6473,9 @@ msgstr "Obnova diagnostické historie selhala."
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1406
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/speed_monitor/__init__.py:194
+#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
-#: plugins/system_update/__init__.py:1041
+#: plugins/system_update/__init__.py:1069
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:449
 #: plugins/telegram_bot/__init__.py:539
 #: plugins/temperature_switch/__init__.py:398
@@ -6513,9 +6519,9 @@ msgstr "Zastaveno"
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1406
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/speed_monitor/__init__.py:194
+#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
-#: plugins/system_update/__init__.py:1041
+#: plugins/system_update/__init__.py:1069
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:449
 #: plugins/telegram_bot/__init__.py:539
 #: plugins/temperature_switch/__init__.py:398
@@ -6594,8 +6600,8 @@ msgstr "Zakázáno"
 #: plugins/email_notifications/__init__.py:464
 #: plugins/email_notifications_ssl/__init__.py:769
 #: plugins/email_reader/__init__.py:763
-#: plugins/energy_meter/templates/energy_meter_settings.html:73
-#: plugins/energy_meter/templates/energy_meter_settings.html:109
+#: plugins/energy_meter/templates/energy_meter_settings.html:74
+#: plugins/energy_meter/templates/energy_meter_settings.html:111
 #: plugins/ip_cam/__init__.py:668 plugins/ip_cam/__init__.py:670
 #: plugins/ip_cam/templates/ip_cam.html:158
 #: plugins/irrigation_safety/templates/irrigation_safety.html:156
@@ -6639,7 +6645,7 @@ msgstr "Povoleno"
 #: plugins/rs485_communication/__init__.py:1427
 #: plugins/rs485_communication/templates/rs485_communication.html:141
 #: plugins/shelly_cloud_integrator/__init__.py:1618
-#: plugins/speed_monitor/__init__.py:206
+#: plugins/sms_adj/__init__.py:198 plugins/speed_monitor/__init__.py:206
 #: plugins/sunrise_and_sunset/__init__.py:789
 #: plugins/system_watchdog/__init__.py:164 plugins/tank_monitor/__init__.py:470
 #: plugins/telegram_bot/__init__.py:556
@@ -6736,7 +6742,7 @@ msgstr "Restart selhal."
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl_help.html:54
 #: plugins/email_reader/templates/email_reader.html:249
 #: plugins/email_reader/templates/email_reader_help.html:95
-#: plugins/energy_meter/templates/energy_meter_settings.html:126
+#: plugins/energy_meter/templates/energy_meter_settings.html:128
 #: plugins/ip_cam/templates/ip_cam.html:181
 #: plugins/ip_cam/templates/ip_cam_gif.html:19
 #: plugins/ip_cam/templates/ip_cam_help.html:71
@@ -6803,6 +6809,8 @@ msgstr "Restart selhal."
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:364
 #: plugins/signaling_examples/templates/signaling_examples.html:59
 #: plugins/signaling_examples/templates/signaling_examples_help.html:17
+#: plugins/sms_adj/templates/sms_adj.html:166
+#: plugins/sms_adj/templates/sms_adj_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor.html:349
 #: plugins/speed_monitor/templates/speed_monitor_help.html:16
 #: plugins/speed_monitor/templates/speed_monitor_log.html:12
@@ -6924,6 +6932,7 @@ msgstr "Komponenta"
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration.html:47
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:113
 #: plugins/signaling_examples/templates/signaling_examples.html:42
+#: plugins/sms_adj/templates/sms_adj.html:156
 #: plugins/speed_monitor/templates/speed_monitor.html:339
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:136
 #: plugins/system_update/templates/system_update.html:255
@@ -7252,8 +7261,8 @@ msgid "Waiting or delay"
 msgstr "Čekání nebo zpoždění"
 
 #: ospy/templates/diagnostics.html:1362 ospy/templates/log.html:217
-#: plugins/system_update/__init__.py:1036
-#: plugins/system_update/__init__.py:1058
+#: plugins/system_update/__init__.py:1064
+#: plugins/system_update/__init__.py:1086
 msgid "Success"
 msgstr "Úspěch"
 
@@ -7701,7 +7710,7 @@ msgstr "Pohyb"
 #: plugins/lcd_display/__init__.py:527
 #: plugins/rs485_communication/templates/rs485_communication.html:215
 #: plugins/signaling_examples/__init__.py:80
-#: plugins/system_update/__init__.py:1037
+#: plugins/system_update/__init__.py:1065
 #: plugins/venetian_blind/templates/venetian_blind_settings.html:25
 msgid "None"
 msgstr "Nepoužito"
@@ -7961,7 +7970,7 @@ msgstr "Rozsah"
 #: ospy/templates/graph_sensor.html:266
 #: plugins/air_temp_humi/templates/air_temp_humi.html:559
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:274
-#: plugins/energy_meter/templates/energy_meter_settings.html:111
+#: plugins/energy_meter/templates/energy_meter_settings.html:113
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:29
 #: plugins/ping_monitor/templates/ping_monitor.html:408
 #: plugins/pressure_monitor/templates/pressure_monitor.html:438
@@ -7975,7 +7984,7 @@ msgstr "Od"
 #: ospy/templates/graph_sensor.html:267
 #: plugins/air_temp_humi/templates/air_temp_humi.html:560
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_graph.html:275
-#: plugins/energy_meter/templates/energy_meter_settings.html:112
+#: plugins/energy_meter/templates/energy_meter_settings.html:114
 #: plugins/network_ping_monitor/templates/network_ping_monitor_graph.html:30
 #: plugins/ping_monitor/templates/ping_monitor.html:409
 #: plugins/pressure_monitor/templates/pressure_monitor.html:439
@@ -9430,7 +9439,7 @@ msgstr "Aktualizovat"
 #: ospy/templates/plugins_changes.html:44
 #: ospy/templates/plugins_install.html:44
 #: plugins/energy_meter/templates/energy_meter.html:117
-#: plugins/energy_meter/templates/energy_meter_settings.html:76
+#: plugins/energy_meter/templates/energy_meter_settings.html:78
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:113
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:126
 #: plugins/weather_dashboard/templates/weather_dashboard_help_page.html:42
@@ -9636,7 +9645,7 @@ msgstr ""
 "obsahovat chyby."
 
 #: ospy/templates/plugins_manage.html:271
-#: plugins/system_update/__init__.py:1039
+#: plugins/system_update/__init__.py:1067
 #: plugins/system_update/templates/system_update.html:164
 msgid "Stable"
 msgstr "Stabilní"
@@ -9652,7 +9661,7 @@ msgstr "výchozí"
 #: plugins/cli_control/templates/cli_control.html:137
 #: plugins/database_connector/templates/database_connector.html:133
 #: plugins/speed_monitor/templates/speed_monitor.html:350
-#: plugins/system_update/__init__.py:1039
+#: plugins/system_update/__init__.py:1067
 #: plugins/system_update/templates/system_update.html:165
 msgid "Test"
 msgstr "Test"
@@ -9956,8 +9965,8 @@ msgstr "Přidat nový program"
 #: ospy/templates/program.html:436 ospy/templates/programs.html:258
 #: ospy/templates/programs.html:283 ospy/templates/sensors.html:78
 #: ospy/templates/stations.html:16
-#: plugins/energy_meter/templates/energy_meter_settings.html:74
-#: plugins/energy_meter/templates/energy_meter_settings.html:110
+#: plugins/energy_meter/templates/energy_meter_settings.html:75
+#: plugins/energy_meter/templates/energy_meter_settings.html:112
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_devices.html:113
 #: plugins/sunrise_and_sunset/__init__.py:548
 #: plugins/thermostat/templates/thermostat.html:91
@@ -10060,7 +10069,7 @@ msgstr "Poměr pauzy"
 
 #: ospy/templates/program.html:533
 #: plugins/energy_meter/templates/energy_meter_settings.html:12
-#: plugins/energy_meter/templates/energy_meter_settings.html:113
+#: plugins/energy_meter/templates/energy_meter_settings.html:115
 msgid "Days"
 msgstr "Dny"
 
@@ -11742,7 +11751,8 @@ msgstr "Otevřít adresář"
 #: plugins/rs485_communication/__init__.py:1410
 #: plugins/shelly_cloud_integrator/__init__.py:1610
 #: plugins/shelly_cloud_integrator/__init__.py:1614
-#: plugins/speed_monitor/__init__.py:202
+#: plugins/sms_adj/__init__.py:189 plugins/sms_adj/__init__.py:193
+#: plugins/sms_adj/__init__.py:195 plugins/speed_monitor/__init__.py:202
 #: plugins/sunrise_and_sunset/__init__.py:771
 #: plugins/sunrise_and_sunset/__init__.py:774
 #: plugins/sunrise_and_sunset/__init__.py:777
@@ -11902,7 +11912,7 @@ msgstr ""
 #: plugins/email_notifications/templates/email_notifications.html:211
 #: plugins/email_notifications_ssl/templates/email_notifications_ssl.html:309
 #: plugins/email_reader/templates/email_reader.html:248
-#: plugins/energy_meter/templates/energy_meter_settings.html:125
+#: plugins/energy_meter/templates/energy_meter_settings.html:127
 #: plugins/ip_cam/templates/ip_cam_setup.html:203
 #: plugins/ip_cam/templates/ip_cam_setup.html:271
 #: plugins/ip_cam/templates/ip_cam_setup.html:337
@@ -11924,6 +11934,7 @@ msgstr ""
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:127
 #: plugins/shelly_cloud_integrator/templates/shelly_cloud_integration_sensors.html:363
 #: plugins/signaling_examples/templates/signaling_examples.html:58
+#: plugins/sms_adj/templates/sms_adj.html:165
 #: plugins/speed_monitor/templates/speed_monitor.html:348
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset.html:154
 #: plugins/sunrise_and_sunset/templates/sunrise_and_sunset_setup.html:159
@@ -12394,7 +12405,7 @@ msgstr "Účty chráněné 2FA"
 #: ospy/templates/users.html:67
 #: plugins/energy_meter/templates/energy_meter.html:117
 #: plugins/energy_meter/templates/energy_meter_log.html:21
-#: plugins/energy_meter/templates/energy_meter_settings.html:75
+#: plugins/energy_meter/templates/energy_meter_settings.html:76
 msgid "Role"
 msgstr "Role"
 
@@ -14871,7 +14882,7 @@ msgstr "Rozšíření monitor teploty a vlhkosti"
 #: plugins/remote_notifications/__init__.py:291
 #: plugins/rs485_communication/__init__.py:1406
 #: plugins/shelly_cloud_integrator/__init__.py:1597
-#: plugins/speed_monitor/__init__.py:194
+#: plugins/sms_adj/__init__.py:182 plugins/speed_monitor/__init__.py:194
 #: plugins/sunrise_and_sunset/__init__.py:766
 #: plugins/system_watchdog/__init__.py:154 plugins/tank_monitor/__init__.py:449
 #: plugins/telegram_bot/__init__.py:539
@@ -15454,6 +15465,7 @@ msgstr ""
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:18
 #: plugins/lcd_display/templates/lcd_display_help.html:60
 #: plugins/relay_16/templates/relay_16_help.html:10
+#: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:14
 #: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
@@ -15469,6 +15481,7 @@ msgstr "pro další informace"
 #: plugins/current_loop_tanks_monitor/templates/current_loop_tanks_monitor_help.html:18
 #: plugins/lcd_display/templates/lcd_display_help.html:60
 #: plugins/remote_notifications/templates/remote_notifications_help.html:25
+#: plugins/sms_adj/templates/sms_adj_help.html:11
 #: plugins/tank_monitor/templates/tank_monitor_help.html:14
 #: plugins/voice_notification/templates/voice_notification_help.html:13
 #: plugins/volt_temp_da/templates/volt_temp_da_help.html:11
@@ -16151,7 +16164,7 @@ msgstr "Bylo spuštěno pravidlo automatizace: {}"
 #: plugins/pressure_monitor/__init__.py:209
 #: plugins/pressure_monitor/__init__.py:210
 #: plugins/pressure_monitor/__init__.py:278
-#: plugins/system_update/__init__.py:1060
+#: plugins/system_update/__init__.py:1088
 msgid "Inactive"
 msgstr "Neaktivní"
 
@@ -18653,7 +18666,7 @@ msgid "Configured commands"
 msgstr "Konfigurované příkazy"
 
 #: plugins/cli_control/__init__.py:83 plugins/modbus_stations/__init__.py:153
-#: plugins/remote_ftp_control/__init__.py:206
+#: plugins/remote_ftp_control/__init__.py:206 plugins/sms_adj/__init__.py:195
 msgid "Last command"
 msgstr "Poslední příkaz"
 
@@ -19868,6 +19881,15 @@ msgstr "Zde vidíme všechny události provedené v tomto rozšíření."
 #: plugins/email_reader/__init__.py:576 plugins/email_reader/__init__.py:584
 #: plugins/email_reader/__init__.py:592 plugins/email_reader/__init__.py:604
 #: plugins/modbus_stations/templates/modbus_stations_log.html:17
+#: plugins/sms_adj/__init__.py:304 plugins/sms_adj/__init__.py:349
+#: plugins/sms_adj/__init__.py:354 plugins/sms_adj/__init__.py:366
+#: plugins/sms_adj/__init__.py:371 plugins/sms_adj/__init__.py:380
+#: plugins/sms_adj/__init__.py:385 plugins/sms_adj/__init__.py:393
+#: plugins/sms_adj/__init__.py:399 plugins/sms_adj/__init__.py:407
+#: plugins/sms_adj/__init__.py:413 plugins/sms_adj/__init__.py:421
+#: plugins/sms_adj/__init__.py:433 plugins/sms_adj/__init__.py:441
+#: plugins/sms_adj/__init__.py:461 plugins/sms_adj/__init__.py:469
+#: plugins/sms_adj/__init__.py:476 plugins/sms_adj/__init__.py:498
 #: plugins/venetian_blind/templates/venetian_blind_log.html:16
 msgid "Command"
 msgstr "Příkaz"
@@ -23276,33 +23298,33 @@ msgstr "Balíček: elektroměr"
 msgid "Meter {}"
 msgstr "Měřič {}"
 
-#: plugins/energy_meter/__init__.py:77
+#: plugins/energy_meter/__init__.py:79
 #: plugins/energy_meter/templates/energy_meter.html:37
 #: plugins/energy_meter/templates/energy_meter_settings.html:13
 msgid "Solar production"
 msgstr "Výroba solární energie"
 
-#: plugins/energy_meter/__init__.py:77
+#: plugins/energy_meter/__init__.py:79
 #: plugins/energy_meter/templates/energy_meter_settings.html:13
 msgid "Auxiliary meter"
 msgstr "Pomocný měřič"
 
-#: plugins/energy_meter/__init__.py:77
+#: plugins/energy_meter/__init__.py:79
 #: plugins/energy_meter/templates/energy_meter_settings.html:13
 msgid "Grid connection"
 msgstr "Připojení k síti"
 
-#: plugins/energy_meter/__init__.py:77
+#: plugins/energy_meter/__init__.py:79
 #: plugins/energy_meter/templates/energy_meter_settings.html:13
 msgid "Load / consumption"
 msgstr "Zatížení / spotřeba"
 
-#: plugins/energy_meter/__init__.py:81
+#: plugins/energy_meter/__init__.py:83
 #: plugins/energy_meter/templates/energy_meter_settings.html:13
 msgid "Direct LAN / IP"
 msgstr "Přímé LAN / IP"
 
-#: plugins/energy_meter/__init__.py:81
+#: plugins/energy_meter/__init__.py:83
 #: plugins/energy_meter/templates/energy_meter_settings.html:13
 #: plugins/shelly_cloud_integrator/__init__.py:140
 #: plugins/shelly_cloud_integrator/__init__.py:1662
@@ -23311,101 +23333,111 @@ msgstr "Přímé LAN / IP"
 msgid "Shelly Cloud Integration"
 msgstr "Integrace Shelly Cloud"
 
-#: plugins/energy_meter/__init__.py:139
+#: plugins/energy_meter/__init__.py:87
+#: plugins/energy_meter/templates/energy_meter_settings.html:13
+msgid "Net / vector sum"
+msgstr "Síť / vektorový součet"
+
+#: plugins/energy_meter/__init__.py:87
+#: plugins/energy_meter/templates/energy_meter_settings.html:13
+msgid "Phase-by-phase"
+msgstr "Fáze po fázi"
+
+#: plugins/energy_meter/__init__.py:145
 msgid "Clearing Energy Meter SQL history failed"
 msgstr "Mazání historie elektroměru v SQL selhalo"
 
-#: plugins/energy_meter/__init__.py:187
+#: plugins/energy_meter/__init__.py:193
 msgid "Energy"
 msgstr "Energie"
 
-#: plugins/energy_meter/__init__.py:189
+#: plugins/energy_meter/__init__.py:195
 msgid "kWh export today"
 msgstr "kWh výroba dnes"
 
-#: plugins/energy_meter/__init__.py:189
+#: plugins/energy_meter/__init__.py:195
 msgid "kWh import today"
 msgstr "kWh odběr dnes"
 
-#: plugins/energy_meter/__init__.py:239
+#: plugins/energy_meter/__init__.py:245
 msgid "Waiting for the selected Shelly meter to provide its first reading."
 msgstr "Čekám, až vybraný Shelly měřič poskytne první měření."
 
-#: plugins/energy_meter/__init__.py:245
+#: plugins/energy_meter/__init__.py:251
 msgid "The selected Shelly meter is offline."
 msgstr "Vybraný Shelly měřič je offline."
 
-#: plugins/energy_meter/__init__.py:247
+#: plugins/energy_meter/__init__.py:253
 msgid "The selected Shelly meter is disabled in Shelly Cloud Integration."
 msgstr "Vybraný Shelly měřič je v Shelly cloud integrátoru deaktivován."
 
-#: plugins/energy_meter/__init__.py:249
+#: plugins/energy_meter/__init__.py:255
 msgid "The selected Shelly meter is not available in Shelly Cloud Integration."
 msgstr "Vybraný měřič Shelly není v integraci Shelly cloud dostupný."
 
-#: plugins/energy_meter/__init__.py:251
+#: plugins/energy_meter/__init__.py:257
 msgid "The selected Shelly meter could not be read."
 msgstr "Vybraný Shelly měřič nebylo možné přečíst."
 
-#: plugins/energy_meter/__init__.py:260
+#: plugins/energy_meter/__init__.py:266
 msgid "Energy Meter reading failed"
 msgstr "Odečet elektroměru selhal"
 
-#: plugins/energy_meter/__init__.py:272
+#: plugins/energy_meter/__init__.py:278
 msgid "Saving Energy Meter history to SQL failed"
 msgstr "Uložení historie elektroměru do SQL selhala"
 
-#: plugins/energy_meter/__init__.py:315
+#: plugins/energy_meter/__init__.py:321
 msgid "Meter or tariff configuration is not valid JSON."
 msgstr "Nastavení elektroměru nebo tarifu není platný JSON."
 
-#: plugins/energy_meter/__init__.py:364
+#: plugins/energy_meter/__init__.py:371
 msgid "Energy Meter history was cleared."
 msgstr "Historie byla vymazána."
 
-#: plugins/energy_meter/__init__.py:396
+#: plugins/energy_meter/__init__.py:403
 msgid "Energy Meter worker is not running."
 msgstr "Smyčka elektroměru neběží."
 
-#: plugins/energy_meter/__init__.py:398
+#: plugins/energy_meter/__init__.py:405
 msgid "Energy Meter is disabled."
 msgstr "Elektroměr je zakázán."
 
-#: plugins/energy_meter/__init__.py:402
+#: plugins/energy_meter/__init__.py:409
 msgid "Energy Meter is waiting for its first Shelly reading."
 msgstr "Elektroměr čeká na první Shelly měření."
 
-#: plugins/energy_meter/__init__.py:403
+#: plugins/energy_meter/__init__.py:410
 msgid "No configured electricity meter is available."
 msgstr "Není k dispozici žádný nastavený elektroměr."
 
-#: plugins/energy_meter/__init__.py:404
+#: plugins/energy_meter/__init__.py:411
 msgid "Energy Meter is collecting data."
 msgstr "Elektroměr sbírá data."
 
-#: plugins/energy_meter/__init__.py:409 plugins/energy_meter/__init__.py:423
+#: plugins/energy_meter/__init__.py:416 plugins/energy_meter/__init__.py:430
 #: plugins/energy_meter/templates/energy_meter.html:3
 #: plugins/energy_meter/templates/energy_meter.html:52
 msgid "Energy Meter"
 msgstr "Elektroměr"
 
-#: plugins/energy_meter/__init__.py:415
+#: plugins/energy_meter/__init__.py:422
 msgid "Grid export today"
 msgstr "Dodávka do sítě dnes"
 
-#: plugins/energy_meter/__init__.py:415
+#: plugins/energy_meter/__init__.py:422
 msgid "Grid import today"
 msgstr "Odběr ze sítě dnes"
 
-#: plugins/energy_meter/__init__.py:415
+#: plugins/energy_meter/__init__.py:422
 msgid "House consumption today"
 msgstr "Dnešní spotřeba domu"
 
-#: plugins/energy_meter/__init__.py:415
+#: plugins/energy_meter/__init__.py:422
 msgid "Solar production today"
 msgstr "Výroba solární energie dnes"
 
-#: plugins/energy_meter/__init__.py:419
+#: plugins/energy_meter/__init__.py:426
 msgid "{} power"
 msgstr "{} výkon"
 
@@ -23469,7 +23501,7 @@ msgstr "Vybraný den"
 #: plugins/energy_meter/templates/energy_meter.html:79
 #: plugins/energy_meter/templates/energy_meter.html:85
 #: plugins/energy_meter/templates/energy_meter.html:91
-#: plugins/energy_meter/templates/energy_meter_log.html:22
+#: plugins/energy_meter/templates/energy_meter_log.html:23
 msgid "Import"
 msgstr "Odběr"
 
@@ -23477,7 +23509,7 @@ msgstr "Odběr"
 #: plugins/energy_meter/templates/energy_meter.html:80
 #: plugins/energy_meter/templates/energy_meter.html:86
 #: plugins/energy_meter/templates/energy_meter.html:92
-#: plugins/energy_meter/templates/energy_meter_log.html:23
+#: plugins/energy_meter/templates/energy_meter_log.html:24
 msgid "Export"
 msgstr "Dodávka"
 
@@ -23485,7 +23517,7 @@ msgstr "Dodávka"
 #: plugins/energy_meter/templates/energy_meter.html:81
 #: plugins/energy_meter/templates/energy_meter.html:87
 #: plugins/energy_meter/templates/energy_meter.html:93
-#: plugins/energy_meter/templates/energy_meter_log.html:28
+#: plugins/energy_meter/templates/energy_meter_log.html:29
 msgid "Cost"
 msgstr "Cena"
 
@@ -23493,7 +23525,7 @@ msgstr "Cena"
 #: plugins/energy_meter/templates/energy_meter.html:81
 #: plugins/energy_meter/templates/energy_meter.html:87
 #: plugins/energy_meter/templates/energy_meter.html:93
-#: plugins/energy_meter/templates/energy_meter_log.html:29
+#: plugins/energy_meter/templates/energy_meter_log.html:30
 msgid "Income"
 msgstr "Příjmy"
 
@@ -23539,6 +23571,12 @@ msgstr "Úspory solární energie"
 msgid "Electricity meters"
 msgstr "Elektroměry"
 
+#: plugins/energy_meter/templates/energy_meter.html:117
+#: plugins/energy_meter/templates/energy_meter_log.html:22
+#: plugins/energy_meter/templates/energy_meter_settings.html:77
+msgid "Accounting"
+msgstr "Účtování"
+
 #: plugins/energy_meter/templates/energy_meter.html:126
 msgid "Reset the stored counter baseline for this meter?"
 msgstr "Resetovat uloženou základní hodnotu počítadla pro tento elektroměr?"
@@ -23552,8 +23590,8 @@ msgid "Energy history"
 msgstr "Historie energií"
 
 #: plugins/energy_meter/templates/energy_meter.html:141
-msgid "Import and export energy by phase"
-msgstr "Spotřeba a výroba energie podle fází"
+msgid "Import and export energy by phase and accounted total"
+msgstr "Spotřeba a výroba energie podle fází a účtovacího souhrnu"
 
 #: plugins/energy_meter/templates/energy_meter.html:143
 msgid "Power by phase"
@@ -23630,10 +23668,32 @@ msgstr ""
 "baterie není možné odvodit bez samostatného měřiče."
 
 #: plugins/energy_meter/templates/energy_meter_help.html:17
+msgid ""
+"Phase-by-phase accounting adds import and export from every phase "
+"separately. Net / vector sum accounting compensates simultaneous phase "
+"import and export inside every sampling interval, then records only the "
+"remaining import or export as the accounted total. This matches grid meters "
+"that settle the vector sum of all phases. It is not a net calculation over "
+"the complete day: import and export in different intervals remain separate. "
+"Per-phase history always retains the raw Shelly counter differences for "
+"diagnostics. Shorter sampling intervals follow rapid direction changes more "
+"closely, while producing more history records."
+msgstr ""
+"Účtování fáze po fázi přidává spotřebu a výrobu z každé fáze zvlášť. "
+"Účtování vektorového součtu kompenzuje současnou spotřebu a výrobu fází v "
+"rámci každého vzorkovacího intervalu a poté zaznamenává pouze zbývající "
+"spotřebu nebo výrobu jako vektorový součet. To odpovídá měřičům ze sítě, "
+"které určují vektorový součet všech fází. Nejde o čistý výpočet za celý den: "
+"odběr a výroba v různých intervalech zůstávají oddělené. Historie na "
+"jednotlivé fáze vždy uchovává surové rozdíly z Shelly čítačů pro "
+"diagnostiku. Kratší vzorkovací intervaly sledují rychlé změny směru a "
+"zároveň vytvářejí více historických záznamů."
+
+#: plugins/energy_meter/templates/energy_meter_help.html:18
 msgid "History and counter replacement"
 msgstr "Historie a výměna počítadla"
 
-#: plugins/energy_meter/templates/energy_meter_help.html:18
+#: plugins/energy_meter/templates/energy_meter_help.html:19
 msgid ""
 "Current Shelly cumulative counters and the previous sample are persisted "
 "atomically. OSPy therefore continues after restart without losing the "
@@ -23647,19 +23707,21 @@ msgstr ""
 "základní hodnotu bez přidání falešné energetické špičky. Před výměnou nebo "
 "resetováním měřiče použijte režim reset počítadel."
 
-#: plugins/energy_meter/templates/energy_meter_help.html:19
+#: plugins/energy_meter/templates/energy_meter_help.html:20
 msgid ""
-"Each completed sampling interval stores import and export energy plus power "
-"for L1, L2, L3 and the total. The default interval is 60 seconds. Local "
+"Each completed sampling interval stores raw import and export energy plus "
+"power for L1, L2 and L3, the configured accounting mode and the accounted "
+"totals. The default interval is 60 seconds. Changing the accounting mode "
+"affects only new intervals and does not reinterpret retained history. Local "
 "history is appended to a journal so the complete history file is not "
 "rewritten every minute."
 msgstr ""
-"Každý dokončený vzorkovací interval ukládá spotřebu a výrobu energii plus "
+"Každý dokončený vzorkovací interval ukládá spotřebu a výrobu energií plus "
 "energii pro L1, L2, L3 a celkový výkon. Výchozí interval je 60 sekund. "
 "Místní historie je připojena k záznamu, aby se celý soubor historie "
 "nepřepisoval každou minutu."
 
-#: plugins/energy_meter/templates/energy_meter_help.html:20
+#: plugins/energy_meter/templates/energy_meter_help.html:21
 msgid ""
 "Overview totals and selected-day results are calculated from the retained "
 "interval history. Delete history therefore clears these overview values as "
@@ -23675,11 +23737,11 @@ msgstr ""
 "falešného energetického výkyvu. Vymazané historické součty nelze "
 "rekonstruovat z dochovaných základů."
 
-#: plugins/energy_meter/templates/energy_meter_help.html:21
+#: plugins/energy_meter/templates/energy_meter_help.html:22
 msgid "Calendar periods"
 msgstr "Kalendářní období"
 
-#: plugins/energy_meter/templates/energy_meter_help.html:22
+#: plugins/energy_meter/templates/energy_meter_help.html:23
 msgid ""
 "Use the calendar-day selector on the overview to inspect any retained past "
 "day. Today, yesterday and every selected day follow the local date and time "
@@ -23694,11 +23756,11 @@ msgstr ""
 "00:00. Fyzické Shelly kumulativní čítače se o půlnoci neresetují; Balíček "
 "rozděluje a sečte zaznamenané intervaly na hranicích kalendáře."
 
-#: plugins/energy_meter/templates/energy_meter_help.html:23
+#: plugins/energy_meter/templates/energy_meter_help.html:24
 msgid "Prices, storage and mobile data"
 msgstr "Ceny, úložiště a mobilní data"
 
-#: plugins/energy_meter/templates/energy_meter_help.html:24
+#: plugins/energy_meter/templates/energy_meter_help.html:25
 msgid ""
 "Applied import and feed-in prices, currency, cost and income are stored "
 "permanently with each interval in local and SQL history and CSV export. "
@@ -23723,7 +23785,7 @@ msgstr ""
 "zahrnují pouze záznamy v aktuálně nastavené měně, protože měny nejsou "
 "převedeny ani sečteny."
 
-#: plugins/energy_meter/templates/energy_meter_help.html:25
+#: plugins/energy_meter/templates/energy_meter_help.html:26
 msgid ""
 "History can be kept in local JSON, SQL through Database Connector, or both. "
 "The OSPy mobile API receives live meter power, period totals and bounded "
@@ -23760,22 +23822,27 @@ msgstr "Smazat historii"
 msgid "Meter"
 msgstr "Elektroměr"
 
+#: plugins/energy_meter/templates/energy_meter_log.html:23
 #: plugins/energy_meter/templates/energy_meter_log.html:24
+msgid "accounted total"
+msgstr "účtovací součet"
+
+#: plugins/energy_meter/templates/energy_meter_log.html:25
 #: plugins/shelly_cloud_integrator/__init__.py:1676
 msgid "Power"
 msgstr "Výkon"
 
-#: plugins/energy_meter/templates/energy_meter_log.html:25
+#: plugins/energy_meter/templates/energy_meter_log.html:26
 msgid "Tariff"
 msgstr "Sazba"
 
-#: plugins/energy_meter/templates/energy_meter_log.html:26
-#: plugins/energy_meter/templates/energy_meter_settings.html:114
+#: plugins/energy_meter/templates/energy_meter_log.html:27
+#: plugins/energy_meter/templates/energy_meter_settings.html:116
 msgid "Import price"
 msgstr "Nákupní cena"
 
-#: plugins/energy_meter/templates/energy_meter_log.html:27
-#: plugins/energy_meter/templates/energy_meter_settings.html:115
+#: plugins/energy_meter/templates/energy_meter_log.html:28
+#: plugins/energy_meter/templates/energy_meter_settings.html:117
 msgid "Feed-in price"
 msgstr "Prodejní cena"
 
@@ -23833,39 +23900,52 @@ msgstr ""
 "Integrator vyžaduje nainstalovaný, nakonfigurovaný a běžící balíček Shelly "
 "Cloud Integration."
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:77
+#: plugins/energy_meter/templates/energy_meter_settings.html:69
+msgid ""
+"Phase-by-phase accounting adds import and export on every phase "
+"independently. Net / vector sum accounting compensates phase import and "
+"export inside each sampling interval and uses only the remaining direction "
+"for totals and prices. Existing meters default to Phase-by-phase."
+msgstr ""
+"Účtování fáze po fázi přidává spotřebu a výrobu ke každé fázi nezávisle. "
+"Účtování vektorovým součtem kompenzuje spotřebu a výrobu fází v rámci "
+"každého vzorkovacího intervalu a pro součty a ceny používá pouze zbývající "
+"směr toku energie. Stávající měřiče automaticky přecházejí na režim fáze po "
+"fázi jako výchozí režim."
+
+#: plugins/energy_meter/templates/energy_meter_settings.html:79
 msgid "Host or device"
 msgstr "Host nebo zařízení"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:78
+#: plugins/energy_meter/templates/energy_meter_settings.html:80
 msgid "Authentication"
 msgstr "Autentizace"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:79
+#: plugins/energy_meter/templates/energy_meter_settings.html:81
 msgid "Invert direction"
 msgstr "Otočení směru"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:86
+#: plugins/energy_meter/templates/energy_meter_settings.html:88
 msgid "Add electricity meter"
 msgstr "Přidat elektroměr"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:89
+#: plugins/energy_meter/templates/energy_meter_settings.html:91
 msgid "Prices and tariffs"
 msgstr "Ceny a sazby"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:92
+#: plugins/energy_meter/templates/energy_meter_settings.html:94
 msgid "Currency"
 msgstr "Měna"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:96
+#: plugins/energy_meter/templates/energy_meter_settings.html:98
 msgid "Default import price per kWh"
 msgstr "Výchozí cena za kWh od dodavatele"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:100
+#: plugins/energy_meter/templates/energy_meter_settings.html:102
 msgid "Default feed-in price per kWh"
 msgstr "Výchozí cena za kWh vrácená do sítě"
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:104
+#: plugins/energy_meter/templates/energy_meter_settings.html:106
 msgid ""
 "The first enabled tariff matching the selected day and time is used. Click "
 "the day buttons to include or exclude Monday through Sunday. Equal From and "
@@ -23885,7 +23965,7 @@ msgstr ""
 "zahrnují pouze záznamy v aktuálně zvolené měně, protože balíček neprovádí "
 "převod měn."
 
-#: plugins/energy_meter/templates/energy_meter_settings.html:122
+#: plugins/energy_meter/templates/energy_meter_settings.html:124
 msgid "Add tariff"
 msgstr "Přidat sazbu"
 
@@ -25999,7 +26079,7 @@ msgstr "Restartování systému"
 
 #: plugins/lcd_display/__init__.py:1122 plugins/lcd_display/__init__.py:1124
 #: plugins/lcd_display/__init__.py:1176 plugins/lcd_display/__init__.py:1178
-#: plugins/system_update/__init__.py:703
+#: plugins/system_update/__init__.py:731
 msgid "System OSPy"
 msgstr "Systém OSPy"
 
@@ -29040,7 +29120,7 @@ msgstr "Rozšíření FVE bojler"
 #: plugins/relay_16/__init__.py:220 plugins/remote_ftp_control/__init__.py:186
 #: plugins/remote_notifications/__init__.py:280
 #: plugins/shelly_cloud_integrator/__init__.py:1580
-#: plugins/speed_monitor/__init__.py:182
+#: plugins/sms_adj/__init__.py:167 plugins/speed_monitor/__init__.py:182
 #: plugins/sunrise_and_sunset/__init__.py:689
 #: plugins/system_watchdog/__init__.py:139 plugins/tank_monitor/__init__.py:411
 #: plugins/telegram_bot/__init__.py:509
@@ -30320,6 +30400,7 @@ msgid "Example Number Entry Fields"
 msgstr "Příklad polí pro zadávání čísel"
 
 #: plugins/proto/templates/proto.html:115
+#: plugins/sms_adj/templates/sms_adj.html:90
 msgid "Number 1"
 msgstr "Číslo 1"
 
@@ -30329,6 +30410,7 @@ msgid "Here is help for these options)"
 msgstr "Zde je nápověda pro tyto možnosti"
 
 #: plugins/proto/templates/proto.html:126
+#: plugins/sms_adj/templates/sms_adj.html:96
 msgid "Number 2"
 msgstr "Číslo 2"
 
@@ -33651,6 +33733,284 @@ msgstr ""
 msgid "Example signals"
 msgstr "Příklady signálů"
 
+#: plugins/sms_adj/__init__.py:26
+msgid "Package: SMS Modem"
+msgstr "Balíček: SMS modem"
+
+#: plugins/sms_adj/__init__.py:112
+msgid "SMS Modem plug-in is enabled"
+msgstr "Rozšíření SMS modem je povoleno"
+
+#: plugins/sms_adj/__init__.py:117
+msgid "Gammu is not installed."
+msgstr "Gammu není nainstalován."
+
+#: plugins/sms_adj/__init__.py:118
+msgid ""
+"Install required packages from the system package manager and restart this "
+"plug-in."
+msgstr ""
+"Nainstalujte potřebné balíčky ze správce systémových balíčků a restartujte "
+"tento balíček."
+
+#: plugins/sms_adj/__init__.py:123
+msgid "Saving Gammu config to /root/.gammurc..."
+msgstr "Ukládání Gammu config do /root/.gammurc..."
+
+#: plugins/sms_adj/__init__.py:133
+msgid "Could not save Gammu config."
+msgstr "Nepodařilo se uložit konfiguraci Gammu."
+
+#: plugins/sms_adj/__init__.py:139
+msgid "SMS Modem plug-in is disabled"
+msgstr "Rozšíření SMS modem je zakázáno"
+
+#: plugins/sms_adj/__init__.py:146
+msgid "SMS Modem plug-in"
+msgstr "Rozšíření SMS"
+
+#: plugins/sms_adj/__init__.py:183
+msgid "SMS modem enabled"
+msgstr "SMS modem povolen"
+
+#: plugins/sms_adj/__init__.py:184
+msgid "Configured administrators"
+msgstr "Konfigurovaní administrátoři"
+
+#: plugins/sms_adj/__init__.py:185
+msgid "Gammu executable available"
+msgstr "Gammu spustitelný soubor je k dispozici"
+
+#: plugins/sms_adj/__init__.py:186
+msgid "Modem connected"
+msgstr "Připojený modem"
+
+#: plugins/sms_adj/__init__.py:187
+msgid "Signal strength"
+msgstr "Síla signálu"
+
+#: plugins/sms_adj/__init__.py:191
+msgid "Last modem check"
+msgstr "Poslední kontrola modemu"
+
+#: plugins/sms_adj/__init__.py:202
+msgid "SMS Modem worker is not running."
+msgstr "Smyčka SMS modemu neběží."
+
+#: plugins/sms_adj/__init__.py:208
+msgid "SMS modem control is disabled."
+msgstr "Ovládání SMS modemu je vypnuté."
+
+#: plugins/sms_adj/__init__.py:220
+msgid "SMS modem is not connected."
+msgstr "SMS modem není připojený."
+
+#: plugins/sms_adj/__init__.py:225
+msgid "SMS Modem is responding."
+msgstr "SMS modem reaguje."
+
+#: plugins/sms_adj/__init__.py:234
+msgid "Error: No module named gammu"
+msgstr "Chyba: Žádný modul s názvem gammu"
+
+#: plugins/sms_adj/__init__.py:237
+msgid "Python Gammu module is not available."
+msgstr "Modul Python Gammu není dostupný."
+
+#: plugins/sms_adj/__init__.py:257
+msgid "Checking SMS..."
+msgstr "Kontrola SMS..."
+
+#: plugins/sms_adj/__init__.py:259
+msgid "Error: Phone (modem) not connected."
+msgstr "Chyba: Telefon (modem) není připojen."
+
+#: plugins/sms_adj/__init__.py:262
+msgid "Phone modem is not connected."
+msgstr "Modem telefonu není připojený."
+
+#: plugins/sms_adj/__init__.py:298
+msgid "SMS from admin"
+msgstr "SMS od správce"
+
+#: plugins/sms_adj/__init__.py:304 plugins/sms_adj/__init__.py:354
+#: plugins/sms_adj/__init__.py:371 plugins/sms_adj/__init__.py:385
+#: plugins/sms_adj/__init__.py:399 plugins/sms_adj/__init__.py:413
+#: plugins/sms_adj/__init__.py:433 plugins/sms_adj/__init__.py:461
+#: plugins/sms_adj/__init__.py:476
+msgid "is processed"
+msgstr "je zpracován"
+
+#: plugins/sms_adj/__init__.py:349 plugins/sms_adj/__init__.py:366
+#: plugins/sms_adj/__init__.py:380 plugins/sms_adj/__init__.py:393
+#: plugins/sms_adj/__init__.py:407 plugins/sms_adj/__init__.py:421
+#: plugins/sms_adj/__init__.py:441 plugins/sms_adj/__init__.py:469
+#: plugins/sms_adj/__init__.py:498
+msgid "was processed and confirmation was sent as SMS to"
+msgstr "je zpracován a potvrzení bylo odesláno jako SMS"
+
+#: plugins/sms_adj/__init__.py:351 plugins/sms_adj/__init__.py:368
+#: plugins/sms_adj/__init__.py:382 plugins/sms_adj/__init__.py:471
+#: plugins/sms_adj/__init__.py:501
+msgid "Received SMS was deleted"
+msgstr "Přijatá SMS byla odstraněna"
+
+#: plugins/sms_adj/__init__.py:395
+msgid "Received SMS was deleted and system is now reboot"
+msgstr "Přijatá SMS byla odstraněna a systém je nyní restartován"
+
+#: plugins/sms_adj/__init__.py:409
+msgid "Received SMS was deleted and system is now poweroff"
+msgstr "Přijatá SMS byla odstraněna a systém je nyní vypínán"
+
+#: plugins/sms_adj/__init__.py:426
+msgid "Received SMS was deleted, update was performed and program will restart"
+msgstr ""
+"Přijatá SMS byla odstraněna, aktualizace byla provedena a program OSPy se "
+"restartuje"
+
+#: plugins/sms_adj/__init__.py:428
+msgid "Received SMS was deleted, but could not perform update"
+msgstr ""
+"Přijatá SMS byla odstraněna, ale nemohl jsem provést aktualizaci systému OSPy"
+
+#: plugins/sms_adj/__init__.py:446
+msgid "SMS plug-in send image file from webcam."
+msgstr "Rozšíření SMS odeslalo obrazový soubor z webové kamery."
+
+#: plugins/sms_adj/__init__.py:451
+msgid ""
+"Received SMS was deleted, but could not send email with photo from webcam"
+msgstr ""
+"Přijatá SMS byla smazána, ale nemohla odeslat E-mail s fotografií z webové "
+"kamery"
+
+#: plugins/sms_adj/__init__.py:483
+msgid "now run"
+msgstr "nyní spuštěno"
+
+#: plugins/sms_adj/__init__.py:505
+msgid "Received command"
+msgstr "Přijatý příkaz"
+
+#: plugins/sms_adj/__init__.py:505
+msgid "is not defined!"
+msgstr "není definována!"
+
+#: plugins/sms_adj/__init__.py:509
+msgid "Received SMS was deleted - SMS was read"
+msgstr "Přijatá SMS byla odstraněna - SMS byla přečtena"
+
+#: plugins/sms_adj/__init__.py:512
+msgid "Received SMS was deleted - SMS was not from admin"
+msgstr "Přijatá SMS byla odstraněna - SMS nebyla od správce"
+
+#: plugins/sms_adj/__init__.py:521
+#: plugins/water_consumption_counter/__init__.py:368
+msgid "Email was sent"
+msgstr "E-mail byl odeslán"
+
+#: plugins/sms_adj/__init__.py:523
+#: plugins/water_consumption_counter/__init__.py:373
+#: plugins/water_consumption_counter/__init__.py:377
+#: plugins/water_consumption_counter/__init__.py:379
+#: plugins/water_consumption_counter/__init__.py:418
+#: plugins/water_consumption_counter/__init__.py:456
+msgid "Email was not sent"
+msgstr "E-mail nebyl odeslán"
+
+#: plugins/sms_adj/templates/sms_adj.html:3
+msgid "SMS settings"
+msgstr "Rozšíření SMS nastavení"
+
+#: plugins/sms_adj/templates/sms_adj.html:66
+msgid "SMS Settings"
+msgstr "Rozšíření SMS nastavení"
+
+#: plugins/sms_adj/templates/sms_adj.html:72
+msgid "Use SMS modem"
+msgstr "Použit SMS modem"
+
+#: plugins/sms_adj/templates/sms_adj.html:81
+msgid "Signal strength in the status window"
+msgstr "Síla signálu ve stavovém okně"
+
+#: plugins/sms_adj/templates/sms_adj.html:102
+msgid "Command for info"
+msgstr "Příkaz pro informace"
+
+#: plugins/sms_adj/templates/sms_adj.html:108
+msgid "Command for stop irrigation"
+msgstr "Příkaz pro zastavení zavlažování"
+
+#: plugins/sms_adj/templates/sms_adj.html:114
+msgid "Command for start irrigation"
+msgstr "Příkaz pro zahájení zavlažování"
+
+#: plugins/sms_adj/templates/sms_adj.html:120
+msgid "Command for reboot system"
+msgstr "Příkaz pro restart systému"
+
+#: plugins/sms_adj/templates/sms_adj.html:126
+msgid "Command for poweroff system"
+msgstr "Příkaz pro vypnutí systému"
+
+#: plugins/sms_adj/templates/sms_adj.html:132
+msgid "Command for update OSPi from GITHUB"
+msgstr "Příkaz pro aktualizaci OSPy z GITHUBu"
+
+#: plugins/sms_adj/templates/sms_adj.html:138
+msgid "Command for send foto from webcam"
+msgstr "Příkaz pro odeslání fotografie z webové kamery"
+
+#: plugins/sms_adj/templates/sms_adj.html:140
+msgid "For this function required email and webcam plugin"
+msgstr ""
+"Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
+
+#: plugins/sms_adj/templates/sms_adj.html:144
+msgid "Command for help"
+msgstr "Příkaz pro nápovědu"
+
+#: plugins/sms_adj/templates/sms_adj.html:146
+msgid "Send SMS with all available commands"
+msgstr "Odeslat SMS se všemi dostupnými příkazy"
+
+#: plugins/sms_adj/templates/sms_adj.html:150
+msgid "Command for run now program"
+msgstr "Příkaz pro spuštění jednorázového programu"
+
+#: plugins/sms_adj/templates/sms_adj.html:152
+msgid "Example: runxx = run now program xx if exists"
+msgstr "Příklad: runxx = spustit nyní program xx, pokud existuje"
+
+#: plugins/sms_adj/templates/sms_adj_help.html:3
+msgid "SMS settings - help"
+msgstr "SMS nastavení - nápověda"
+
+#: plugins/sms_adj/templates/sms_adj_help.html:7
+msgid "SMS Settings - help"
+msgstr "SMS nastavení - nápověda"
+
+#: plugins/sms_adj/templates/sms_adj_help.html:8
+msgid ""
+"For this plugin is needed to SMS modem with the telephone service provider"
+msgstr ""
+"Pro toto rozšíření je potřeba SMS modem s poskytovatelem telefonních služeb"
+
+#: plugins/sms_adj/templates/sms_adj_help.html:9
+msgid ""
+"This plugin needs Gammu. If not installed Gammu and Python-Gammu, plugin "
+"installs Gammu and Python-Gammu in to the system himself"
+msgstr ""
+"Toto rozšíření potřebuje Gammu. Pokud není nainstalováno Gammu a Python-"
+"Gammu, rozšíření ho nainstaluje samo (Gammu a Python-Gammu) do systému"
+
+#: plugins/sms_adj/templates/sms_adj_help.html:10
+#: plugins/webcam/templates/webcam_help.html:10
+msgid "On first use please wait for status"
+msgstr "Při prvním použití počkejte na stav"
+
 #: plugins/speed_monitor/__init__.py:27
 msgid "Package: Internet Speed Monitor"
 msgstr "Balíček: Rychlost Internetového připojení"
@@ -34745,7 +35105,7 @@ msgstr "Není k dispozici!"
 #: plugins/system_update/__init__.py:206 plugins/system_update/__init__.py:301
 #: plugins/system_update/__init__.py:306 plugins/system_update/__init__.py:323
 #: plugins/system_update/__init__.py:376 plugins/system_update/__init__.py:397
-#: plugins/system_update/__init__.py:869
+#: plugins/system_update/__init__.py:897
 msgid "System update plug-in"
 msgstr "Rozšíření aktualizce"
 
@@ -34766,9 +35126,9 @@ msgid "New version is available!"
 msgstr "Je k dispozici nová verze!"
 
 #: plugins/system_update/__init__.py:296 plugins/system_update/__init__.py:303
-#: plugins/system_update/__init__.py:308 plugins/system_update/__init__.py:698
-#: plugins/system_update/__init__.py:705 plugins/system_update/__init__.py:1051
-#: plugins/system_update/__init__.py:1114
+#: plugins/system_update/__init__.py:308 plugins/system_update/__init__.py:726
+#: plugins/system_update/__init__.py:733 plugins/system_update/__init__.py:1079
+#: plugins/system_update/__init__.py:1142
 #: plugins/system_update/templates/system_update.html:161
 #: plugins/system_update/templates/system_update_help.html:22
 msgid "Update channel"
@@ -34789,157 +35149,157 @@ msgstr "Dostupná verze"
 msgid "New OSPy version is available!"
 msgstr "Je dostupná nová verze OSPy!"
 
-#: plugins/system_update/__init__.py:340 plugins/system_update/__init__.py:1098
-#: plugins/system_update/__init__.py:1125
+#: plugins/system_update/__init__.py:340 plugins/system_update/__init__.py:1126
+#: plugins/system_update/__init__.py:1153
 msgid "System Update"
 msgstr "Aktualizace systému"
 
-#: plugins/system_update/__init__.py:434
+#: plugins/system_update/__init__.py:462
 msgid "The update watchdog received an invalid commit identifier."
 msgstr "Aktualizační watchdog obdržel identifikátor neplatného commitu."
 
-#: plugins/system_update/__init__.py:516 plugins/system_update/__init__.py:525
-#: plugins/system_update/__init__.py:528
+#: plugins/system_update/__init__.py:544 plugins/system_update/__init__.py:553
+#: plugins/system_update/__init__.py:556
 msgid "The external update watchdog could not be started."
 msgstr "Externí aktualizační watchdog nebyl spuštěn."
 
-#: plugins/system_update/__init__.py:550
+#: plugins/system_update/__init__.py:578
 msgid "External update watchdog armed."
 msgstr "Externí aktualizace watchdog aktivován."
 
-#: plugins/system_update/__init__.py:600
+#: plugins/system_update/__init__.py:628
 msgid "Updated OSPy start confirmed; automatic rollback cancelled."
 msgstr ""
 "Aktualizováno potvrzení spuštění OSPy; automatické vrácení verze zpět je "
 "zrušeno."
 
-#: plugins/system_update/__init__.py:621
+#: plugins/system_update/__init__.py:649
 msgid "Update watchdog confirmation error:\n"
 msgstr "Chyba potvrzení aktualizace watchdogem:\n"
 
-#: plugins/system_update/__init__.py:661
+#: plugins/system_update/__init__.py:689
 msgid "The safety backup could not be verified."
 msgstr "Bezpečnostní záloha nebyla ověřena."
 
-#: plugins/system_update/__init__.py:684
+#: plugins/system_update/__init__.py:712
 msgid "Safety backup created before update"
 msgstr "Bezpečnostní záloha vytvořena před aktualizací"
 
-#: plugins/system_update/__init__.py:697
+#: plugins/system_update/__init__.py:725
 msgid "OSPy updated successfully. Please wait while restarting..."
 msgstr "OSPy se úspěšně aktualizoval. Počkejte prosím na restartování..."
 
-#: plugins/system_update/__init__.py:704
+#: plugins/system_update/__init__.py:732
 msgid "Updated to version"
 msgstr "Aktualizováno na verzi"
 
-#: plugins/system_update/__init__.py:729
+#: plugins/system_update/__init__.py:757
 msgid "Immediate update recovery failed:\n"
 msgstr "Okamžité obnovení aktualizace selhalo:\n"
 
-#: plugins/system_update/__init__.py:731
+#: plugins/system_update/__init__.py:759
 msgid "Update error:\n"
 msgstr "Chyba aktualizace:\n"
 
-#: plugins/system_update/__init__.py:732
+#: plugins/system_update/__init__.py:760
 msgid "Update failed!"
 msgstr "Aktualizace se nezdařila!"
 
-#: plugins/system_update/__init__.py:740 plugins/system_update/__init__.py:894
+#: plugins/system_update/__init__.py:768 plugins/system_update/__init__.py:922
 msgid "No commit hash provided for rollback."
 msgstr "Pro vrácení zpět není k dispozici žádný hash potvrzení."
 
-#: plugins/system_update/__init__.py:747
+#: plugins/system_update/__init__.py:775
 msgid "Safety backup created before rollback"
 msgstr "Bezpečnostní záloha vytvořená před obnovením"
 
-#: plugins/system_update/__init__.py:760
+#: plugins/system_update/__init__.py:788
 msgid "Rolled back to commit: "
 msgstr "Vráceno zpět k potvrzení: "
 
-#: plugins/system_update/__init__.py:773
+#: plugins/system_update/__init__.py:801
 msgid "Immediate rollback recovery failed:\n"
 msgstr "Okamžité obnovení zpětného návratu selhalo:\n"
 
-#: plugins/system_update/__init__.py:775
+#: plugins/system_update/__init__.py:803
 msgid "Rollback error:\n"
 msgstr "Chyba při downgradu firmware OSPy:\n"
 
-#: plugins/system_update/__init__.py:813
+#: plugins/system_update/__init__.py:841
 msgid "Get all values error:\n"
 msgstr "Chyba získání všech hodnot:\n"
 
-#: plugins/system_update/__init__.py:895
+#: plugins/system_update/__init__.py:923
 msgid "No commit selected for rollback."
 msgstr "Pro vrácení zpět nebylo vybráno žádné potvrzení."
 
-#: plugins/system_update/__init__.py:899
+#: plugins/system_update/__init__.py:927
 msgid "OSPy rollback to selected version completed. Please wait..."
 msgstr "Návrat OSPy na vybranou verzi FW byl dokončen. Počkejte prosím..."
 
-#: plugins/system_update/__init__.py:910 plugins/system_update/__init__.py:941
+#: plugins/system_update/__init__.py:938 plugins/system_update/__init__.py:969
 msgid "Rollback thread error:\n"
 msgstr "Chyba vrácení vlákna:\n"
 
-#: plugins/system_update/__init__.py:928 plugins/system_update/__init__.py:929
+#: plugins/system_update/__init__.py:956 plugins/system_update/__init__.py:957
 msgid "No verified stable release is available."
 msgstr "Není k dispozici žádné ověřené stabilní vydání."
 
-#: plugins/system_update/__init__.py:931
+#: plugins/system_update/__init__.py:959
 msgid "OSPy rollback to the last stable release has started. Please wait..."
 msgstr "OSPy se vrátí zpět na poslední stabilní verzi. Prosím, počkejte..."
 
-#: plugins/system_update/__init__.py:955
+#: plugins/system_update/__init__.py:983
 msgid "OSPy is now restarted. Please wait..."
 msgstr "OSPy se nyní restartuje. Počkejte prosím..."
 
-#: plugins/system_update/__init__.py:976
+#: plugins/system_update/__init__.py:1004
 msgid "OSPy is now restarted (invoked by the user). Please wait..."
 msgstr "OSPy je nyní restartováno (vyvoláno uživatelem). Počkejte prosím..."
 
-#: plugins/system_update/__init__.py:1057
-#: plugins/system_update/__init__.py:1115
+#: plugins/system_update/__init__.py:1085
+#: plugins/system_update/__init__.py:1143
 msgid "Update watchdog"
 msgstr "Aktualizace watchdogu"
 
-#: plugins/system_update/__init__.py:1059
+#: plugins/system_update/__init__.py:1087
 msgid "Waiting for healthy start"
 msgstr "Čekání na správné spuštění"
 
-#: plugins/system_update/__init__.py:1062
-#: plugins/system_update/__init__.py:1116
+#: plugins/system_update/__init__.py:1090
+#: plugins/system_update/__init__.py:1144
 msgid "Last watchdog result"
 msgstr "Výsledek posledního běhu watchdogu"
 
-#: plugins/system_update/__init__.py:1068
+#: plugins/system_update/__init__.py:1096
 msgid "Automatic rollback after a failed update did not complete."
 msgstr "Automatické vrácení po neúspěšné aktualizaci nebylo dokončeno."
 
-#: plugins/system_update/__init__.py:1073
+#: plugins/system_update/__init__.py:1101
 msgid "The update watchdog is waiting for a healthy OSPy start."
 msgstr "Aktualizační watchdog čeká na správné spuštění OSPy."
 
-#: plugins/system_update/__init__.py:1076
+#: plugins/system_update/__init__.py:1104
 msgid "System Update worker is not running."
 msgstr "Smyčka System Update neběží."
 
-#: plugins/system_update/__init__.py:1079
+#: plugins/system_update/__init__.py:1107
 msgid "System Update checks are disabled."
 msgstr "Kontroly systémových aktualizací jsou deaktivovány."
 
-#: plugins/system_update/__init__.py:1082
+#: plugins/system_update/__init__.py:1110
 msgid "System Update could not check the repository."
 msgstr "System Update nemohl zkontrolovat repozitář."
 
-#: plugins/system_update/__init__.py:1085
+#: plugins/system_update/__init__.py:1113
 msgid "System Update is checking the repository."
 msgstr "System Update kontroluje repozitář."
 
-#: plugins/system_update/__init__.py:1088
+#: plugins/system_update/__init__.py:1116
 msgid "A different OSPy revision is available in the selected update channel."
 msgstr "Jiná verze OSPy je dostupná ve vybraném kanálu aktualizací."
 
-#: plugins/system_update/__init__.py:1091
+#: plugins/system_update/__init__.py:1119
 msgid "OSPy is up to date."
 msgstr "OSPy je aktuální."
 
@@ -38621,18 +38981,6 @@ msgstr "Rozšíření spotřeba vody"
 msgid "Email logging is disabled in options..."
 msgstr "V možnostech je zakázáno protokolování E-mailů..."
 
-#: plugins/water_consumption_counter/__init__.py:368
-msgid "Email was sent"
-msgstr "E-mail byl odeslán"
-
-#: plugins/water_consumption_counter/__init__.py:373
-#: plugins/water_consumption_counter/__init__.py:377
-#: plugins/water_consumption_counter/__init__.py:379
-#: plugins/water_consumption_counter/__init__.py:418
-#: plugins/water_consumption_counter/__init__.py:456
-msgid "Email was not sent"
-msgstr "E-mail nebyl odeslán"
-
 #: plugins/water_consumption_counter/__init__.py:385
 msgid "Master station 1 running, please wait..."
 msgstr "Hlavní stanice 1 běží, počkejte prosím..."
@@ -40785,10 +41133,6 @@ msgstr ""
 "Pokud fswebcam není nainstalováno, nainstalujte ho ze správce systémových "
 "balíčků"
 
-#: plugins/webcam/templates/webcam_help.html:10
-msgid "On first use please wait for status"
-msgstr "Při prvním použití počkejte na stav"
-
 #: plugins/wind_monitor/__init__.py:80
 msgid "Report from OSPy WIND SPEED MONITOR plugin"
 msgstr "Zpráva z rozšíření OSPy WIND SPEED MONITOR"
@@ -41823,197 +42167,6 @@ msgstr "Chyba při čištění: {}"
 
 #~ msgid "Test Close"
 #~ msgstr "Test zavřít"
-
-#~ msgid "Package: SMS Modem"
-#~ msgstr "Balíček: SMS modem"
-
-#~ msgid "SMS Modem plug-in is enabled"
-#~ msgstr "Rozšíření SMS modem je povoleno"
-
-#~ msgid "Gammu is not installed."
-#~ msgstr "Gammu není nainstalován."
-
-#~ msgid ""
-#~ "Install required packages from the system package manager and restart "
-#~ "this plug-in."
-#~ msgstr ""
-#~ "Nainstalujte potřebné balíčky ze správce systémových balíčků a "
-#~ "restartujte tento balíček."
-
-#~ msgid "Saving Gammu config to /root/.gammurc..."
-#~ msgstr "Ukládání Gammu config do /root/.gammurc..."
-
-#~ msgid "Could not save Gammu config."
-#~ msgstr "Nepodařilo se uložit konfiguraci Gammu."
-
-#~ msgid "SMS Modem plug-in is disabled"
-#~ msgstr "Rozšíření SMS modem je zakázáno"
-
-#~ msgid "SMS Modem plug-in"
-#~ msgstr "Rozšíření SMS"
-
-#~ msgid "Configured administrators"
-#~ msgstr "Konfigurovaní administrátoři"
-
-#~ msgid "Gammu executable available"
-#~ msgstr "Gammu spustitelný soubor je k dispozici"
-
-#~ msgid "Modem connected"
-#~ msgstr "Připojený modem"
-
-#~ msgid "Signal strength"
-#~ msgstr "Síla signálu"
-
-#~ msgid "Last modem check"
-#~ msgstr "Poslední kontrola modemu"
-
-#~ msgid "SMS Modem worker is not running."
-#~ msgstr "Smyčka SMS modemu neběží."
-
-#~ msgid "SMS modem control is disabled."
-#~ msgstr "Ovládání SMS modemu je vypnuté."
-
-#~ msgid "SMS modem is not connected."
-#~ msgstr "SMS modem není připojený."
-
-#~ msgid "SMS Modem is responding."
-#~ msgstr "SMS modem reaguje."
-
-#~ msgid "Error: No module named gammu"
-#~ msgstr "Chyba: Žádný modul s názvem gammu"
-
-#~ msgid "Python Gammu module is not available."
-#~ msgstr "Modul Python Gammu není dostupný."
-
-#~ msgid "Checking SMS..."
-#~ msgstr "Kontrola SMS..."
-
-#~ msgid "Error: Phone (modem) not connected."
-#~ msgstr "Chyba: Telefon (modem) není připojen."
-
-#~ msgid "Phone modem is not connected."
-#~ msgstr "Modem telefonu není připojený."
-
-#~ msgid "SMS from admin"
-#~ msgstr "SMS od správce"
-
-#~ msgid "is processed"
-#~ msgstr "je zpracován"
-
-#~ msgid "was processed and confirmation was sent as SMS to"
-#~ msgstr "je zpracován a potvrzení bylo odesláno jako SMS"
-
-#~ msgid "Received SMS was deleted"
-#~ msgstr "Přijatá SMS byla odstraněna"
-
-#~ msgid "Received SMS was deleted and system is now reboot"
-#~ msgstr "Přijatá SMS byla odstraněna a systém je nyní restartován"
-
-#~ msgid "Received SMS was deleted and system is now poweroff"
-#~ msgstr "Přijatá SMS byla odstraněna a systém je nyní vypínán"
-
-#~ msgid ""
-#~ "Received SMS was deleted, update was performed and program will restart"
-#~ msgstr ""
-#~ "Přijatá SMS byla odstraněna, aktualizace byla provedena a program OSPy se "
-#~ "restartuje"
-
-#~ msgid "Received SMS was deleted, but could not perform update"
-#~ msgstr ""
-#~ "Přijatá SMS byla odstraněna, ale nemohl jsem provést aktualizaci systému "
-#~ "OSPy"
-
-#~ msgid "SMS plug-in send image file from webcam."
-#~ msgstr "Rozšíření SMS odeslalo obrazový soubor z webové kamery."
-
-#~ msgid ""
-#~ "Received SMS was deleted, but could not send email with photo from webcam"
-#~ msgstr ""
-#~ "Přijatá SMS byla smazána, ale nemohla odeslat E-mail s fotografií z "
-#~ "webové kamery"
-
-#~ msgid "now run"
-#~ msgstr "nyní spuštěno"
-
-#~ msgid "Received command"
-#~ msgstr "Přijatý příkaz"
-
-#~ msgid "is not defined!"
-#~ msgstr "není definována!"
-
-#~ msgid "Received SMS was deleted - SMS was read"
-#~ msgstr "Přijatá SMS byla odstraněna - SMS byla přečtena"
-
-#~ msgid "Received SMS was deleted - SMS was not from admin"
-#~ msgstr "Přijatá SMS byla odstraněna - SMS nebyla od správce"
-
-#~ msgid "SMS settings"
-#~ msgstr "Rozšíření SMS nastavení"
-
-#~ msgid "SMS Settings"
-#~ msgstr "Rozšíření SMS nastavení"
-
-#~ msgid "Use SMS modem"
-#~ msgstr "Použit SMS modem"
-
-#~ msgid "Signal strength in the status window"
-#~ msgstr "Síla signálu ve stavovém okně"
-
-#~ msgid "Command for info"
-#~ msgstr "Příkaz pro informace"
-
-#~ msgid "Command for stop irrigation"
-#~ msgstr "Příkaz pro zastavení zavlažování"
-
-#~ msgid "Command for start irrigation"
-#~ msgstr "Příkaz pro zahájení zavlažování"
-
-#~ msgid "Command for reboot system"
-#~ msgstr "Příkaz pro restart systému"
-
-#~ msgid "Command for poweroff system"
-#~ msgstr "Příkaz pro vypnutí systému"
-
-#~ msgid "Command for update OSPi from GITHUB"
-#~ msgstr "Příkaz pro aktualizaci OSPy z GITHUBu"
-
-#~ msgid "Command for send foto from webcam"
-#~ msgstr "Příkaz pro odeslání fotografie z webové kamery"
-
-#~ msgid "For this function required email and webcam plugin"
-#~ msgstr ""
-#~ "Toto rozšíření vyžaduje rozšíření E-mail notifications pro odesílání zpráv"
-
-#~ msgid "Command for help"
-#~ msgstr "Příkaz pro nápovědu"
-
-#~ msgid "Send SMS with all available commands"
-#~ msgstr "Odeslat SMS se všemi dostupnými příkazy"
-
-#~ msgid "Command for run now program"
-#~ msgstr "Příkaz pro spuštění jednorázového programu"
-
-#~ msgid "Example: runxx = run now program xx if exists"
-#~ msgstr "Příklad: runxx = spustit nyní program xx, pokud existuje"
-
-#~ msgid "SMS settings - help"
-#~ msgstr "SMS nastavení - nápověda"
-
-#~ msgid "SMS Settings - help"
-#~ msgstr "SMS nastavení - nápověda"
-
-#~ msgid ""
-#~ "For this plugin is needed to SMS modem with the telephone service provider"
-#~ msgstr ""
-#~ "Pro toto rozšíření je potřeba SMS modem s poskytovatelem telefonních "
-#~ "služeb"
-
-#~ msgid ""
-#~ "This plugin needs Gammu. If not installed Gammu and Python-Gammu, plugin "
-#~ "installs Gammu and Python-Gammu in to the system himself"
-#~ msgstr ""
-#~ "Toto rozšíření potřebuje Gammu. Pokud není nainstalováno Gammu a Python-"
-#~ "Gammu, rozšíření ho nainstaluje samo (Gammu a Python-Gammu) do systému"
 
 #~ msgid "Power line is not restore in time -> shutdown system!"
 #~ msgstr "Napájení nebylo obnoveno ve stanoveném čase -> vypnutí systému!"

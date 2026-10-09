@@ -1,7 +1,7 @@
 OSPy Clean installation
 ====
 
-The supported clean-installation path is Raspberry Pi OS or Debian 12 and Python 3.11 or newer. The installer always downloads the stable OSPy `master` branch. When OSPy starts for the first time, the login page displays a generated administrator password. Sign in and change it immediately in Options; the generated-password notice is not displayed again.
+The supported clean-installation path is Raspberry Pi OS or Debian 12 and Python 3.11 or newer. The installer always downloads the stable OSPy `master` branch. Unless passwordless LAN access is deliberately selected, the login page displays a generated administrator password until it is changed in Options.
 
 USING THE INSTALLATION SCRIPT
 ===========
@@ -20,7 +20,7 @@ Run it as root:
 sudo bash ospy_setup.sh
 ```
 
-The installer is interactive and uses `whiptail`. It first asks which optional operating-system components should be installed, then asks for the OSPy installation directory, and finally asks how OSPy should be reachable over the network.
+The installer is interactive and uses `whiptail`. It first asks which optional operating-system components should be installed, then asks for the OSPy installation directory, and finally asks how OSPy should be reachable over the network. When Local network only is selected, it also offers a deliberate passwordless mode for a trusted, isolated LAN.
 
 INSTALLER OPTIONS
 ===========
@@ -542,6 +542,10 @@ On the first login:
 2. sign in;
 3. change the administrator password immediately;
 4. make an OSPy backup after the initial configuration.
+
+### Passwordless trusted-LAN installation
+
+When the installer uses Local network only, it offers **No password**. Confirm it only when every device that can reach the Raspberry Pi is trusted: it grants administrator access without a login to all devices on that LAN. The installer records the same **Disable security** setting available under OSPy Options and does not show or require a generated password. Enable password protection in OSPy Options before connecting OSPy to a wider, shared, wireless, routed, or public network.
 
 IF I CANNOT LOG IN
 ===========

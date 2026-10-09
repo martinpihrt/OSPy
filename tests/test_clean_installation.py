@@ -102,6 +102,16 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertIn("Tailscale Serve", self.installer)
         self.assertIn("Tailscale Funnel", self.installer)
 
+    def test_lan_only_can_explicitly_disable_password_protection(self):
+        self.assertIn('install_without_password=false', self.installer)
+        self.assertIn('if [ "$remote_mode" = "lan" ]; then', self.installer)
+        self.assertIn('"Install OSPy without a login password?', self.installer)
+        self.assertIn('options.no_password = True', self.installer)
+        self.assertIn('options.first_installation = False', self.installer)
+        self.assertIn('OSPY_DATA_DIR="$ospy_dir/ospy/data"', self.installer)
+        self.assertIn('options.save_now()', self.installer)
+        self.assertIn('trusted, isolated LAN', self.installer)
+
     def test_remote_access_keeps_cloudflare_origin_on_loopback(self):
         self.assertIn("http://127.0.0.1:8080", self.installer)
         self.assertIn("https://127.0.0.1:8080", self.installer)

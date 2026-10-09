@@ -960,10 +960,10 @@ class _Options(object):
                 self.password_salt = password_salt()
                 self.password_hash = password_hash(self.first_password_hash, self.password_salt) # Set password hash for "admin"
                 self.admin_user = 'admin'                                                        # Set user name to "admin" 
-            else:
-                if self.password_hash != 'opendoor':                                             # Installation is old and has changed password (is not opendoor)
-                    if self.first_installation:
-                        self.first_installation = False
+            elif (loaded_values is not None and 'first_installation' not in loaded_values and self.password_hash != 'opendoor'):
+                # A pre-existing installation from before this marker is not awaiting its first login. Do not clear the marker merely because a fresh installation (or recovery reset) restarted:
+                # its generated password must remain visible until the administrator explicitly changes it.
+                self.first_installation = False
         except:
             helpres.print_report('options.py', traceback.format_exc())
 
