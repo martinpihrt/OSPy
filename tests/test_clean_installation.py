@@ -39,7 +39,10 @@ class CleanInstallationTests(unittest.TestCase):
     def test_installer_fails_safely_and_uses_stable_checkout(self):
         self.assertTrue(self.installer.startswith("#!/bin/bash\nset -Eeuo pipefail"))
         self.assertIn("trap 'echo \"OSPy installation failed", self.installer)
-        self.assertIn("git clone --branch master --single-branch", self.installer)
+        self.assertIn('"OSPy installation channel" --menu', self.installer)
+        self.assertIn('"master" "Stable release (recommended)"', self.installer)
+        self.assertIn('"beta"   "Beta testing release', self.installer)
+        self.assertIn('git clone --branch "$install_channel" --single-branch', self.installer)
         self.assertIn("An existing OSPy checkout was found and left unchanged.", self.installer)
         self.assertNotIn("reset --hard", self.installer)
         self.assertNotIn("rm -rf /", self.installer)
