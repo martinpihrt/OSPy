@@ -5089,6 +5089,64 @@ class options_page(ProtectedPage):
             if requested_storage_mode != previous_storage_mode:
                 if ('sqlite_primary' in (
                         requested_storage_mode, previous_storage_mode)):
+                    invalid_primary_fallback = (
+                        previous_storage_mode == 'sqlite_primary' and
+                        requested_storage_mode != 'sqlite_primary' and
+                        not options._sqlite_primary_marker_enabled()
+                    )
+                    if invalid_primary_fallback:
+                        try:
+                            # Startup already selected the verified shelve/DBM
+                            # fallback because the SQLite-primary marker is
+                            # invalid. Persist the requested non-primary mode
+                            # first so the existing marker no longer blocks a
+                            # normal system backup or a later update.
+                            options.apply_settings_storage_mode(
+                                requested_storage_mode
+                            )
+                            if not options.save_now():
+                                raise RuntimeError(
+                                    _('The new settings storage mode could not be saved.')
+                                )
+                        except Exception as error:
+                            try:
+                                options.apply_settings_storage_mode(
+                                    previous_storage_mode
+                                )
+                            except Exception:
+                                log.error('webpages.py', traceback.format_exc())
+                            return self.core_render.notice(
+                                '/options',
+                                _('The settings storage transition was rejected: {}').format(
+                                    error
+                                )
+                            )
+
+                        safety_backup = ''
+                        try:
+                            safety_backup = system_backup.create_system_backup(
+                                reason='after invalid SQLite-primary fallback'
+                            )
+                        except Exception:
+                            log.error('webpages.py', traceback.format_exc())
+
+                        logEV.save_events_log(
+                            _('Settings storage mode changed'),
+                            _('User {} changed settings storage mode from {} to {}. Safety backup: {}').format(
+                                session.get('visitor'),
+                                previous_storage_mode,
+                                requested_storage_mode,
+                                os.path.basename(safety_backup) if safety_backup else 'not available',
+                            ),
+                            level='warning',
+                            category='configuration'
+                        )
+                        report_restarted()
+                        restart(wait=3)
+                        return self.core_render.notice(
+                            '/',
+                            _('The settings storage mode was changed safely. OSPy is restarting.')
+                        )
                     try:
                         safety_backup = system_backup.create_system_backup(
                             reason='before settings storage transition'

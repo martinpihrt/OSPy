@@ -7,6 +7,8 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 ## October 9 2026
 -----------
 (Martin Pihrt)<br/>
+When a previous experimental SQLite-primary configuration has an invalid activation marker, Settings can now safely leave SQLite primary instead of becoming locked before the required backup. OSPy first persists the selected non-primary mode from its verified shelve/DBM fallback, removes the invalid marker, then creates a new safety backup when possible and restarts. An unsuccessful post-fallback backup is recorded without restoring the unsafe SQLite-primary state.<br/>
+(Martin Pihrt)<br/>
 A passwordless LAN installation can now be secured from Options by setting the first administrator password without entering a nonexistent previous password. Saving it disables passwordless access, revokes remembered logins and starts a new authenticated session. The installer now also offers a confirmation-protected OSPy uninstall operation that removes only a selected standard installation and its matching OSPy service while keeping shared dependencies and remote-access services.<br/>
 (Martin Pihrt)<br/>
 A password-free option has been added to the clean installation process: "When Local network only is selected, it also offers a deliberate passwordless mode for a trusted, isolated LAN." A password display bug has been fixed: upon completion, the installation dialog stated that the "generated password" should be changed but failed to actually display it. By default, OSPy now only displays the password on the /login page.
