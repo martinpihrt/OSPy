@@ -47,10 +47,13 @@ uninstall_ospy() {
   local selection=""
   local confirmation=""
   local unit_contents=""
+  local candidate_count=0
 
   for candidate in "/opt/OSPy" "$current_user_home/OSPy"; do
     if [ -e "$candidate" ]; then
-      candidates+=("$candidate" "Remove this OSPy installation" "OFF")
+      candidate_count=$((candidate_count + 1))
+      candidates+=("$candidate" "Remove this OSPy installation" \
+        "$([ "$candidate_count" -eq 1 ] && printf '%s' ON || printf '%s' OFF)")
     fi
   done
 
@@ -67,6 +70,17 @@ uninstall_ospy() {
     exit 0
   fi
   target="$selection"
+  case "$target" in
+    /opt/OSPy|"$current_user_home/OSPy") ;;
+    *)
+      echo "No valid OSPy installation was selected. Nothing was changed." >&2
+      exit 1
+      ;;
+  esac
+  if [ ! -d "$target" ]; then
+    echo "The selected OSPy installation no longer exists. Nothing was changed." >&2
+    exit 1
+  fi
 
   if ! confirmation=$(whiptail --title "Confirm OSPy uninstall" --inputbox \
     "The following installation will be permanently removed:\n\n$target\n\nThe installer will stop and disable its matching ospy.service, remove that service unit, and delete this directory including OSPy settings, logs and backups. Operating-system packages and shared Cloudflare/Tailscale services are kept.\n\nType REMOVE to continue." \

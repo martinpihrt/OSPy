@@ -117,6 +117,8 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertIn('"uninstall" "Stop, disable and remove an OSPy installation"', self.installer)
         self.assertIn('Type REMOVE to continue.', self.installer)
         self.assertIn('for candidate in "/opt/OSPy" "$current_user_home/OSPy"', self.installer)
+        self.assertIn('candidate_count=$((candidate_count + 1))', self.installer)
+        self.assertIn('No valid OSPy installation was selected. Nothing was changed.', self.installer)
         self.assertIn('grep -Fqx "WorkingDirectory=$target"', self.installer)
         self.assertIn('systemctl stop ospy.service || true', self.installer)
         self.assertIn('systemctl disable ospy.service || true', self.installer)
