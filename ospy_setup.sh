@@ -46,6 +46,7 @@ do_i2c=false
 do_mqtt=false
 do_user_grp=false
 do_multimedia=false
+install_without_password=false
 install_location="/opt"
 
 remote_mode="lan"
@@ -308,6 +309,16 @@ Tailscale may require you to enable HTTPS/MagicDNS/Funnel permission in the web 
     ;;
 esac
 
+if [ "$remote_mode" = "lan" ]; then
+  if whiptail --title "OSPy login security" --yesno \
+    "Install OSPy without a login password?
+
+This grants administrator access to every device that can reach the Raspberry Pi on the local network. Select this only for a trusted, isolated LAN. You can enable password protection later in OSPy Options." \
+    --no-button "Keep password" --yes-button "No password" 13 76; then
+    install_without_password=true
+  fi
+fi
+
 mkdir -p -- "$install_location"
 
 echo "===== Refreshing the operating-system package index ====="
@@ -398,6 +409,22 @@ fi
 
 echo "===== Installing the OSPy systemd service ====="
 python_path="$(command -v python3)"
+
+if [ "$install_without_password" = true ]; then
+  echo "===== Configuring OSPy for trusted-LAN access without a password ====="
+  (
+    cd "$ospy_dir"
+    OSPY_DATA_DIR="$ospy_dir/ospy/data" "$python_path" - <<'PY'
+from ospy.options import options
+
+options.no_password = True
+options.first_installation = False
+if not options.save_now():
+    raise SystemExit('Could not save the passwordless OSPy configuration.')
+PY
+  )
+fi
+
 service_file="$(mktemp)"
 cleanup() {
   rm -f -- "$service_file"
@@ -668,7 +695,11 @@ if [ -n "$remote_warning" ]; then
 fi
 
 echo
-echo "Open the OSPy web interface and change the generated administrator password immediately."
+if [ "$install_without_password" = true ]; then
+  echo "OSPy password protection is disabled for trusted-LAN access. Enable it in OSPy Options before using any wider network."
+else
+  echo "Open the OSPy web interface and change the generated administrator password immediately."
+fi
 
 FINAL_MESSAGE="OSPy is installed and running.
 
@@ -697,9 +728,15 @@ Warning:
 $remote_warning"
 fi
 
-FINAL_MESSAGE="$FINAL_MESSAGE
+if [ "$install_without_password" = true ]; then
+  FINAL_MESSAGE="$FINAL_MESSAGE
 
-Change the generated OSPy administrator password immediately after the first login."
+Password protection is disabled for trusted-LAN access. Enable it in OSPy Options before using any wider network."
+else
+  FINAL_MESSAGE="$FINAL_MESSAGE
+
+The login page displays a generated administrator password until you change it in OSPy Options."
+fi
 
 whiptail --title "OSPy setup finished" --scrolltext --msgbox "$FINAL_MESSAGE" 20 76 || true
 

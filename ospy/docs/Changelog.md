@@ -4,6 +4,13 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## October 9 2026
+-----------
+(Martin Pihrt)<br/>
+A password-free option has been added to the clean installation process: "When Local network only is selected, it also offers a deliberate passwordless mode for a trusted, isolated LAN." A password display bug has been fixed: upon completion, the installation dialog stated that the "generated password" should be changed but failed to actually display it. By default, OSPy now only displays the password on the /login page.
+(Tomas Szepesi)<br/>
+Slovak translation update (not 100% complete yet).
+
 ## August 31 2026
 -----------
 (Martin Pihrt)<br/>

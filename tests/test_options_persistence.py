@@ -32,6 +32,20 @@ class OptionsPersistenceTests(unittest.TestCase):
             "right", definitions["scroll_top_position"]["option_names"]
         )
 
+    def test_generated_password_notice_survives_restart_before_first_login(self):
+        with tempfile.TemporaryDirectory(prefix="ospy-options-first-login-") as root:
+            first = self._new_options(root)
+            generated_password = first.first_password_hash
+            first.save_now()
+            first.__del__()
+
+            second = options_module._Options()
+            second.__del__()
+            self.addCleanup(second.__del__)
+
+            self.assertTrue(second.first_installation)
+            self.assertEqual(second.first_password_hash, generated_password)
+
     def _paths(self, root):
         return (
             os.path.join(root, "default", "options.db"),
