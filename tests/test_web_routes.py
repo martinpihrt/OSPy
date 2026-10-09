@@ -924,6 +924,30 @@ class WebRouteIntegrationTests(unittest.TestCase):
         test_stations.clear.assert_called_once_with()
         self.assertFalse(test_outputs.relay_output)
 
+    def test_passwordless_home_action_accepts_post_with_csrf(self):
+        test_options = mock.Mock(manual_mode=True, no_password=True)
+        test_stations = mock.MagicMock()
+        test_stations.count.return_value = 1
+        test_outputs = SimpleNamespace(relay_output=True)
+
+        with mock.patch.multiple(
+                webpages,
+                options=test_options,
+                stations=test_stations,
+                outputs=test_outputs,
+        ), mock.patch.object(webpages.log, "finish_run") as finish_run, \
+                mock.patch.object(webpages.logEV, "save_events_log"):
+            response = self.app.request(
+                "/action",
+                method="POST",
+                data={"stop_all": "", "csrf": self.session["csrf_token"]},
+            )
+
+        self.assertEqual(response.status, "303 See Other")
+        finish_run.assert_called_once_with(None)
+        test_stations.clear.assert_called_once_with()
+        self.assertFalse(test_outputs.relay_output)
+
     def test_stop_all_clears_automatic_run_state(self):
         test_options = mock.Mock(manual_mode=False, scheduler_enabled=True)
         test_stations = mock.MagicMock()

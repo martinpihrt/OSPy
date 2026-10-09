@@ -2209,6 +2209,12 @@ class home_page(ProtectedPage):
 class action_page(ProtectedPage):
     """Page to perform some simple actions (mainly from the homepage)."""
 
+    def POST(self):
+        # ProtectedPage has already verified the token from the form body.
+        # Keep the established action implementation in one place while the
+        # homepage submits every state-changing action with POST.
+        return self.GET()
+
     def GET(self):
         from ospy.server import session
 

@@ -294,7 +294,7 @@ function water_level_prompt(current){
         w = prompt($:{json.dumps(_('Percentage must be a positive value'), ensure_ascii=False).encode('utf8').decode('utf-8')},"0");
                }
     if (w != null) {
-        window.location="/action?level_adjustment=" + encodeURIComponent(w) + "&${csrf_query()}";
+        ospyPostAction({level_adjustment: w});
     }
 }
 
@@ -309,7 +309,7 @@ function rain_delay_prompt(current){
         h = prompt($:{json.dumps(_('Delay must be a positive value'), ensure_ascii=False).encode('utf8').decode('utf-8')},"0");
                }
     if (h != null) {
-        window.location="/action?rain_block=" + encodeURIComponent(h) + "&${csrf_query()}";
+        ospyPostAction({rain_block: h});
     }
 }
 
@@ -553,7 +553,7 @@ jQuery(document).ready(function(){
             let sid = parseInt(jQuery(this).attr("id"));
             let sbit = jQuery(this).hasClass("on");
             if (sbit) {
-                window.location = "/action?sid="+(sid+1)+"&set_to=0&${csrf_query()}"; // turn off station
+                ospyPostAction({sid: sid + 1, set_to: 0}); // turn off station
             } else {
                 let strmm = jQuery("#mm"+sid).val();
                 let strss = jQuery("#ss"+sid).val();
@@ -563,7 +563,7 @@ jQuery(document).ready(function(){
                     alert($:{json.dumps(_('Timer values wrong:'), ensure_ascii=False).encode('utf8').decode('utf-8')} + " " + strmm + ":" + strss);
                     return;
                 }
-                window.location = "/action?sid=" + (sid+1) + "&set_to=1" + "&set_time=" + (mm*60+ss) + "&${csrf_query()}";  // turn it off with timer
+                ospyPostAction({sid: sid + 1, set_to: 1, set_time: mm * 60 + ss});  // turn it off with timer
             }
         });
     } else { // scheduler mode
