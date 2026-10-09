@@ -4957,9 +4957,38 @@ class options_page(ProtectedPage):
             elif m < stations.count():
                 stations.master_two = m
 
+        passwordless_setup = bool(getattr(options, 'no_password', False))
+        password_change_requested = any(
+            qdict.get(key, '') != ''
+            for key in ('old_password', 'new_password', 'check_password')
+        )
+        if passwordless_setup and password_change_requested:
+            if qdict.get('new_password', '') == "":
+                raise web.seeother('/options?errorCode=pw_blank')
+            if qdict.get('new_password', '') != qdict.get('check_password', ''):
+                raise web.seeother('/options?errorCode=pw_mismatch')
+
+            options.password_salt = password_salt()
+            options.password_hash = password_hash(
+                qdict['new_password'], options.password_salt
+            )
+            options.no_password = False
+            options.first_installation = False
+            autologin.revoke_all()
+            logEV.save_events_log(
+                _('Password protection enabled'),
+                _('User {} set the first administrator password and disabled passwordless access.').format(
+                    session.get('visitor')
+                ),
+                id='Login',
+                level='warning',
+                category='security'
+            )
+            session.kill()
+            raise web.seeother('/login')
+
         if 'old_password' in qdict and qdict['old_password'] != "":
             try:
-                from ospy.helpers import password_hash, password_salt, test_password
                 if test_password(qdict['old_password'], options.admin_user):
                     if qdict['new_password'] == "":
                         raise web.seeother('/options?errorCode=pw_blank')

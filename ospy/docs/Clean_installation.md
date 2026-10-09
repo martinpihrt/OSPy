@@ -20,7 +20,19 @@ Run it as root:
 sudo bash ospy_setup.sh
 ```
 
-The installer is interactive and uses `whiptail`. It first asks which optional operating-system components should be installed, then asks for the OSPy installation directory, and finally asks how OSPy should be reachable over the network. When Local network only is selected, it also offers a deliberate passwordless mode for a trusted, isolated LAN.
+The installer is interactive and uses `whiptail`. First choose whether to install/manage OSPy or uninstall an existing OSPy installation. Installation asks which optional operating-system components should be installed, then asks for the OSPy installation directory, and finally asks how OSPy should be reachable over the network. When Local network only is selected, it also offers a deliberate passwordless mode for a trusted, isolated LAN.
+
+PASSWORDLESS LAN ACCESS
+===========
+
+Passwordless access is intended only for a trusted, isolated LAN. While it is active, every device that can reach OSPy has administrator access. Open **Options**, enter and confirm a new administrator password, and save. No current password is requested in this state. OSPy disables passwordless access, revokes remembered browser logins, ends the current session, and then requires the newly set password.
+
+UNINSTALLING OSPY
+===========
+
+Run the same installer again and select **Stop, disable and remove an OSPy installation**. It offers only the standard locations that currently exist: `/opt/OSPy` and `<invoking-user-home>/OSPy`. Select the exact directory and type `REMOVE` to confirm.
+
+The uninstaller stops and disables `ospy.service` only when its `WorkingDirectory` matches the selected installation, removes the matching service unit, removes the selected OSPy directory including its settings, logs and backups, and reloads systemd. It also removes the dedicated OSPy Cloudflare Quick Tunnel service when present. It does not uninstall shared operating-system packages, `cloudflared`, Tailscale, a managed Cloudflare Tunnel, or their configuration.
 
 INSTALLER OPTIONS
 ===========
