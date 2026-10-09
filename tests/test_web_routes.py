@@ -481,6 +481,91 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual("/options", result[0])
         self.assertIn("not ready", result[1])
 
+    def test_invalid_sqlite_primary_marker_can_fall_back_to_compatible_mode(self):
+        calls = []
+        transition_options = SimpleNamespace(
+            settings_storage_mode="sqlite_primary",
+            location="",
+            weather_location_mode="search",
+            apply_settings_storage_mode=lambda mode: calls.append(("mode", mode)),
+            save_now=lambda: calls.append(("save", None)) or True,
+            _sqlite_primary_marker_enabled=lambda: False,
+        )
+        handler = object.__new__(webpages.options_page)
+        handler.core_render = SimpleNamespace(
+            notice=lambda path, message: (path, message),
+        )
+
+        with mock.patch.object(webpages.web, "input", return_value={
+                "settings_storage_mode": "compatible",
+            }), \
+                mock.patch.object(webpages, "options", transition_options), \
+                mock.patch.object(webpages, "save_to_options"), \
+                mock.patch.object(
+                    webpages.system_backup, "create_system_backup",
+                    side_effect=lambda reason: calls.append(("backup", reason)) or "safety.zip",
+                ), \
+                mock.patch.object(webpages.logEV, "save_events_log") as event_log, \
+                mock.patch.object(webpages, "report_restarted"), \
+                mock.patch.object(webpages, "restart") as restart:
+            result = handler.POST()
+
+        self.assertEqual([
+            ("mode", "compatible"),
+            ("save", None),
+            ("backup", "after invalid SQLite-primary fallback"),
+        ], calls)
+        event_log.assert_called_once()
+        restart.assert_called_once_with(wait=3)
+        self.assertEqual("/", result[0])
+        self.assertEqual(
+            builtins._('The settings storage mode was changed safely. OSPy is restarting.'),
+            result[1],
+        )
+
+    def test_invalid_sqlite_primary_fallback_is_not_rolled_back_when_backup_fails(self):
+        calls = []
+        transition_options = SimpleNamespace(
+            settings_storage_mode="sqlite_primary",
+            location="",
+            weather_location_mode="search",
+            apply_settings_storage_mode=lambda mode: calls.append(("mode", mode)),
+            save_now=lambda: calls.append(("save", None)) or True,
+            _sqlite_primary_marker_enabled=lambda: False,
+        )
+        handler = object.__new__(webpages.options_page)
+        handler.core_render = SimpleNamespace(
+            notice=lambda path, message: (path, message),
+        )
+
+        with mock.patch.object(webpages.web, "input", return_value={
+                "settings_storage_mode": "compatible",
+            }), \
+                mock.patch.object(webpages, "options", transition_options), \
+                mock.patch.object(webpages, "save_to_options"), \
+                mock.patch.object(
+                    webpages.system_backup, "create_system_backup",
+                    side_effect=OSError("backup disk unavailable"),
+                ), \
+                mock.patch.object(webpages.log, "error") as log_error, \
+                mock.patch.object(webpages.logEV, "save_events_log") as event_log, \
+                mock.patch.object(webpages, "report_restarted"), \
+                mock.patch.object(webpages, "restart") as restart:
+            result = handler.POST()
+
+        self.assertEqual([
+            ("mode", "compatible"),
+            ("save", None),
+        ], calls)
+        log_error.assert_called_once()
+        event_log.assert_called_once()
+        restart.assert_called_once_with(wait=3)
+        self.assertEqual("/", result[0])
+        self.assertEqual(
+            builtins._('The settings storage mode was changed safely. OSPy is restarting.'),
+            result[1],
+        )
+
     def test_sensors_page_renders_numeric_regulation_output(self):
         sensor_collection = SimpleNamespace(get=lambda: [])
         options_type = type(sensors_module.options)
@@ -832,6 +917,30 @@ class WebRouteIntegrationTests(unittest.TestCase):
                 "/action?stop_all=&csrf={}".format(
                     self.session["csrf_token"]
                 )
+            )
+
+        self.assertEqual(response.status, "303 See Other")
+        finish_run.assert_called_once_with(None)
+        test_stations.clear.assert_called_once_with()
+        self.assertFalse(test_outputs.relay_output)
+
+    def test_passwordless_home_action_accepts_post_with_csrf(self):
+        test_options = mock.Mock(manual_mode=True, no_password=True)
+        test_stations = mock.MagicMock()
+        test_stations.count.return_value = 1
+        test_outputs = SimpleNamespace(relay_output=True)
+
+        with mock.patch.multiple(
+                webpages,
+                options=test_options,
+                stations=test_stations,
+                outputs=test_outputs,
+        ), mock.patch.object(webpages.log, "finish_run") as finish_run, \
+                mock.patch.object(webpages.logEV, "save_events_log"):
+            response = self.app.request(
+                "/action",
+                method="POST",
+                data={"stop_all": "", "csrf": self.session["csrf_token"]},
             )
 
         self.assertEqual(response.status, "303 See Other")

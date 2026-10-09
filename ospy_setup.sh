@@ -47,10 +47,13 @@ uninstall_ospy() {
   local selection=""
   local confirmation=""
   local unit_contents=""
+  local candidate_count=0
 
   for candidate in "/opt/OSPy" "$current_user_home/OSPy"; do
     if [ -e "$candidate" ]; then
-      candidates+=("$candidate" "Remove this OSPy installation" "OFF")
+      candidate_count=$((candidate_count + 1))
+      candidates+=("$candidate" "Remove this OSPy installation" \
+        "$([ "$candidate_count" -eq 1 ] && printf '%s' ON || printf '%s' OFF)")
     fi
   done
 
@@ -67,6 +70,17 @@ uninstall_ospy() {
     exit 0
   fi
   target="$selection"
+  case "$target" in
+    /opt/OSPy|"$current_user_home/OSPy") ;;
+    *)
+      echo "No valid OSPy installation was selected. Nothing was changed." >&2
+      exit 1
+      ;;
+  esac
+  if [ ! -d "$target" ]; then
+    echo "The selected OSPy installation no longer exists. Nothing was changed." >&2
+    exit 1
+  fi
 
   if ! confirmation=$(whiptail --title "Confirm OSPy uninstall" --inputbox \
     "The following installation will be permanently removed:\n\n$target\n\nThe installer will stop and disable its matching ospy.service, remove that service unit, and delete this directory including OSPy settings, logs and backups. Operating-system packages and shared Cloudflare/Tailscale services are kept.\n\nType REMOVE to continue." \
@@ -124,6 +138,7 @@ do_user_grp=false
 do_multimedia=false
 install_without_password=false
 install_location="/opt"
+install_channel="master"
 
 remote_mode="lan"
 remote_url=""
@@ -132,6 +147,20 @@ remote_note=""
 cloudflare_token=""
 cloudflare_hostname=""
 cloudflare_public_url_file="/etc/ospy/cloudflare_public_url"
+
+if ! install_channel=$(whiptail --title "OSPy installation channel" --menu \
+  "Choose the OSPy source branch for a new installation." 13 76 2 \
+  "master" "Stable release (recommended)" \
+  "beta"   "Beta testing release (new features and fixes)" \
+  3>&1 1>&2 2>&3); then
+  echo "Installation was cancelled during channel selection."
+  exit 0
+fi
+
+case "$install_channel" in
+  master|beta) ;;
+  *) echo "Unsupported OSPy installation channel: $install_channel" >&2; exit 1 ;;
+esac
 
 normalize_cloudflare_hostname() {
   python3 - "$1" <<'PY_HOSTNAME'
@@ -469,12 +498,12 @@ if [ -d "$ospy_dir/.git" ]; then
     echo "$ospy_dir is not a valid Git checkout." >&2
     exit 1
   fi
-  echo "An existing OSPy checkout was found and left unchanged."
+  echo "An existing OSPy checkout was found and left unchanged. Its current branch was not changed."
 elif [ -e "$ospy_dir" ]; then
   echo "$ospy_dir already exists but is not an OSPy Git checkout." >&2
   exit 1
 else
-  git clone --branch master --single-branch https://github.com/martinpihrt/OSPy.git "$ospy_dir"
+  git clone --branch "$install_channel" --single-branch https://github.com/martinpihrt/OSPy.git "$ospy_dir"
 fi
 
 service_template="$ospy_dir/service/ospy.service"

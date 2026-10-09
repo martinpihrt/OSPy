@@ -454,10 +454,34 @@ jQuery(document).ready(function(){
             </div>
         </div>
 
+        <script>
+        function ospyPostAction(values) {
+            var form = document.createElement('form');
+            form.method = 'post';
+            form.action = '/action';
+            values.csrf = "${csrf_token()}";
+            Object.keys(values).forEach(function(key) {
+                var field = document.createElement('input');
+                field.type = 'hidden'; field.name = key; field.value = values[key];
+                form.appendChild(field);
+            });
+            document.body.appendChild(form); form.submit(); return false;
+        }
+        document.addEventListener('click', function(event) {
+            var link = event.target.closest('a[href^="/action?"]');
+            if (!link) return;
+            event.preventDefault();
+            var values = {};
+            new URL(link.href).searchParams.forEach(function(value, key) {
+                if (key !== 'csrf') values[key] = value;
+            });
+            ospyPostAction(values);
+        });
+        </script>
         <div class="footer">
             $if content.page != 'login':
                 <div id="foot">
-                <p id="cpu_temp">$_('CPU Temp'): <a href="/action?toggle_temp=&${csrf_query()}" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</a></p>
+                <p id="cpu_temp">$_('CPU Temp'): <a href="#" onclick="return ospyPostAction({toggle_temp: ''});" title=$:{json.dumps(_('Click to toggle'), ensure_ascii=False).encode('utf8').decode('utf-8')}>${get_cpu_temp(options.temp_unit)} &deg;${options.temp_unit}</a></p>
                 <p id="cpu_usage">$_('CPU Usage'): <span class="cpu_usage">${get_cpu_usage()}</span> %</p>
                 <p id="ver"><a href="https://github.com/martinpihrt/OSPy" title=$:{json.dumps(_('Click for redirecting to github software'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('Software')</a> $_('version'): <span class="ver">${version.ver_str} (${version.ver_date})</span></p>
                 <p id="mobile_app"><a href="https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile" target="_blank" rel="noopener noreferrer" title=$:{json.dumps(_('Open OSPy mobile app in Google Play'), ensure_ascii=False).encode('utf8').decode('utf-8')}>$_('OSPy mobile app on Google Play')</a></p>
