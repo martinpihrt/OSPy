@@ -41,6 +41,82 @@ if ! command -v whiptail >/dev/null 2>&1; then
   apt-get install -y whiptail
 fi
 
+uninstall_ospy() {
+  local candidates=()
+  local target=""
+  local selection=""
+  local confirmation=""
+  local unit_contents=""
+
+  for candidate in "/opt/OSPy" "$current_user_home/OSPy"; do
+    if [ -e "$candidate" ]; then
+      candidates+=("$candidate" "Remove this OSPy installation" "OFF")
+    fi
+  done
+
+  if [ "${#candidates[@]}" -eq 0 ]; then
+    whiptail --title "OSPy uninstall" --msgbox \
+      "No OSPy installation was found in /opt/OSPy or $current_user_home/OSPy. Nothing was changed." 10 76
+    exit 0
+  fi
+
+  if ! selection=$(whiptail --title "OSPy uninstall" --radiolist \
+    "Select the exact OSPy installation to remove." 15 76 4 \
+    "${candidates[@]}" 3>&1 1>&2 2>&3); then
+    echo "Uninstallation was cancelled before anything was changed."
+    exit 0
+  fi
+  target="$selection"
+
+  if ! confirmation=$(whiptail --title "Confirm OSPy uninstall" --inputbox \
+    "The following installation will be permanently removed:\n\n$target\n\nThe installer will stop and disable its matching ospy.service, remove that service unit, and delete this directory including OSPy settings, logs and backups. Operating-system packages and shared Cloudflare/Tailscale services are kept.\n\nType REMOVE to continue." \
+    19 78 3>&1 1>&2 2>&3); then
+    echo "Uninstallation was cancelled before anything was changed."
+    exit 0
+  fi
+  if [ "$confirmation" != "REMOVE" ]; then
+    whiptail --title "OSPy uninstall" --msgbox "Confirmation did not match. Nothing was changed." 9 72
+    exit 0
+  fi
+
+  unit_contents="$(systemctl cat ospy.service 2>/dev/null || true)"
+  if [ -n "$unit_contents" ] && printf '%s\n' "$unit_contents" | grep -Fqx "WorkingDirectory=$target"; then
+    echo "===== Stopping and disabling OSPy service ====="
+    systemctl stop ospy.service || true
+    systemctl disable ospy.service || true
+    rm -f -- /etc/systemd/system/ospy.service
+    systemctl daemon-reload
+  elif [ -n "$unit_contents" ]; then
+    echo "The installed ospy.service does not belong to $target, so it was left unchanged."
+  fi
+
+  if systemctl cat ospy-cloudflared-quick.service 2>/dev/null | grep -Fq 'Requires=ospy.service'; then
+    echo "===== Removing the OSPy Cloudflare Quick Tunnel service ====="
+    systemctl stop ospy-cloudflared-quick.service || true
+    systemctl disable ospy-cloudflared-quick.service || true
+    rm -f -- /etc/systemd/system/ospy-cloudflared-quick.service
+    systemctl daemon-reload
+  fi
+
+  echo "===== Removing OSPy installation at $target ====="
+  rm -rf -- "$target"
+  echo "OSPy was uninstalled from $target. Shared operating-system packages, cloudflared, Tailscale and their configuration were not removed."
+  exit 0
+}
+
+if ! installer_action=$(whiptail --title "OSPy setup" --menu \
+  "Choose what to do." 13 72 2 \
+  "install" "Install or manage OSPy" \
+  "uninstall" "Stop, disable and remove an OSPy installation" \
+  3>&1 1>&2 2>&3); then
+  echo "Installation was cancelled before any OSPy files were changed."
+  exit 0
+fi
+
+if [ "$installer_action" = "uninstall" ]; then
+  uninstall_ospy
+fi
+
 do_upd_sys=false
 do_i2c=false
 do_mqtt=false

@@ -42,7 +42,8 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertIn("git clone --branch master --single-branch", self.installer)
         self.assertIn("An existing OSPy checkout was found and left unchanged.", self.installer)
         self.assertNotIn("reset --hard", self.installer)
-        self.assertNotIn("rm -rf", self.installer)
+        self.assertNotIn("rm -rf /", self.installer)
+        self.assertIn('rm -rf -- "$target"', self.installer)
 
     def test_installer_does_not_execute_unverified_dependency_archives(self):
         for unsafe_fragment in (
@@ -111,6 +112,17 @@ class CleanInstallationTests(unittest.TestCase):
         self.assertIn('OSPY_DATA_DIR="$ospy_dir/ospy/data"', self.installer)
         self.assertIn('options.save_now()', self.installer)
         self.assertIn('trusted, isolated LAN', self.installer)
+
+    def test_installer_can_safely_uninstall_a_selected_ospy_installation(self):
+        self.assertIn('"uninstall" "Stop, disable and remove an OSPy installation"', self.installer)
+        self.assertIn('Type REMOVE to continue.', self.installer)
+        self.assertIn('for candidate in "/opt/OSPy" "$current_user_home/OSPy"', self.installer)
+        self.assertIn('grep -Fqx "WorkingDirectory=$target"', self.installer)
+        self.assertIn('systemctl stop ospy.service || true', self.installer)
+        self.assertIn('systemctl disable ospy.service || true', self.installer)
+        self.assertIn('rm -f -- /etc/systemd/system/ospy.service', self.installer)
+        self.assertIn('rm -rf -- "$target"', self.installer)
+        self.assertIn('Shared operating-system packages, cloudflared, Tailscale', self.installer)
 
     def test_remote_access_keeps_cloudflare_origin_on_loopback(self):
         self.assertIn("http://127.0.0.1:8080", self.installer)

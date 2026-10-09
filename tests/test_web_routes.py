@@ -170,6 +170,46 @@ class WebRouteIntegrationTests(unittest.TestCase):
                 self.assertEqual(response.status, "200 OK")
                 self.assertIn(marker, response.data)
 
+    def test_passwordless_options_explain_first_password_setup(self):
+        original_no_password = webpages.options.no_password
+        webpages.options._values["no_password"] = True
+        try:
+            response = self.app.request("/options")
+        finally:
+            webpages.options._values["no_password"] = original_no_password
+
+        self.assertEqual(response.status, "200 OK")
+        self.assertIn(
+            b"Set an administrator password to disable passwordless access.",
+            response.data,
+        )
+        self.assertNotIn(b'name="old_password"', response.data)
+
+    def test_passwordless_setup_sets_password_and_disables_anonymous_access(self):
+        original_values = {
+            key: webpages.options._values.get(key)
+            for key in ("no_password", "password_hash", "password_salt", "first_installation")
+        }
+        webpages.options._values["no_password"] = True
+        webpages.options._values["first_installation"] = False
+        try:
+            response = self.app.request(
+                "/options?csrf=test-csrf-token",
+                method="POST",
+                data={
+                    "csrf": "test-csrf-token",
+                    "new_password": "a-new-password",
+                    "check_password": "a-new-password",
+                },
+            )
+        finally:
+            webpages.options._values.update(original_values)
+
+        self.assertEqual(response.status, "303 See Other")
+        self.assertTrue(response.headers["Location"].endswith("/login"))
+        self.assertFalse(webpages.options.no_password)
+        self.assertTrue(self.session.get("_killed"))
+
     def test_main_administrator_two_factor_page_renders(self):
         self.session['visitor'] = webpages.options.admin_user
         response = self.app.request('/twofactor')
