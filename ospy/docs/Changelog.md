@@ -7,7 +7,7 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 ## October 10 2026
 -----------
 (Codex)<br/>
-Added confirmation dialogs before disabling or enabling all plug-ins. Deleting all plug-ins already required confirmation.<br/>
+Added confirmation dialogs before enabling or disabling individual plug-ins and bulk actions, and preserved the plug-in manager scroll position after toggle actions. Deleting all plug-ins already required confirmation.<br/>
 
 ## October 9 2026
 -----------

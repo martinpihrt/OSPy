@@ -19,6 +19,54 @@ jQuery(document).ready(function(){
     var statusFailed = $:{json.dumps(_('Plugin update check failed.'), ensure_ascii=False)};
     var statusDisabled = $:{json.dumps(_('Plugin update checking is disabled.'), ensure_ascii=False)};
     var statusNotLoaded = $:{json.dumps(_('Plugin update information has not been loaded yet.'), ensure_ascii=False)};
+    var pluginScrollStorageKey = "ospy_plugins_manage_scroll_y";
+    var pluginScrollY = null;
+
+    try {
+        pluginScrollY = sessionStorage.getItem(pluginScrollStorageKey);
+        if (pluginScrollY !== null) {
+            sessionStorage.removeItem(pluginScrollStorageKey);
+            window.requestAnimationFrame(function() {
+                window.scrollTo(0, parseInt(pluginScrollY, 10) || 0);
+            });
+        }
+    } catch (error) {
+        pluginScrollY = null;
+    }
+
+    jQuery("form.plugin-toggle-form").on("submit", function(event) {
+        var form = jQuery(this);
+        var action = form.find("input[name='action']").val();
+        var enabled = form.find("input[name='enable']").val() === "1";
+        var message = "";
+        var preserveScroll = true;
+
+        if (action === "enable") {
+            message = enabled
+                ? $:{json.dumps(_('Enable this plugin?'), ensure_ascii=False)}
+                : $:{json.dumps(_('Disable this plugin?'), ensure_ascii=False)};
+        } else if (action === "enable_all") {
+            message = $:{json.dumps(_('Enable all plugins?'), ensure_ascii=False)};
+        } else if (action === "disable_all") {
+            message = $:{json.dumps(_('Disable all plugins?'), ensure_ascii=False)};
+        } else {
+            preserveScroll = false;
+        }
+
+        if (message && !window.confirm(message)) {
+            event.preventDefault();
+            return false;
+        }
+
+        if (preserveScroll) {
+            try {
+                sessionStorage.setItem(pluginScrollStorageKey, String(window.scrollY || window.pageYOffset || 0));
+            } catch (error) {
+                // The action can still proceed when browser storage is unavailable.
+            }
+        }
+        return true;
+    });
 
     jQuery("#deleteAllPluginsForm").on("submit", function() {
         return window.confirm($:{json.dumps(_('Delete all plugins?'), ensure_ascii=False)});
@@ -283,12 +331,12 @@ jQuery(document).ready(function(){
     <div style="clear: both; margin: 8px 0 8px 0; line-height: 1.3;">
         <small>$_('Plugins are installed and updated from'): ${', '.join(plugin_repositories)}</small>
     </div>
-    <form action="/plugins_manage" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Disable all plugins?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+    <form action="/plugins_manage" method="post" style="display:inline" class="plugin-toggle-form">
         $:csrf_input()
         <input type="hidden" name="action" value="disable_all">
         <button type="submit" class="button danger">$_('Disable All')</button>
     </form>
-    <form action="/plugins_manage" method="post" style="display:inline" onsubmit="return confirm($:{json.dumps(_('Enable all plugins?'), ensure_ascii=False).encode('utf8').decode('utf-8')});">
+    <form action="/plugins_manage" method="post" style="display:inline" class="plugin-toggle-form">
         $:csrf_input()
         <input type="hidden" name="action" value="enable_all">
         <button type="submit" class="button upload">$_('Enable All')</button>
@@ -372,7 +420,7 @@ jQuery(document).ready(function(){
             </div>
 
             <div style="display: inline-block; padding: 0; width: 150px;">
-                <form action="/plugins_manage" method="post" style="display:inline">
+                <form action="/plugins_manage" method="post" style="display:inline" class="plugin-toggle-form">
                     $:csrf_input()
                     <input type="hidden" name="action" value="enable">
                     <input type="hidden" name="plugin" value="${plugin}">
