@@ -6,8 +6,10 @@ OSPy mobile application for remote monitoring and control of OSPy irrigation sys
 
 ## October 10 2026
 -----------
-(Codex)<br/>
+(Martin Pihrt)<br/>
 Added confirmation dialogs before enabling or disabling individual plug-ins and bulk actions, and preserved the plug-in manager scroll position after toggle actions. Deleting all plug-ins already required confirmation.<br/>
+Plug-in: Database Connector v1.1.0<br/>
+Added an optional durable SQLite-backed queue for database commands submitted by other plug-ins. Queued commands are replayed in order by a background worker, remain saved through database outages and OSPy restarts, and are visible and manually clearable from settings.
 
 ## October 9 2026
 -----------
