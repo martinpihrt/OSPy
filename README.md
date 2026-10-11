@@ -1,4 +1,11 @@
 OSPy
+
+[![Master version](https://img.shields.io/endpoint?url=https%3A%2F%2Fmartinpihrt.github.io%2FOSPy%2Fmaster-version.json&cacheSeconds=300)](https://github.com/martinpihrt/OSPy/tree/master)
+[![Stable release](https://img.shields.io/github/v/release/martinpihrt/OSPy?display_name=tag&sort=semver&label=stable)](https://github.com/martinpihrt/OSPy/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/martinpihrt/OSPy/total?label=downloads&logo=github)](https://github.com/martinpihrt/OSPy/releases)
+[![Tests](https://img.shields.io/github/actions/workflow/status/martinpihrt/OSPy/tests.yml?branch=master&event=push&label=tests&logo=githubactions)](https://github.com/martinpihrt/OSPy/actions/workflows/tests.yml?query=branch%3Amaster)
+[![Mobile app](https://img.shields.io/endpoint?url=https%3A%2F%2Fmartinpihrt.github.io%2FOSPy%2Fmobile-version.json&cacheSeconds=300)](https://github.com/pihrt-com/OSPy-mobile-app)
+
 ###### **O**pen **S**prinkler **Py**thon
 OSPy is a free Raspberry Pi based Python 3 program for controlling irrigation systems (sprinkler, drip, IoT, etc). This is my fork from [Rimco/OSPy](https://github.com/Rimco/OSPy) and [Dan-in-CA/SIP](https://github.com/Dan-in-CA/SIP) with My modifications.  
 
