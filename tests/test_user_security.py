@@ -4,9 +4,11 @@ from unittest import mock
 
 from tests.test_support import TEST_DATA_DIR  # noqa: F401 - initializes isolation
 from ospy import i18n  # noqa: F401 - installs gettext
+from ospy import options as options_module
 from ospy import server
 from ospy import twofactor
 from ospy import webpages
+from ospy import users as users_module
 from ospy.users import _User, category_key
 from api.v1 import security as api_security
 from api.v1.responses import APIError
@@ -64,6 +66,26 @@ class UserSecurityTests(unittest.TestCase):
             self.assertEqual(category_key(role), str(role))
             self.assertEqual(category_key(str(role)), str(role))
         self.assertEqual(category_key('invalid'), '')
+
+    def test_persisted_string_admin_role_survives_user_reload(self):
+        owner = SimpleNamespace(get=lambda: [])
+        storage_key = options_module.options.cls_name(_User, 9876)
+        missing = object()
+        previous = options_module.options._values.get(storage_key, missing)
+        options_module.options._values[storage_key] = {'category': '2'}
+
+        try:
+            with mock.patch.object(options_module.options, 'save'):
+                with mock.patch.object(users_module, 'options', options_module.options):
+                    user = _User(owner, 9876)
+        finally:
+            if previous is missing:
+                options_module.options._values.pop(storage_key, None)
+            else:
+                options_module.options._values[storage_key] = previous
+
+        self.assertEqual(user.category, '2')
+        self.assertEqual(category_key(user.category), '2')
 
     def test_additional_user_has_independent_two_factor_settings(self):
         account = SimpleNamespace(

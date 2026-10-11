@@ -1459,6 +1459,13 @@ class _Options(object):
 
     @staticmethod
     def _compatible_value(default, value, key=''):
+        if key == 'category':
+            return (
+                isinstance(value, str) and value in ('0', '1', '2', '3')
+            ) or (
+                isinstance(value, int) and not isinstance(value, bool) and
+                value in (0, 1, 2, 3)
+            )
         if key in ('weather_lat', 'weather_lon'):
             # Backward compatibility: older OSPy versions could store missing
             # coordinates as an empty dict/list/tuple or None. These values are
