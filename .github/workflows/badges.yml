@@ -1,0 +1,126 @@
+name: Publish badge data
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out OSPy
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Build badge data
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          import subprocess
+          import urllib.request
+          from pathlib import Path
+
+          version_source = Path("ospy/version.py").read_text(encoding="utf-8")
+
+          def version_number(name):
+              match = re.search(
+                  rf"^{name}\s*=\s*(\d+)",
+                  version_source,
+                  re.MULTILINE,
+              )
+              if not match:
+                  raise RuntimeError(f"Cannot find {name} in ospy/version.py")
+              return int(match.group(1))
+
+          revision = int(
+              subprocess.check_output(
+                  ["git", "rev-list", "--count", "--first-parent", "HEAD"],
+                  text=True,
+              ).strip()
+          )
+
+          master_version = "{}.{}.{}".format(
+              version_number("major_ver"),
+              version_number("minor_ver"),
+              revision - version_number("old_count"),
+          )
+
+          mobile_url = (
+              "https://raw.githubusercontent.com/"
+              "pihrt-com/OSPy-mobile-app/main/app/build.gradle"
+          )
+
+          with urllib.request.urlopen(mobile_url, timeout=30) as response:
+              mobile_gradle = response.read().decode("utf-8")
+
+          mobile_match = re.search(
+              r'^\s*versionName\s+"([^"]+)"',
+              mobile_gradle,
+              re.MULTILINE,
+          )
+          if not mobile_match:
+              raise RuntimeError("Cannot find mobile versionName")
+
+          mobile_version = mobile_match.group(1)
+
+          output = Path("_site")
+          output.mkdir(exist_ok=True)
+
+          badges = {
+              "master-version.json": {
+                  "schemaVersion": 1,
+                  "label": "master",
+                  "message": master_version,
+                  "color": "blue",
+                  "namedLogo": "github",
+              },
+              "mobile-version.json": {
+                  "schemaVersion": 1,
+                  "label": "mobile app",
+                  "message": mobile_version,
+                  "color": "brightgreen",
+                  "namedLogo": "android",
+              },
+          }
+
+          for filename, content in badges.items():
+              (output / filename).write_text(
+                  json.dumps(content, ensure_ascii=False) + "\n",
+                  encoding="utf-8",
+              )
+          PY
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
