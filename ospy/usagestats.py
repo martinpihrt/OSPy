@@ -11,6 +11,8 @@ import time
 import sys
 import subprocess
 import requests
+import hashlib
+import re
 
 __version__ = '0.7'
 
@@ -97,6 +99,67 @@ def system_information():
     OPERATING_SYSTEM(None, info)
     PYTHON_VERSION(None, info)
     return info
+
+
+_RPI_SERIAL_PATHS = (
+    '/sys/firmware/devicetree/base/serial-number',
+    '/proc/device-tree/serial-number',
+)
+
+
+def _valid_raspberry_pi_serial(value):
+    """Return a normalized Raspberry Pi serial or an empty value."""
+    value = value.replace('\x00', '').strip().lower()
+    if not re.match(r'^[0-9a-f]{8,64}$', value):
+        return ''
+    if set(value) == {'0'}:
+        return ''
+    return value
+
+
+def hardware_identifier(serial_paths=None, cpuinfo_path='/proc/cpuinfo'):
+    """Return a stable pseudonymous Raspberry Pi hardware identifier.
+
+    The raw board serial never leaves this function. Systems without a
+    trustworthy Raspberry Pi serial return an empty value rather than using an
+    installation-specific machine ID or a potentially random MAC address.
+    """
+    serial_paths = serial_paths or _RPI_SERIAL_PATHS
+    serial = ''
+
+    for path in serial_paths:
+        try:
+            with open(path, 'rb') as fp:
+                value = fp.read().decode('ascii', 'ignore')
+            serial = _valid_raspberry_pi_serial(value)
+            if serial:
+                break
+        except (IOError, OSError):
+            pass
+
+    if not serial:
+        try:
+            with open(cpuinfo_path, 'rb') as fp:
+                cpuinfo = fp.read().decode('ascii', 'ignore')
+            match = re.search(r'^Serial\s*:\s*(\S+)\s*$', cpuinfo,
+                              flags=re.IGNORECASE | re.MULTILINE)
+            if match:
+                serial = _valid_raspberry_pi_serial(match.group(1))
+        except (IOError, OSError):
+            pass
+
+    if not serial:
+        return ''
+
+    identity = ('ospy-hardware-v1:' + serial).encode('ascii')
+    return hashlib.sha256(identity).hexdigest()
+
+
+def HARDWARE_IDENTITY(stats, info):
+    """Add a pseudonymous stable hardware ID when the board exposes one."""
+    identifier = hardware_identifier()
+    if identifier:
+        info.append(('hardware', identifier))
 
 
 def _encode(s):

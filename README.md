@@ -20,6 +20,8 @@ Normal mobile communication is direct: the Android application connects to the s
 
 The common OSPy footer contains a direct link to the official Android application in Google Play.
 
+When anonymous usage statistics are enabled, OSPy reports the installation UUID, version and non-identifying platform details. On Raspberry Pi it also sends a SHA-256 pseudonym derived locally from the board serial so a reinstallation or replacement SD card is not counted as new hardware. The raw board serial is never transmitted, and systems without a trustworthy board serial omit the hardware identifier.
+
 Refresh-token rotation includes a single short recovery retry for a mobile process terminated between receiving and durably saving its replacement token, such as during a Google Play application update. This preserves saved connections without weakening explicit logout or administrator device revocation.
 
 The Android application keeps a persistent device identity for every saved installation. Signing in again to the same installation replaces that device's token session and reuses its OSPy record instead of creating a duplicate. An application reinstall or a genuinely new phone creates a new identity. In OSPy administration, an active device must first be revoked; revoked records can then be permanently deleted individually or together.

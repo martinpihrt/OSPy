@@ -594,6 +594,7 @@ def create_statistics(upload=True):
         {'ospyfw': ospyFW,           # OSPy version
          'ospynum': ospyNUM          # OSPy version only numeric ver
         },          
+        usagestats.HARDWARE_IDENTITY, # Hashed Raspberry Pi board identity
         usagestats.OPERATING_SYSTEM,  # Operating system/distribution
         usagestats.PYTHON_VERSION,    # Python version info
         usagestats.SESSION_TIME,      # Time since Stats object was created
