@@ -34,6 +34,7 @@ from ospy import health
 from ospy import linux_health
 from ospy import backup as system_backup
 from ospy import settings_storage
+from ospy import sensor_logs
 from ospy import i18n as i18n_module
 from ospy.translation_status import translation_coverage
 import plugins
@@ -548,6 +549,12 @@ class sensors_page(ProtectedPage):
             return self.core_render.sensors_search()
 
         if action == 'delete_all':
+            sensors_to_delete = list(sensors.get())
+            if sensors_to_delete and not sensor_logs.queue_delete_records(sensors_to_delete):
+                return self.core_render.notice(
+                    '/sensors',
+                    _('No sensors were deleted because database cleanup could not be queued safely.')
+                )
             try: # delete all programs from sensor in program level adjustments (for soil moisture sensor)
                 program = programs.get()
                 for sensor in sensors.get():
@@ -559,14 +566,29 @@ class sensors_page(ProtectedPage):
                 log.debug('webpages.py', traceback.format_exc())
                 pass
 
+            removal_failed = False
             while sensors.count() > 0:
+                sensor = sensors.get(sensors.count()-1)
                 try:
-                    sensor = sensors.get(sensors.count()-1)
                     sensors_timer.stop_status(sensor.name)
+                except Exception:
+                    log.debug('webpages.py', traceback.format_exc())
+                try:
+                    sensor_logs.clear_local_records(sensor)
+                except Exception:
+                    log.debug('webpages.py', traceback.format_exc())
+                try:
                     sensors.remove_sensors(sensors.count()-1)
                 except Exception:
                     log.debug('webpages.py', traceback.format_exc())
-                    pass
+                    sensor_logs.cancel_delete_records(list(sensors.get()))
+                    removal_failed = True
+                    break
+            if removal_failed:
+                return self.core_render.notice(
+                    '/sensors',
+                    _('Database cleanup was queued, but not all sensor definitions could be deleted.')
+                )
             try:
                 import shutil
                 shutil.rmtree(os.path.join('.', 'ospy', 'data', 'sensors'))
@@ -607,42 +629,14 @@ class sensor_page(ProtectedPage):
                 raise web.seeother('/sensor/{}?graph'.format(index))
 
             if wlog:
-                slog_file = []
-                elog_file = []
-
-                dir_name_log = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs')
-                _abs_dir_slog = os.path.abspath(dir_name_log + '/' + 'slog.json')
-                _abs_dir_elog = os.path.abspath(dir_name_log + '/' + 'elog.json')
-
-                if not os.path.isfile(_abs_dir_slog):
-                    from ospy.sensors import sensors_timer
-                    sensor = sensors.get(index)
-                    sensors_timer.update_log(sensor, 'lgs', '-')
-
-                if not os.path.isfile(_abs_dir_elog):
-                    from ospy.sensors import sensors_timer
-                    sensor = sensors.get(index)
-                    sensors_timer.update_log(sensor, 'lge', '-', central_event=False)
-
-                try:
-                    with open(_abs_dir_slog) as logf:
-                        slog_file =  json.load(logf)
-                except IOError:
-                    log.debug('webpages.py', traceback.format_exc())
-                    pass
-
-                try:
-                    with open(_abs_dir_elog) as logf:
-                        elog_file =  json.load(logf)
-                except IOError:
-                    log.debug('webpages.py', traceback.format_exc())
-                    pass
-
-                name = sensors[index].name
-                stype = sensors[index].sens_type
-                mtype = sensors[index].multi_type
-                manufacturer = sensors[index].manufacturer
-                shelly_hw_nbr = sensors[index].shelly_hw_nbr
+                sensor = sensors.get(index)
+                slog_file = sensor_logs.read_records(sensor, 'slog')
+                elog_file = sensor_logs.read_records(sensor, 'elog')
+                name = sensor.name
+                stype = sensor.sens_type
+                mtype = sensor.multi_type
+                manufacturer = sensor.manufacturer
+                shelly_hw_nbr = sensor.shelly_hw_nbr
                 try:
                     return self.core_render.log_sensor(index, name, stype, mtype, slog_file, elog_file, manufacturer, shelly_hw_nbr)
                 except Exception:
@@ -650,16 +644,19 @@ class sensor_page(ProtectedPage):
                     log.debug('webpages.py', traceback.format_exc())
 
             elif glog:
-                dir_name_glog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'graph')
-                _abs_dir_glog = os.path.abspath(dir_name_glog + '/' + 'graph.json')
-                try:
-                    with open(_abs_dir_glog) as logf:
-                        glog_file =  json.load(logf)
-                except IOError:
-                    glog_file = []
-
                 try:
                     sensor = sensors.get(index)
+                    if sensor_logs.normalize_source(sensor.log_source) == sensor_logs.SOURCE_DATABASE:
+                        database_records = sensor_logs.read_records(
+                            sensor, 'slog', sensor_logs.SOURCE_DATABASE)
+                        glog_file = sensor_logs.graph_from_records(sensor, database_records)
+                    else:
+                        graph_path = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'graph', 'graph.json')
+                        try:
+                            with open(os.path.abspath(graph_path)) as logf:
+                                glog_file = json.load(logf)
+                        except (IOError, ValueError):
+                            glog_file = []
                     data = []
                     show_errors = options.sensor_graph_show_err
                     if 'sensor_graph_show_err' in qdict:
@@ -693,44 +690,17 @@ class sensor_page(ProtectedPage):
 
                         log_start = int((check_start - epoch).total_seconds())             # start date for log in second (timestamp)
 
-                    if sensor.multi_type == 9: # 16x log from probe + battery + signal
-                        for i in range(0, 18):
-                            temp_balances = {}
-                            try:
-                                if len(glog_file)>i:
-                                    for key in glog_file[i]['balances']:
-                                        find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                                        if find_key >= log_start and (log_end is None or find_key <= log_end): # timestamp interval
-                                            find_data = glog_file[i]['balances'][key]
-                                            if show_errors:                                            # if is checked show error values in graph
-                                                temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
-                                            else:
-                                                if float(find_data['total']) != -127.0:                # not checked, add values if not -127
-                                                    temp_balances[key] = glog_file[i]['balances'][key]
-                            except:
-                                log.debug('webpages.py', traceback.format_exc())
-                                pass
-                            if len(glog_file)>i:
-                                data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
-                    else:
-                        for i in range(0, 3):  # 1x log from others + battery + signal
-                            temp_balances = {}
-                            try:
-                                if len(glog_file)>i:
-                                    for key in glog_file[i]['balances']:
-                                        find_key =  int(key.encode('utf8'))                            # key is in unicode ex: u'1601347000' -> find_key is int number
-                                        if find_key >= log_start and (log_end is None or find_key <= log_end): # timestamp interval
-                                            find_data = glog_file[i]['balances'][key]
-                                            if show_errors:                                            # if is checked show error values in graph
-                                                temp_balances[key] = glog_file[i]['balances'][key]     # add all values from json
-                                            else:
-                                                if float(find_data['total']) != -127.0:                # not checked, add values if not -127
-                                                    temp_balances[key] = glog_file[i]['balances'][key]
-                            except:
-                                log.debug('webpages.py', traceback.format_exc())
-                                pass
-                            if len(glog_file)>i:
-                                data.append({ 'sname': glog_file[i]['sname'], 'balances': temp_balances})
+                    for graph_series in glog_file:
+                        temp_balances = {}
+                        try:
+                            for key, find_data in graph_series.get('balances', {}).items():
+                                find_key = int(key)
+                                if find_key >= log_start and (log_end is None or find_key <= log_end):
+                                    if show_errors or float(find_data['total']) != -127.0:
+                                        temp_balances[key] = find_data
+                        except Exception:
+                            log.debug('webpages.py', traceback.format_exc())
+                        data.append({'sname': graph_series.get('sname', ''), 'balances': temp_balances})
 
 
                     web.header('Access-Control-Allow-Origin', '*')
@@ -755,13 +725,7 @@ class sensor_page(ProtectedPage):
                     return self.core_render.graph_sensor(index, name, stype, mtype, manufacturer, shelly_hw_nbr)
 
             elif csvE:
-                dir_name_elog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs', 'elog.json')
-
-                try:
-                    with open(dir_name_elog) as logf:
-                        slog_file =  json.load(logf)
-                except IOError:
-                    slog_file = []
+                slog_file = sensor_logs.read_records(sensors.get(index), 'elog')
                 data = "Date; Time; Event\n"
                 for interval in slog_file:
                     data += '; '.join([
@@ -775,13 +739,7 @@ class sensor_page(ProtectedPage):
                 return data
 
             elif csvS:
-                dir_name_slog = os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs')
-                _abs_dir_slog = os.path.abspath(dir_name_slog + '/' + 'slog.json')
-                try:
-                    with open(_abs_dir_slog) as logf:
-                        slog_file =  json.load(logf)
-                except IOError:
-                    slog_file = []
+                slog_file = sensor_logs.read_records(sensors.get(index), 'slog')
                 data = "Date; Time; Value; Battery; Signal\n"
                 for interval in slog_file:
                     data += '; '.join([
@@ -797,11 +755,7 @@ class sensor_page(ProtectedPage):
                 return data
 
             elif clear:
-                try:
-                    _abs_dir_path = os.path.abspath(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
-                    shutil.rmtree(_abs_dir_path)
-                except Exception:
-                    pass
+                sensor_logs.clear_records(sensors.get(index))
                 raise web.seeother('/sensors')
 
         except ValueError:
@@ -852,18 +806,23 @@ class sensor_page(ProtectedPage):
                 raise web.seeother('/sensors')
 
             if action == 'clear':
-                try:
-                    _abs_dir_path = os.path.abspath(os.path.join('.', 'ospy', 'data', 'sensors', str(index), 'logs'))
-                    shutil.rmtree(_abs_dir_path)
-                except Exception:
-                    pass
+                if not sensor_logs.clear_records(sensors.get(index)):
+                    return self.core_render.notice(
+                        '/sensors',
+                        _('Sensor history was cleared locally, but the database clear operation could not be queued.')
+                    )
                 raise web.seeother('/sensors')
 
             if action == 'delete':
                 sensor_name = sensors.get(index).name
+                sensor = sensors.get(index)
+                if not sensor_logs.delete_records(sensor):
+                    return self.core_render.notice(
+                        '/sensors',
+                        _('The sensor was not deleted because its database cleanup could not be queued safely.')
+                    )
                 try: # delete sensor info from footer
                     from ospy.sensors import sensors_timer
-                    sensor = sensors.get(index)
                     sensors_timer.stop_status(sensor.name)
                 except Exception:
                     log.debug('webpages.py', traceback.format_exc())
@@ -889,7 +848,11 @@ class sensor_page(ProtectedPage):
                     sensors.remove_sensors(index)
                 except Exception:
                     log.debug('webpages.py', traceback.format_exc())
-                    pass
+                    sensor_logs.cancel_delete_records([sensor])
+                    return self.core_render.notice(
+                        '/sensors',
+                        _('Database cleanup was queued, but the sensor definition could not be deleted.')
+                    )
 
                 logEV.save_events_log(
                     _('Sensor deleted'),
@@ -912,6 +875,34 @@ class sensor_page(ProtectedPage):
         except ValueError:
             sensor = sensors.create_sensors()
             is_new_sensor = True
+
+        try:
+            requested_storage = (
+                int(qdict['log_storage']) if 'log_storage' in qdict else sensor.log_storage)
+            requested_source = (
+                int(qdict['log_source']) if 'log_source' in qdict else sensor.log_source)
+            if requested_storage not in (
+                    sensor_logs.STORAGE_JSON,
+                    sensor_logs.STORAGE_DATABASE,
+                    sensor_logs.STORAGE_BOTH) or requested_source not in (
+                    sensor_logs.SOURCE_JSON, sensor_logs.SOURCE_DATABASE):
+                raise ValueError('Invalid sensor log storage selection')
+        except (TypeError, ValueError):
+            return self.core_render.sensor(sensor, 'logsettings')
+        new_database_storage = (
+            requested_storage in (sensor_logs.STORAGE_DATABASE, sensor_logs.STORAGE_BOTH) and
+            requested_storage != sensor.log_storage
+        )
+        new_database_source = (
+            requested_source == sensor_logs.SOURCE_DATABASE and
+            sensor.log_source != sensor_logs.SOURCE_DATABASE
+        )
+        if (new_database_storage or new_database_source) and not sensor_logs.database_available(refresh=True):
+            return self.core_render.sensor(sensor, 'database')
+        if 'log_storage' in qdict:
+            sensor.log_storage = requested_storage
+        if 'log_source' in qdict:
+            sensor.log_source = requested_source
 
         if session.get('category') == 'admin':
             if 's_manu' in qdict:

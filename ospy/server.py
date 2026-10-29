@@ -32,6 +32,7 @@ from os.path import exists, join
 # statistics generating
 from ospy import usagestats
 from ospy import version
+from ospy import sensor_logs
 import sys
 
 # sensors
@@ -348,6 +349,7 @@ def start():
     scheduler.start()
     plugins.initialize_plugin_permission_approvals()
     plugins.start_enabled_plugins()
+    sensor_logs.start_worker()
     from ospy import webpages
     webpages.start_diagnostics_history()
     
@@ -442,7 +444,7 @@ def _safe_stop_outputs():
 
 def _core_workers():
     from ospy.weather import weather
-    return (scheduler, sensors_timer, weather, plugins.checker)
+    return (scheduler, sensors_timer, sensor_logs.database_worker, weather, plugins.checker)
 
 
 def _request_core_stop():

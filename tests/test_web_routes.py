@@ -180,7 +180,9 @@ class WebRouteIntegrationTests(unittest.TestCase):
 
         self.assertEqual(response.status, "200 OK")
         self.assertIn(
-            b"Set an administrator password to disable passwordless access.",
+            builtins._(
+                "Set an administrator password to disable passwordless access."
+            ).encode("utf-8"),
             response.data,
         )
         self.assertNotIn(b'name="old_password"', response.data)

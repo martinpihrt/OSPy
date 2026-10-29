@@ -103,6 +103,7 @@ OSPy can be controlled and monitored using HTTP GET commands. With the addition 
 ## Sensors
 OSPy allows to read data from wireless sensors (ESP32, ESP8266...) [Docs](https://github.com/martinpihrt/OSPy/blob/master/hardware_pcb/sensors_pcb_fw/docs/Details.md)
 Shelly sensors and periphery [Sensors by Shelly.com](https://www.shelly.com/)
+Built-in sensor samples and events remain compatible with the existing local JSON logs and settings stored in OSPy options. When the optional Database Connector plug-in is running and its database responds, each sensor can store history in local JSON, the database, or both, and can independently use JSON or the database for its log page, graph, and CSV exports. Database work is passed through a bounded persistent OSPy queue to a background worker so a slow or unavailable database does not block sensor processing; pending writes and remote deletions survive an OSPy restart, database-only logging falls back to local JSON if the queue cannot accept a record, and sensor deletion is blocked if its durable remote deletion command cannot be queued safely.
 
 ## Remote Controller for OSPy based on M5stick-C 
 This controller allows you to select a program stored in the OSPy on the LCD display and start it with the button. The controller is connected to the home Wi-Fi network. We do not even need a mobile phone or a computer to quickly select programs. We will use this miniature controller. [Docs](https://github.com/martinpihrt/OSPy/blob/master/hardware_pcb/remote_controllers_fw/docs/Details.md)
