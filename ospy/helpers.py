@@ -1084,6 +1084,7 @@ def template_globals():
     from ospy import i18n
     from ospy.users import users, category_key
     from ospy.sensors import sensors, sensors_timer
+    from ospy import sensor_logs
     from ospy.weather import weather
     from ospy import calendar_rules
 

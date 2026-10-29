@@ -1272,6 +1272,11 @@ Enable sample logging.
 ### Log Events
 Enable event logging.
 
+### Sensor log storage and history source
+Sensor definitions and settings continue to be stored in OSPy options, and existing installations continue to use the current local JSON sample, event, and graph files by default. When the optional Database Connector plug-in is running, enabled, and connected to a responding database, the sensor editor offers local JSON, Database Connector, or both as the write destination. The source used by the log page, graph, and CSV exports is selected independently. Database Connector is not a required dependency: an unavailable plug-in or database does not stop sensors and does not reset a previously saved selection.
+
+Database records use a stable sensor log identifier and the original measurement time; the existing variable sensor fields are stored as a Base64-encoded JSON payload. OSPy first places database writes in a bounded persistent core queue and a separate background worker delivers them without making the sensor timer wait for MySQL or handing the operation to a second plug-in queue. Pending writes and remote deletion markers survive an OSPy restart. If a database-only record cannot be accepted by the core queue, OSPy saves it to the current local JSON format, tracks it separately without changing that format, and queues it again when the core queue recovers. The existing sensor-entry setting also controls database retention. Clearing history always removes local JSON fallback data and queues remote cleanup when the database is used for storage or display. Deleting a sensor proceeds only after its remote deletion marker has been stored durably; the marker remains until the database becomes available.
+
 ### Text/Email Events
 Enable sending Emails when an event occurs. The email notification extension is required for this feature!
 

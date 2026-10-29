@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## October 29 2026
+-----------
+(Martin Pihrt)<br/>
+Added optional Database Connector storage for built-in OSPy sensor samples and events while preserving the existing local JSON logs and options as the default compatible behavior. Every sensor can select local JSON, the database, or both for writes and can independently select the source used by its log page, graph, and CSV exports. The database plug-in is not a required dependency; a saved database selection is retained during an outage, and sensor processing continues without waiting for database requests. Database operations use a stable sensor log identifier, the original measurement time and a Base64-encoded JSON payload, and are delivered in order by a bounded persistent OSPy queue through a separate background worker without handing them to the plug-in queue. Pending writes and remote deletion markers survive restart, database-only logging falls back to local JSON if the core queue cannot accept a record, retention follows the existing sensor-entry setting, clearing always removes local fallback history and queues remote cleanup when applicable, and sensor deletion is blocked if its durable remote deletion command cannot be queued safely. Added regression coverage for compatibility, queue processing, outages, graph and CSV reads, retention and deletion behavior, and updated the root README and all seven Web Interface Guides.<br/>
+
 ## October 11 2026
 -----------
 (Martin Pihrt)<br/>

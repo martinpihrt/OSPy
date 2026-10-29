@@ -1273,6 +1273,11 @@ Probenprotokollierung aktivieren.
 ### Protokollereignisse
 Ereignisprotokollierung aktivieren.
 
+### Speicher für Sensorprotokolle und Quelle des Verlaufs
+Sensordefinitionen und -einstellungen werden weiterhin in den OSPy-Optionen gespeichert, und vorhandene Installationen verwenden standardmäßig weiterhin die bisherigen lokalen JSON-Dateien für Messwerte, Ereignisse und Diagramme. Wenn das optionale Database-Connector-Plug-in läuft, aktiviert ist und eine antwortende Datenbank erreicht, kann im Sensoreditor als Schreibziel lokales JSON, Database Connector oder beides gewählt werden. Die Quelle für Protokollseite, Diagramm und CSV-Exporte wird unabhängig davon gewählt. Database Connector ist keine erforderliche Abhängigkeit: Ein nicht verfügbares Plug-in oder eine nicht erreichbare Datenbank stoppt die Sensoren nicht und setzt eine zuvor gespeicherte Auswahl nicht zurück.
+
+Datenbankeinträge verwenden eine dauerhafte Sensorprotokoll-ID und den ursprünglichen Messzeitpunkt; die veränderlichen Sensorfelder werden als Base64-codierte JSON-Nutzdaten gespeichert. OSPy legt Datenbankvorgänge zuerst in einer größenbeschränkten persistenten Kernwarteschlange ab, und ein separater Hintergrund-Thread überträgt sie, ohne dass der Sensortimer auf MySQL warten oder der Vorgang an eine zweite Plug-in-Warteschlange übergeben werden muss. Ausstehende Schreibvorgänge und Marker für spätere entfernte Löschungen überstehen einen OSPy-Neustart. Kann ein Eintrag im reinen Datenbankmodus nicht in die Kernwarteschlange aufgenommen werden, speichert OSPy ihn im bisherigen lokalen JSON-Format, kennzeichnet ihn getrennt ohne dieses Format zu ändern und reiht ihn nach der Wiederherstellung der Kernwarteschlange erneut ein. Die vorhandene Einstellung für die Anzahl der Sensoreinträge steuert auch die Datenbankaufbewahrung. Das Leeren des Verlaufs entfernt immer lokale JSON-Ausweichdaten und reiht die entfernte Bereinigung ein, wenn die Datenbank zum Speichern oder Anzeigen verwendet wird. Das Löschen eines Sensors wird erst fortgesetzt, nachdem sein entfernter Löschmarker dauerhaft gespeichert wurde; der Marker bleibt bis zur Verfügbarkeit der Datenbank erhalten.
+
 ### Text-/E-Mail-Ereignisse
 Aktivieren Sie das Senden von E-Mails, wenn ein Ereignis eintritt. Für diese Funktion ist die E-Mail-Benachrichtigungserweiterung erforderlich!
 

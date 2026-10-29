@@ -2,7 +2,12 @@ import os
 from pathlib import Path
 import unittest
 
+from tests.test_support import TEST_DATA_DIR  # noqa: F401 - initializes isolation
+
 import web
+
+from ospy import i18n  # noqa: F401 - installs gettext
+from ospy.helpers import template_globals
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,6 +58,13 @@ class TemplateCompilationTests(unittest.TestCase):
         templates = sorted(TEMPLATE_ROOT.glob("*.html"))
         self.assertTrue(templates, "No OSPy templates were found.")
         _compile_templates(self, templates)
+
+    def test_sensor_log_storage_uses_the_controlled_template_globals(self):
+        source = (TEMPLATE_ROOT / "sensor.html").read_text(encoding="utf-8")
+
+        self.assertIn("sensor_logs", template_globals())
+        self.assertNotIn("from ospy import sensor_logs", source)
+        self.assertNotIn("import ospy.sensor_logs", source)
 
     def test_home_pages_refresh_station_plugin_data_by_station_id(self):
         for name in ("home_admin.html", "home_user.html", "home_public.html"):

@@ -1250,6 +1250,11 @@ Włącz rejestrowanie próbek.
 ### Rejestruj zdarzenia
 Włącz rejestrowanie zdarzeń.
 
+### Magazyn dziennika czujnika i źródło historii
+Definicje i ustawienia czujników nadal są zapisywane w opcjach OSPy, a istniejące instalacje domyślnie nadal używają dotychczasowych lokalnych plików JSON z próbkami, zdarzeniami i danymi wykresu. Gdy opcjonalna wtyczka Database Connector jest uruchomiona, włączona i połączona z odpowiadającą bazą danych, w edytorze czujnika można wybrać zapis do lokalnego JSON, przez Database Connector albo do obu miejsc. Źródło używane przez stronę dziennika, wykres i eksporty CSV wybiera się niezależnie. Database Connector nie jest wymaganą zależnością: niedostępna wtyczka lub baza danych nie zatrzymuje czujników i nie zeruje wcześniej zapisanego wyboru.
+
+Rekordy bazy danych używają trwałego identyfikatora dziennika czujnika i pierwotnego czasu pomiaru, a zmienne pola czujnika są zapisywane jako ładunek JSON zakodowany w Base64. OSPy najpierw umieszcza operacje bazy danych w trwałej kolejce jądra o ograniczonym rozmiarze, a osobny wątek w tle dostarcza je bez oczekiwania timera czujników na MySQL i bez przekazywania operacji do drugiej kolejki wtyczki. Oczekujące zapisy i znaczniki późniejszego usunięcia zdalnych danych przetrwają restart OSPy. Jeśli w trybie wyłącznie bazodanowym rekord nie może zostać przyjęty do kolejki jądra, OSPy zapisuje go w dotychczasowym lokalnym formacie JSON, oznacza go osobno bez zmiany tego formatu i ponownie umieszcza w kolejce po jej odzyskaniu. Istniejące ustawienie liczby wpisów czujnika steruje również przechowywaniem w bazie. Czyszczenie historii zawsze usuwa lokalne dane zastępcze JSON i umieszcza zdalne czyszczenie w kolejce, gdy baza służy do zapisu lub wyświetlania. Usunięcie czujnika jest kontynuowane dopiero po trwałym zapisaniu znacznika zdalnego usunięcia; znacznik pozostaje do czasu dostępności bazy danych.
+
 ### Wydarzenia SMS/e-mail
 Włącz wysyłanie wiadomości e-mail w przypadku wystąpienia zdarzenia. Dla tej funkcji wymagane jest rozszerzenie powiadomień e-mail!
 

@@ -9,9 +9,9 @@ import traceback
 import traceback
 import time
 import datetime
-import subprocess
 import os
 import json
+import uuid
 
 # Local imports
 from ospy.options import options, rain_blocks, program_level_adjustments
@@ -20,6 +20,7 @@ from ospy.log import log, logEM, logEV
 from ospy.programs import programs
 from ospy.stations import stations
 from ospy.scheduler import predicted_schedule, combined_schedule
+from ospy import sensor_logs
 
 ### Sensors ###
 def _normalize_reg_output(value, output_count):
@@ -64,6 +65,9 @@ class _Sensor(object):
         self.log_samples = 0            # log samples
         self.last_log_samples = now()   # last log samples millis
         self.log_event = 0              # log event
+        self.log_storage = sensor_logs.STORAGE_JSON  # samples/events storage backend
+        self.log_source = sensor_logs.SOURCE_JSON    # source used by log, graph and CSV pages
+        self.log_uid = ""               # stable database history identifier
         self.send_email  = 0            # send e-mail  
         self.sample_rate = 60           # sample rate 
         self.last_read_value = [""]*10  # last read value (actual)
@@ -173,6 +177,17 @@ class _Sensor(object):
         self.s_trigger_low_threshold = "10"       # low threshold
         self.s_trigger_high_threshold = "30"      # high threshold
         options.load(self, index)
+
+        storage = sensor_logs.normalize_storage(getattr(self, 'log_storage', sensor_logs.STORAGE_JSON))
+        source = sensor_logs.normalize_source(getattr(self, 'log_source', sensor_logs.SOURCE_JSON))
+        changed = storage != getattr(self, 'log_storage', None) or source != getattr(self, 'log_source', None)
+        object.__setattr__(self, 'log_storage', storage)
+        object.__setattr__(self, 'log_source', source)
+        if not sensor_logs.valid_sensor_uid(getattr(self, 'log_uid', '')):
+            object.__setattr__(self, 'log_uid', uuid.uuid4().hex)
+            changed = True
+        if changed and index >= 0:
+            options.save(self, index)
 
     @property
     def index(self):
@@ -412,18 +427,63 @@ class _Sensors_Timer(Thread):
 
         return float(sum(a))/len(a)
             
+    def _update_graph_log(self, sensor, msg, battery, rssi, timestamp):
+        """Update the existing local graph file after a local sample write."""
+        glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
+        graph_path = os.path.join(glog_dir, 'graph.json')
+        try:
+            if not os.path.isdir(glog_dir):
+                mkdir_p(glog_dir)
+            graph_data = self._read_log(graph_path)
+            if not graph_data:
+                if sensor.multi_type == 9:
+                    graph_data = [
+                        {"sname": "{}".format(sensor.soil_probe_label[int(i)]), "balances": {}}
+                        for i in range(0, 16)
+                    ]
+                else:
+                    graph_data = [{"sname": "{}".format(sensor.name), "balances": {}}]
+                graph_data.append({
+                    "sname": "{}".format(_('Battery') if sensor.manufacturer == 0 else _('Voltage')),
+                    "balances": {}
+                })
+                graph_data.append({"sname": "{}".format(_('Signal')), "balances": {}})
+            elif sensor.multi_type == 9 and len(graph_data) >= 19:
+                graph_data = graph_data[:16] + [graph_data[17], graph_data[18]]
+                graph_data[16]['sname'] = "{}".format(
+                    _('Battery') if sensor.manufacturer == 0 else _('Voltage'))
+                graph_data[17]['sname'] = "{}".format(_('Signal'))
+            if type(msg) == list:
+                msg_len = len(msg)
+                for i in range(0, msg_len):
+                    graph_data[i]["balances"].update({timestamp: {"total": "{}".format(msg[i])}})
+                if battery is not None and rssi is not None:
+                    graph_data[msg_len]["balances"].update({timestamp: {"total": "{}".format(battery)}})
+                    graph_data[msg_len+1]["balances"].update({timestamp: {"total": "{}".format(rssi)}})
+            else:
+                graph_data[0]["balances"].update({timestamp: {"total": "{}".format(msg)}})
+                if battery is not None and rssi is not None:
+                    graph_data[1]["balances"].update({timestamp: {"total": "{}".format(battery)}})
+                    graph_data[2]["balances"].update({timestamp: {"total": "{}".format(rssi)}})
+            self._write_log(graph_path, graph_data)
+            log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
+        except Exception:
+            log.debug('sensors.py', traceback.format_exc())
+
     def update_log(self, sensor, lg, msg, action='', msg_calculation='', battery=None, rssi=None,
                    central_event=True):
-        """ Update samples and events in logs """
+        """Update samples and events in the configured sensor log backends."""
         try:
-            kind = 'slog' if lg == 'lgs' else 'elog'   
-            nowg = time.gmtime(now())
+            kind = 'slog' if lg == 'lgs' else 'elog'
+            recorded_at = int(time.time())
+            nowg = time.gmtime(recorded_at)
+            logline = {
+                "date": time.strftime('%Y-%m-%d', nowg),
+                "time": time.strftime('%H:%M:%S', nowg),
+            }
 
-            logline = {}
-            logline["date"] = time.strftime('%Y-%m-%d', nowg)
-            logline["time"] = time.strftime('%H:%M:%S', nowg)
-            if kind == 'slog':               # sensor samples
-                if type(msg) == list:        # example soil sensor is list with 16 values
+            if kind == 'slog':
+                if type(msg) == list:
                     for i in range(0, len(msg)):
                         logline["list_{}".format(i)] = "{}".format(msg[i])
                         if msg_calculation:
@@ -434,86 +494,19 @@ class _Sensors_Timer(Thread):
                         msg = "{0:.1f}".format(msg)
                     logline["value"] = "{}".format(msg)
 
-                if battery is not None:      # sensor battery voltage
+                if battery is not None:
                     if type(battery) == float:
                         battery = "{0:.1f}".format(float(battery))
-                        logline["battery"] = "{}".format(battery)
-                    else:
-                        logline["battery"] = "{}".format(battery)
+                    logline["battery"] = "{}".format(battery)
 
-                if rssi is not None:         # sensor Wi-Fi percent
+                if rssi is not None:
                     if type(rssi) == float:
                         rssi = "{0:.1f}".format(rssi)
-                        logline["rssi"] = "{}".format(float(rssi))
-                    else:
-                        logline["rssi"] = "{}".format(rssi)
-                
-                glog_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs', 'graph')
-                _abs_glog_dir = os.path.abspath(glog_dir)
-                
-                try: # for graph
-                    timestamp = int(time.time())
-                    if not os.path.isdir(_abs_glog_dir):
-                        mkdir_p(_abs_glog_dir) # ensure dir and file exists after config restore
-                        log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(_abs_glog_dir))
-                    if not os.path.isfile(_abs_glog_dir + '/' + 'graph.json'):
-                        subprocess.call(['touch', _abs_glog_dir + '/' + 'graph.json'])
-                        log.debug('sensors.py', _('File not exists, creating file: {}').format('graph.json'))
-                    
-                    graph_data = self._read_log(_abs_glog_dir + '/' + 'graph.json')
-                    gdata = {}
-                    if type(msg) == list:
-                        msg_len = len(msg)
-                        for i in range(0, msg_len):
-                            gdata = {"total": "{}".format(msg[i])}
-                            graph_data[i]["balances"].update({timestamp: gdata})    # value eg: 16x soil probe
-                        if battery is not None and rssi is not None:
-                            gdata = {"total": "{}".format(battery)}                 # battery voltage
-                            graph_data[msg_len+1]["balances"].update({timestamp: gdata})
-                            gdata = {"total": "{}".format(rssi)}                    # WiFi/radio signal
-                            graph_data[msg_len+2]["balances"].update({timestamp: gdata})
-                    else:
-                        gdata = {"total": "{}".format(msg)}                         # value eg: temperature 
-                        graph_data[0]["balances"].update({timestamp: gdata})
-                        if battery is not None and rssi is not None:
-                            gdata = {"total": "{}".format(battery)}                 # battery voltage
-                            graph_data[1]["balances"].update({timestamp: gdata})
-                            gdata = {"total": "{}".format(rssi)}                    # WiFi/radio signal
-                            graph_data[2]["balances"].update({timestamp: gdata})
-                    self._write_log(glog_dir + '/' + 'graph.json', graph_data)
-                    log.debug('sensors.py', _('Updating sensor graph log to file successfully.'))
-                except:
-                    if not os.path.isdir(_abs_glog_dir):
-                        mkdir_p(_abs_glog_dir) # ensure dir and file exists after config restore
-                        log.debug('sensors.py',_('Dir not exists, creating dir: {}').format(_abs_glog_dir))
-                    if not os.path.isfile(_abs_glog_dir + '/' + 'graph.json'):
-                        subprocess.call(['touch', _abs_glog_dir + '/' + 'graph.json'])
-                        log.debug('sensors.py', _('File not exists, creating file: {}').format('graph.json'))
-                    if sensor.multi_type == 9: # 16x log from probe
-                        graph_def_data = []
-                        for i in range(0, 17):
-                            graph_def_data.append({"sname": "{}".format(sensor.soil_probe_label[int(i)]), "balances": {}})
-                        if sensor.manufacturer == 0:
-                            graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
-                        else:
-                            graph_def_data.append({"sname": "{}".format(_('Voltage')), "balances": {}})
-                        graph_def_data.append({"sname": "{}".format(_('Signal')), "balances": {}})
-                    else:                      # only 1x log
-                        graph_def_data = []
-                        graph_def_data.append({"sname": "{}".format(sensor.name), "balances": {}})
-                        if sensor.manufacturer == 0:
-                            graph_def_data.append({"sname": "{}".format(_('Battery')), "balances": {}})
-                        else:
-                            graph_def_data.append({"sname": "{}".format(_('Voltage')), "balances": {}})
-                        graph_def_data.append({"sname": "{}".format(_('Signal')), "balances": {}}) 
-                    self._write_log(_abs_glog_dir + '/' + 'graph.json', graph_def_data)
-                    log.debug('sensors.py', traceback.format_exc())
-                    pass
+                    logline["rssi"] = "{}".format(rssi)
 
                 if action:
                     logline["action"] = '{}'.format(action.encode('utf-8').decode('utf-8'))
-
-            else:                # sensor event log
+            else:
                 logline["event"] = '{}'.format(msg.encode('utf-8').decode('utf-8'))
                 if central_event:
                     if msg == _('Now response'):
@@ -530,27 +523,9 @@ class _Sensors_Timer(Thread):
                         category='sensors'
                     )
 
-            log_dir = os.path.join('.', 'ospy', 'data', 'sensors', str(sensor.index), 'logs')
-            if not os.path.isdir(log_dir):
-                mkdir_p(log_dir) # ensure dir and file exists after config restore
-                log.debug('sensors.py', _('Dir not exists, creating dir: {}').format(log_dir))
-            
-            log_ref = str(log_dir) + '/' + str(kind)
-            if not os.path.isfile(log_ref + '.json'):
-                subprocess.call(['touch', log_ref + '.json'])
-                log.debug('sensors.py', _('File not exists, creating file: {}').format(str(kind) + '.json'))
-            
-            try:
-                _log = self._read_log(log_ref + '.json')
-            except:
-                _log = []
-
-            _log.insert(0, logline)
-            if options.run_sensor_entries > 0:           # 0 = unlimited
-               _log = _log[:options.run_sensor_entries]  # limit records from options
-            self._write_log(log_ref + '.json', _log)
-            log.debug('sensors.py', _('Updating sensor log to file successfully.')) 
-        
+            result = sensor_logs.write_record(sensor, kind, logline, recorded_at)
+            if kind == 'slog' and result.get('local', False):
+                self._update_graph_log(sensor, msg, battery, rssi, result['timestamp'])
         except Exception:
             log.debug('sensors.py', traceback.format_exc())
 

@@ -1273,6 +1273,11 @@ Povoliť protokolovanie vzoriek.
 ### Denník udalostí
 Povoliť protokolovanie udalostí.
 
+### Úložisko záznamov senzora a zdroj histórie
+Definície a nastavenia senzorov sa naďalej ukladajú do options OSPy a existujúce inštalácie v predvolenom stave používajú doterajšie miestne súbory JSON so vzorkami, udalosťami a údajmi grafu. Ak je voliteľné rozšírenie Database Connector spustené, povolené a pripojené k odpovedajúcej databáze, v editore senzora možno zvoliť zápis do miestnych súborov JSON, do databázy alebo do oboch úložísk. Zdroj pre stránku záznamov, graf a exporty CSV sa vyberá samostatne. Database Connector nie je povinná závislosť: nedostupné rozšírenie alebo databáza nezastaví senzory ani nezruší skôr uloženú voľbu.
+
+Databázové záznamy používajú trvalý identifikátor histórie senzora a pôvodný čas merania; premenlivé polia senzora sú uložené ako JSON zakódovaný pomocou Base64. OSPy najprv vloží databázové operácie do veľkostne obmedzeného trvalého frontu jadra a samostatné vlákno na pozadí ich doručí bez čakania časovača senzorov na MySQL a bez odovzdania operácie do druhého frontu doplnku. Čakajúce zápisy a značky na neskoršie odstránenie vzdialených údajov prežijú reštart OSPy. Ak v režime iba databázy nemožno záznam prijať do frontu jadra, OSPy ho uloží v doterajšom miestnom formáte JSON, osobitne ho označí bez zmeny tohto formátu a po obnovení frontu ho znova zaradí. Existujúce nastavenie počtu záznamov senzora riadi aj uchovávanie v databáze. Vymazanie histórie vždy odstráni miestne náhradné údaje JSON a zaradí vzdialené čistenie, keď sa databáza používa na zápis alebo zobrazenie. Odstránenie senzora pokračuje až po trvalom uložení značky vzdialeného odstránenia; značka zostáva, kým nebude databáza dostupná.
+
 ### Text/E-mail udalosť
 Povoliť odosielanie E-mailov, keď dôjde k udalosti. Pre túto funkciu je vyžadované rozšírenie e-mail notification!
 
