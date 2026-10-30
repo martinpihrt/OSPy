@@ -206,6 +206,9 @@ if __name__ == '__main__':
             # https://pypi.org/project/paho-mqtt/
             install_package('paho-mqtt', None, None, pip='paho-mqtt')
 
+            # FIDO2 verification for Android Restore Credentials.
+            install_package('webauthn', None, None, pip='webauthn>=3.0,<4')
+
         install_service()
         start()
         print_report('setup.py', _('Done.'))

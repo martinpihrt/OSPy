@@ -20,8 +20,29 @@ from ospy.users import users
 from .responses import APIError
 from .store import mobile_store
 
+try:
+    from webauthn import (
+        base64url_to_bytes,
+        generate_authentication_options,
+        generate_registration_options,
+        options_to_json,
+        verify_authentication_response,
+        verify_registration_response,
+    )
+    from webauthn.helpers.structs import (
+        PublicKeyCredentialDescriptor,
+        UserVerificationRequirement,
+    )
+except ImportError:  # Reported by the endpoints without breaking legacy OSPy.
+    base64url_to_bytes = None
+
 
 ACCESS_LIFETIME = 15 * 60
+RESTORE_RP_ID = "www.pihrt.com"
+RESTORE_RP_NAME = "OSPy"
+RESTORE_ALLOWED_ORIGINS = {
+    "android:apk-key-hash:pIid7MKwzoHGqIFAwIBxqaoSSZX0DTJoonnflfHnHt4",
+}
 ROLE_SCOPES = {
     "public": ["read"],
     "user": ["read", "control"],
@@ -276,4 +297,210 @@ def refresh(refresh_token):
         "device_id": replacement["device_id"],
         "role": replacement["role"],
         "scopes": replacement["scopes"],
+    }
+
+
+def _require_webauthn():
+    if base64url_to_bytes is None:
+        raise APIError(
+            503, "restore_credentials_unavailable",
+            "Install the webauthn Python package to use Restore Credentials.",
+        )
+
+
+def _restore_user_id(username):
+    value = "{}\0{}".format(mobile_store.instance_id(), username)
+    return hashlib.sha256(value.encode("utf-8")).digest()
+
+
+def _credential_payload(value):
+    if isinstance(value, dict):
+        return value
+    try:
+        return json.loads(str(value))
+    except Exception:
+        raise APIError(
+            422, "invalid_restore_credential",
+            "The Restore Credential response is not valid JSON.",
+        )
+
+
+def _credential_origin(credential):
+    try:
+        encoded = credential["response"]["clientDataJSON"]
+        client_data = json.loads(_b64decode(encoded).decode("utf-8"))
+        origin = str(client_data["origin"])
+    except Exception:
+        raise APIError(
+            422, "invalid_restore_credential",
+            "The Restore Credential response does not contain valid client data.",
+        )
+    if origin not in RESTORE_ALLOWED_ORIGINS:
+        raise APIError(
+            403, "invalid_restore_origin",
+            "Restore Credentials are accepted only from the signed OSPy Android application.",
+        )
+    return origin
+
+
+def restore_registration_options(identity):
+    _require_webauthn()
+    credentials = mobile_store.restore_credentials(identity["sub"])
+    options = generate_registration_options(
+        rp_id=RESTORE_RP_ID,
+        rp_name=RESTORE_RP_NAME,
+        user_name=identity["sub"],
+        user_id=_restore_user_id(identity["sub"]),
+        user_display_name=identity["sub"],
+        exclude_credentials=[
+            PublicKeyCredentialDescriptor(id=bytes(item["credential_id"]))
+            for item in credentials
+        ],
+    )
+    challenge_id = mobile_store.create_restore_challenge(
+        "register", identity["sub"], identity["device_id"], options.challenge
+    )
+    return {
+        "challenge_id": challenge_id,
+        "options": json.loads(options_to_json(options)),
+    }
+
+
+def register_restore_credential(identity, payload):
+    _require_webauthn()
+    challenge = mobile_store.restore_challenge(
+        payload.get("challenge_id", ""), "register"
+    )
+    if (
+            challenge is None or challenge["username"] != identity["sub"] or
+            challenge["device_id"] != identity["device_id"]):
+        raise APIError(
+            401, "invalid_restore_challenge",
+            "The Restore Credential challenge is invalid or expired.",
+        )
+    credential = _credential_payload(payload.get("credential"))
+    origin = _credential_origin(credential)
+    try:
+        verification = verify_registration_response(
+            credential=credential,
+            expected_challenge=bytes(challenge["challenge"]),
+            expected_rp_id=RESTORE_RP_ID,
+            expected_origin=origin,
+            require_user_presence=False,
+            require_user_verification=False,
+        )
+    except Exception:
+        raise APIError(
+            401, "invalid_restore_credential",
+            "The Restore Credential registration could not be verified.",
+        )
+    mobile_store.consume_restore_challenge(challenge["id"])
+    mobile_store.save_restore_credential(
+        verification.credential_id,
+        identity["sub"], identity["role"], identity["scopes"],
+        identity["device_id"], verification.credential_public_key,
+        verification.sign_count, origin,
+    )
+    return {"registered": True}
+
+
+def restore_authentication_options(payload):
+    _require_webauthn()
+    username = str(payload.get("username", "") or "").strip()
+    device = payload.get("device") if isinstance(payload.get("device"), dict) else {}
+    device_id = str(device.get("id", "") or "").strip()
+    if not username or not device_id:
+        raise APIError(
+            422, "missing_restore_identity",
+            "The restored username and new device identifier are required.",
+        )
+    credentials = mobile_store.restore_credentials(username)
+    if not credentials:
+        raise APIError(
+            404, "restore_credential_not_found",
+            "No Restore Credential is registered for this account.",
+        )
+    options = generate_authentication_options(
+        rp_id=RESTORE_RP_ID,
+        allow_credentials=[
+            PublicKeyCredentialDescriptor(id=bytes(item["credential_id"]))
+            for item in credentials
+        ],
+        user_verification=UserVerificationRequirement.DISCOURAGED,
+    )
+    challenge_id = mobile_store.create_restore_challenge(
+        "authenticate", username, device_id, options.challenge
+    )
+    return {
+        "challenge_id": challenge_id,
+        "options": json.loads(options_to_json(options)),
+    }
+
+
+def authenticate_restore_credential(payload):
+    _require_webauthn()
+    challenge = mobile_store.restore_challenge(
+        payload.get("challenge_id", ""), "authenticate"
+    )
+    if challenge is None:
+        raise APIError(
+            401, "invalid_restore_challenge",
+            "The Restore Credential challenge is invalid or expired.",
+        )
+    credential = _credential_payload(payload.get("credential"))
+    try:
+        credential_id = base64url_to_bytes(credential["id"])
+    except Exception:
+        raise APIError(
+            422, "invalid_restore_credential",
+            "The Restore Credential identifier is missing or invalid.",
+        )
+    saved = mobile_store.restore_credential(credential_id)
+    if saved is None or saved["username"] != challenge["username"]:
+        raise APIError(
+            401, "invalid_restore_credential",
+            "The Restore Credential is not registered for this account.",
+        )
+    try:
+        verification = verify_authentication_response(
+            credential=credential,
+            expected_challenge=bytes(challenge["challenge"]),
+            expected_rp_id=RESTORE_RP_ID,
+            expected_origin=saved["origin"],
+            credential_public_key=bytes(saved["public_key"]),
+            credential_current_sign_count=int(saved["sign_count"]),
+            require_user_verification=False,
+        )
+    except Exception:
+        raise APIError(
+            401, "invalid_restore_credential",
+            "The Restore Credential authentication could not be verified.",
+        )
+    mobile_store.consume_restore_challenge(challenge["id"])
+    mobile_store.update_restore_credential(
+        credential_id, verification.new_sign_count
+    )
+    scopes = json.loads(saved["scopes"])
+    device = payload.get("device") if isinstance(payload.get("device"), dict) else {}
+    refresh_data = mobile_store.issue_refresh_token(
+        saved["username"], saved["role"], scopes,
+        challenge["device_id"], device.get("name", "Android"),
+        device.get("app_version", ""),
+    )
+    access = issue_access_token(
+        saved["username"], saved["role"], scopes,
+        refresh_data["device_id"], refresh_data["id"],
+    )
+    return {
+        "access_token": access,
+        "token_type": "Bearer",
+        "expires_in": ACCESS_LIFETIME,
+        "refresh_token": refresh_data["token"],
+        "refresh_expires_in": max(
+            0, int(refresh_data["expires"] - time.time())
+        ),
+        "device_id": refresh_data["device_id"],
+        "username": saved["username"],
+        "role": saved["role"],
+        "scopes": scopes,
     }

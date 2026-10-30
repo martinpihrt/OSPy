@@ -28,7 +28,10 @@ from .responses import (
     APIError, endpoint, json_body, query_bool, request_id, respond,
 )
 from .security import (
-    current_identity, login, refresh, require_scope, verify_access_token,
+    authenticate_restore_credential, current_identity, login, refresh,
+    register_restore_credential, require_scope,
+    restore_authentication_options, restore_registration_options,
+    verify_access_token,
 )
 from .push import push_dispatcher
 from .store import PUSH_CATEGORIES, mobile_store
@@ -43,7 +46,7 @@ API_FEATURES = [
     "program_settings",
     "weather", "logs", "diagnostics", "notifications", "plugins",
     "backup", "update", "system", "sse", "push_notifications",
-    "service_outages",
+    "service_outages", "restore_credentials",
 ]
 _hooks_lock = threading.Lock()
 _hooks_ready = False
@@ -938,6 +941,32 @@ class Refresh(object):
     def POST(self):
         payload = json_body()
         return respond(refresh(payload.get("refresh_token", "")))
+
+
+class RestoreRegisterOptions(object):
+    @endpoint
+    @require_scope("read")
+    def POST(self):
+        return respond(restore_registration_options(_identity()))
+
+
+class RestoreRegister(object):
+    @endpoint
+    @require_scope("read")
+    def POST(self):
+        return respond(register_restore_credential(_identity(), json_body()))
+
+
+class RestoreOptions(object):
+    @endpoint
+    def POST(self):
+        return respond(restore_authentication_options(json_body()))
+
+
+class RestoreAuthenticate(object):
+    @endpoint
+    def POST(self):
+        return respond(authenticate_restore_credential(json_body()), status=201)
 
 
 class Logout(object):
@@ -2656,6 +2685,10 @@ URLS = (
     "/openapi.json", OpenAPI,
     "/auth/login", Login,
     "/auth/refresh", Refresh,
+    "/auth/restore/register/options", RestoreRegisterOptions,
+    "/auth/restore/register", RestoreRegister,
+    "/auth/restore/options", RestoreOptions,
+    "/auth/restore", RestoreAuthenticate,
     "/auth/logout", Logout,
     "/auth/devices", Devices,
     "/auth/devices/(.+)", Device,
