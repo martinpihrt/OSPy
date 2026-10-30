@@ -1,8 +1,10 @@
+import base64
 import json
 import os
 import tempfile
 import unittest
 from unittest import mock
+from types import SimpleNamespace
 
 
 class MobileAPIV1Tests(unittest.TestCase):
@@ -79,6 +81,149 @@ class MobileAPIV1Tests(unittest.TestCase):
         self.assertIn("post", document["paths"]["/service-outages"])
         self.assertIn("put", document["paths"]["/service-outages/{outage_id}"])
         self.assertIn("delete", document["paths"]["/service-outages/{outage_id}"])
+        self.assertIn("/auth/restore/register/options", document["paths"])
+        self.assertIn("/auth/restore", document["paths"])
+
+    def test_restore_credential_options_use_fixed_relying_party(self):
+        from api.v1 import security
+        self.assertEqual(
+            security.RESTORE_ALLOWED_ORIGINS,
+            {
+                "android:apk-key-hash:"
+                "pIid7MKwzoHGqIFAwIBxqaoSSZX0DTJoonnflfHnHt4"
+            },
+        )
+        token, refresh = self._token(("read",), role="user")
+        response = self._request(
+            "/auth/restore/register/options", token, method="POST", data={}
+        )
+        self.assertEqual(response.status, "200 OK")
+        registration = self._json(response)["data"]
+        self.assertTrue(registration["challenge_id"])
+        self.assertEqual(
+            registration["options"]["rp"]["id"], "www.pihrt.com"
+        )
+        self.assertEqual(
+            registration["options"]["user"]["name"], "mobile-test"
+        )
+
+        from api.v1.store import mobile_store
+        mobile_store.save_restore_credential(
+            b"credential-id", "mobile-test", "user", ("read",),
+            refresh["device_id"], b"public-key", 0,
+            "android:apk-key-hash:test",
+        )
+        response = self._request(
+            "/auth/restore/options", method="POST", data={
+                "username": "mobile-test",
+                "device": {"id": "restored-device"},
+            },
+        )
+        self.assertEqual(response.status, "200 OK")
+        authentication = self._json(response)["data"]
+        self.assertTrue(authentication["challenge_id"])
+        self.assertEqual(authentication["options"]["rpId"], "www.pihrt.com")
+        self.assertEqual(
+            authentication["options"]["allowCredentials"][0]["id"],
+            "Y3JlZGVudGlhbC1pZA",
+        )
+
+        invalid_client_data = base64.urlsafe_b64encode(json.dumps({
+            "origin": "android:apk-key-hash:another-application",
+        }).encode("utf-8")).rstrip(b"=").decode("ascii")
+        with self.assertRaises(Exception) as caught:
+            security._credential_origin({
+                "response": {"clientDataJSON": invalid_client_data},
+            })
+        self.assertEqual(caught.exception.code, "invalid_restore_origin")
+
+    def test_restore_options_do_not_reveal_unknown_account(self):
+        response = self._request(
+            "/auth/restore/options", method="POST", data={
+                "username": "unknown",
+                "device": {"id": "restored-device"},
+            },
+        )
+        self.assertEqual(response.status, "404 Not Found")
+        self.assertEqual(
+            self._json(response)["error"]["code"],
+            "restore_credential_not_found",
+        )
+
+    def test_restore_registration_and_authentication_issue_new_session(self):
+        from api.v1 import security
+        from api.v1.store import mobile_store
+
+        token, original = self._token(("read", "control"), role="user")
+        identity = security.verify_access_token(token)
+        registration = security.restore_registration_options(identity)
+        origin = next(iter(security.RESTORE_ALLOWED_ORIGINS))
+        client_data = base64.urlsafe_b64encode(json.dumps({
+            "type": "webauthn.create",
+            "challenge": registration["options"]["challenge"],
+            "origin": origin,
+        }).encode("utf-8")).rstrip(b"=").decode("ascii")
+        credential_id = b"restore-credential"
+        credential_json_id = base64.urlsafe_b64encode(
+            credential_id
+        ).rstrip(b"=").decode("ascii")
+        registration_credential = {
+            "id": credential_json_id,
+            "rawId": credential_json_id,
+            "type": "public-key",
+            "response": {
+                "clientDataJSON": client_data,
+                "attestationObject": "test",
+            },
+        }
+        with mock.patch.object(
+                security, "verify_registration_response",
+                return_value=SimpleNamespace(
+                    credential_id=credential_id,
+                    credential_public_key=b"public-key",
+                    sign_count=0,
+                )):
+            result = security.register_restore_credential(identity, {
+                "challenge_id": registration["challenge_id"],
+                "credential": registration_credential,
+            })
+        self.assertTrue(result["registered"])
+        saved = mobile_store.restore_credential(credential_id)
+        self.assertEqual(saved["origin"], origin)
+        self.assertEqual(json.loads(saved["scopes"]), ["control", "read"])
+
+        authentication = security.restore_authentication_options({
+            "username": "mobile-test",
+            "device": {"id": "restored-device"},
+        })
+        authentication_credential = {
+            "id": credential_json_id,
+            "rawId": credential_json_id,
+            "type": "public-key",
+            "response": {
+                "clientDataJSON": "test",
+                "authenticatorData": "test",
+                "signature": "test",
+            },
+        }
+        with mock.patch.object(
+                security, "verify_authentication_response",
+                return_value=SimpleNamespace(new_sign_count=1)):
+            restored = security.authenticate_restore_credential({
+                "challenge_id": authentication["challenge_id"],
+                "credential": authentication_credential,
+                "device": {"name": "New phone", "app_version": "test"},
+            })
+        self.assertEqual(restored["device_id"], "restored-device")
+        self.assertEqual(restored["username"], "mobile-test")
+        self.assertEqual(restored["scopes"], ["control", "read"])
+        restored_identity = security.verify_access_token(
+            restored["access_token"]
+        )
+        self.assertEqual(restored_identity["device_id"], "restored-device")
+        self.assertNotEqual(restored["refresh_token"], original["token"])
+        mobile_store.revoke_device(original["device_id"])
+        self.assertIsNone(mobile_store.restore_credential(credential_id))
 
     def test_protected_endpoint_requires_bearer_token(self):
         response = self._request("/stations")

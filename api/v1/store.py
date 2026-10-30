@@ -11,7 +11,7 @@ import time
 import uuid
 
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 DEFAULT_REFRESH_LIFETIME = 30 * 24 * 60 * 60
 # A mobile process can be terminated after OSPy has rotated a refresh token but
 # before Android has durably stored the replacement (for example during a
@@ -121,6 +121,31 @@ class MobileStore(object):
                     attempts INTEGER NOT NULL DEFAULT 0,
                     created REAL NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS restore_challenges (
+                    id TEXT PRIMARY KEY,
+                    purpose TEXT NOT NULL,
+                    username TEXT NOT NULL,
+                    device_id TEXT NOT NULL,
+                    challenge BLOB NOT NULL,
+                    expires REAL NOT NULL,
+                    attempts INTEGER NOT NULL DEFAULT 0,
+                    created REAL NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS restore_credentials (
+                    credential_id BLOB PRIMARY KEY,
+                    username TEXT NOT NULL,
+                    role TEXT NOT NULL,
+                    scopes TEXT NOT NULL,
+                    device_id TEXT NOT NULL,
+                    public_key BLOB NOT NULL,
+                    sign_count INTEGER NOT NULL DEFAULT 0,
+                    origin TEXT NOT NULL,
+                    created REAL NOT NULL,
+                    last_used REAL NOT NULL,
+                    revoked REAL
+                );
+                CREATE INDEX IF NOT EXISTS restore_credentials_username
+                    ON restore_credentials(username, revoked);
                 CREATE TABLE IF NOT EXISTS notifications (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     event_type TEXT NOT NULL,
@@ -224,6 +249,128 @@ class MobileStore(object):
 
     def signing_secret(self):
         return self.meta("signing_secret", lambda: secrets.token_urlsafe(48))
+
+    def create_restore_challenge(
+            self, purpose, username, device_id, challenge, lifetime=300):
+        now = time.time()
+        challenge_id = str(uuid.uuid4())
+        with self._lock, self._connect() as connection:
+            connection.execute(
+                "DELETE FROM restore_challenges WHERE expires<?", (now,)
+            )
+            connection.execute(
+                """
+                INSERT INTO restore_challenges(
+                    id, purpose, username, device_id, challenge, expires,
+                    attempts, created
+                ) VALUES(?, ?, ?, ?, ?, ?, 0, ?)
+                """,
+                (
+                    challenge_id, str(purpose), str(username), str(device_id),
+                    sqlite3.Binary(bytes(challenge)), now + lifetime, now,
+                ),
+            )
+        return challenge_id
+
+    def restore_challenge(self, challenge_id, purpose):
+        now = time.time()
+        with self._lock, self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT * FROM restore_challenges
+                WHERE id=? AND purpose=? AND expires>=?
+                """,
+                (str(challenge_id), str(purpose), now),
+            ).fetchone()
+            if row is None:
+                return None
+            connection.execute(
+                "DELETE FROM restore_challenges WHERE id=?",
+                (str(challenge_id),),
+            )
+            return dict(row)
+
+    def consume_restore_challenge(self, challenge_id):
+        with self._lock, self._connect() as connection:
+            connection.execute(
+                "DELETE FROM restore_challenges WHERE id=?",
+                (str(challenge_id),),
+            )
+
+    def save_restore_credential(
+            self, credential_id, username, role, scopes, device_id,
+            public_key, sign_count, origin):
+        now = time.time()
+        credential_id = bytes(credential_id)
+        with self._lock, self._connect() as connection:
+            connection.execute(
+                """
+                UPDATE restore_credentials SET revoked=?
+                WHERE username=? AND device_id=? AND revoked IS NULL
+                """,
+                (now, str(username), str(device_id)),
+            )
+            connection.execute(
+                """
+                INSERT INTO restore_credentials(
+                    credential_id, username, device_id, public_key,
+                    role, scopes, sign_count, origin, created, last_used, revoked
+                ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)
+                ON CONFLICT(credential_id) DO UPDATE SET
+                    username=excluded.username,
+                    role=excluded.role,
+                    scopes=excluded.scopes,
+                    device_id=excluded.device_id,
+                    public_key=excluded.public_key,
+                    sign_count=excluded.sign_count,
+                    origin=excluded.origin,
+                    last_used=excluded.last_used,
+                    revoked=NULL
+                """,
+                (
+                    sqlite3.Binary(credential_id), str(username),
+                    str(device_id), sqlite3.Binary(bytes(public_key)),
+                    str(role), json.dumps(sorted(set(scopes))),
+                    int(sign_count), str(origin), now, now,
+                ),
+            )
+
+    def restore_credentials(self, username):
+        with self._lock, self._connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT * FROM restore_credentials
+                WHERE username=? AND revoked IS NULL
+                ORDER BY last_used DESC
+                """,
+                (str(username),),
+            ).fetchall()
+            return [dict(row) for row in rows]
+
+    def restore_credential(self, credential_id):
+        with self._lock, self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT * FROM restore_credentials
+                WHERE credential_id=? AND revoked IS NULL
+                """,
+                (sqlite3.Binary(bytes(credential_id)),),
+            ).fetchone()
+            return None if row is None else dict(row)
+
+    def update_restore_credential(self, credential_id, sign_count):
+        with self._lock, self._connect() as connection:
+            connection.execute(
+                """
+                UPDATE restore_credentials
+                SET sign_count=?, last_used=?
+                WHERE credential_id=? AND revoked IS NULL
+                """,
+                (
+                    int(sign_count), time.time(),
+                    sqlite3.Binary(bytes(credential_id)),
+                ),
+            )
 
     def issue_refresh_token(
             self, username, role, scopes, device_id, device_name,
@@ -407,6 +554,11 @@ class MobileStore(object):
                 (now, device_id),
             )
             connection.execute(
+                "UPDATE restore_credentials SET revoked=? "
+                "WHERE device_id=? AND revoked IS NULL",
+                (now, device_id),
+            )
+            connection.execute(
                 "DELETE FROM push_subscriptions WHERE device_id=?", (device_id,)
             )
 
@@ -418,6 +570,9 @@ class MobileStore(object):
             ).fetchone()
             if row is None or row["revoked"] is None:
                 return False
+            connection.execute(
+                "DELETE FROM restore_credentials WHERE device_id=?", (device_id,)
+            )
             connection.execute("DELETE FROM devices WHERE id=?", (device_id,))
             return True
 
@@ -429,6 +584,10 @@ class MobileStore(object):
             ).fetchone()
             count = int(row["count"])
             if count:
+                connection.execute(
+                    "DELETE FROM restore_credentials WHERE device_id IN "
+                    "(SELECT id FROM devices WHERE revoked IS NOT NULL)"
+                )
                 connection.execute(
                     "DELETE FROM devices WHERE revoked IS NOT NULL"
                 )

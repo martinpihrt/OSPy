@@ -23,6 +23,16 @@ Public endpoints are `GET /`, `/server`, `/capabilities` and `/openapi.json`. `/
 
 Pairing is deliberately unavailable while OSPy has no administrator password. Tokens contain scopes. Read-only clients cannot operate stations; system, backup, update and plug-in administration require their separate administrator scopes.
 
+### Android Restore Credentials
+
+Android Restore Credentials can recover a signed-in OSPy installation on a replacement phone without putting the password, 2FA code, access token or refresh token in Android backup. The application backs up only the non-secret installation address, display name, username and certificate preference needed to contact the same OSPy server.
+
+After normal authenticated pairing, the Android application requests registration options from `POST /auth/restore/register/options`, creates the restore key through Android Credential Manager and submits the result to `POST /auth/restore/register`. OSPy uses the fixed WebAuthn relying-party ID `www.pihrt.com` and accepts only the production Google Play signing origin for `com.pihrt.ospy.mobile`.
+
+On a replacement phone, the application sends the restored username and a new random device identifier to the public `POST /auth/restore/options` endpoint. It obtains the end-to-end encrypted restore key through Credential Manager and sends the assertion to `POST /auth/restore`. A successful assertion creates a normal new access and rotating refresh-token session for the new phone. Challenges expire after five minutes and are consumed by the first verification attempt, preventing replay and concurrent reuse.
+
+The production Digital Asset Links document must be served as JSON from `https://www.pihrt.com/.well-known/assetlinks.json` with relation `delegate_permission/common.get_login_creds`, Android package `com.pihrt.ospy.mobile` and the Play App Signing SHA-256 certificate fingerprint. Device revocation also invalidates restore keys registered by that paired device. Removing the installation or signing out in the Android application clears the provider-side restore key.
+
 The v1 API does not use the browser session cookie and does not accept a CSRF token as authentication. A browser origin is not granted CORS access by default. Native clients authenticate only with the Bearer token. Login uses the same brute-force protection and audit log as the web login. Passwords, 2FA codes and refresh tokens must never be placed in a URL.
 
 ## Immediate push notifications
@@ -149,7 +159,7 @@ Common statuses are `200`, `201`, `202`, `400`, `401`, `403`, `404`, `409`, `413
 | Area | Endpoints |
 | --- | --- |
 | Discovery | `GET /`, `/server`, `/capabilities`, `/openapi.json` |
-| Authentication | `POST /auth/login`, `/auth/refresh`, `/auth/logout` |
+| Authentication | `POST /auth/login`, `/auth/refresh`, `/auth/logout`, `/auth/restore/register/options`, `/auth/restore/register`, `/auth/restore/options`, `/auth/restore` |
 | Devices | `GET /auth/devices`, `DELETE /auth/devices/{id}` |
 | Push notifications | `GET/POST/PUT/DELETE /push`, `POST /push/test` |
 | Home | `GET /overview`, `GET/PUT /irrigation` |

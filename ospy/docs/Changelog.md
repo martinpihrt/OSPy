@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+## October 30 2026
+-----------
+(Martin Pihrt)<br/>
+Added Android Restore Credentials support to Mobile API v1. An authenticated Play-signed OSPy application can register a WebAuthn restore key for `www.pihrt.com`; a replacement Android phone can verify that key and receive a newly issued token session without backing up a password, 2FA code, access token or refresh token. Registration accepts only the production Google Play signing origin, challenges expire and are consumed by the first verification attempt, and revoking a paired device also invalidates its restore keys. Added persistent schema migration, OpenAPI and API documentation, `setup.py` and CI dependencies, and regression coverage. The matching Android 0.3.36 release adds the Android 17 local-network permission, protects public-address use when permission is declined, backs up only non-secret connection metadata and includes the required production Digital Asset Links file.<br/>
+
 ## October 29 2026
 -----------
 (Martin Pihrt)<br/>
