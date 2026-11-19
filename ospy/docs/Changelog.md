@@ -4,6 +4,12 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+November 19 2026
+----------------
+(Martin Pihrt)<br>
+New plugin: Linux System Updater v1.0.0
+Added a Debian Linux operating-system updater with daily, weekly and monthly checks, manual and delayed automatic package installation, exact package exclusions, APT transaction simulation, live browser output, E-mail Notifications SSL integration using its global recipients, optional reboot and post-boot OSPy confirmation. The worker uses fixed argument lists without a shell, does not block the irrigation scheduler, persists pending automatic work and reboot confirmation, exposes diagnostics health, and includes in-app help, repository documentation and regression coverage. Machine-translated the German, Polish, Russian and Serbian language catalogs from English. This was only a bulk mechanical translation: the resulting wording was not linguistically or contextually reviewed and was not tested in a running OSPy interface. Catalog syntax and format placeholders were checked, but incorrect terminology, grammar or text placement may remain and should be reported or corrected by native speakers. Updated the Czech translation (mo, po, pot files).
+
 ## October 30 2026
 -----------
 (Martin Pihrt)<br/>
