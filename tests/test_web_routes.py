@@ -605,6 +605,18 @@ class WebRouteIntegrationTests(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertNotIn(b'id="mobile-devices"', response.data)
 
+    def test_mobile_device_times_are_local_and_human_readable(self):
+        with mock.patch.object(webpages.options, "lang", "cs_CZ"), \
+                mock.patch.object(webpages.options, "time_format", True):
+            value = webpages._format_mobile_datetime(
+                "2026-11-19T12:40:58.872605+00:00"
+            )
+
+        self.assertRegex(value, r"^\d{2}\. \d{2}\. 2026 \d{2}:40:58$")
+        self.assertNotIn("T", value)
+        self.assertNotIn("+00:00", value)
+        self.assertNotIn("872605", value)
+
     def test_mobile_device_cleanup_requires_csrf_before_handler(self):
         with mock.patch.object(helpers, "print_report"):
             response = self.app.request(
