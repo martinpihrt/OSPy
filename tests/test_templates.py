@@ -113,6 +113,25 @@ class TemplateCompilationTests(unittest.TestCase):
         self.assertIn('target="_blank"', source)
         self.assertIn('rel="noopener noreferrer"', source)
 
+    def test_header_warns_while_debug_logging_is_enabled(self):
+        source = (TEMPLATE_ROOT / "base.html").read_text(encoding="utf-8")
+        warning = (
+            "WARNING: Debug logging is enabled in OSPy settings. "
+            "The log file is not rotated and can become extremely large!"
+        )
+        self.assertIn("$if content.page != 'login' and options.debug_log:", source)
+        self.assertIn('class="headerDebugWarning" role="alert"', source)
+        self.assertIn("$_('{}')".format(warning), source)
+
+        for theme in ("basic", "blue", "dark"):
+            css = (ROOT / "static" / "themes" / theme / "theme.css").read_text(
+                encoding="utf-8"
+            )
+            with self.subTest(theme=theme):
+                self.assertIn(".headerDebugWarning", css)
+                self.assertIn("color:#ff9800", css)
+                self.assertIn("div.header.debugLoggingEnabled", css)
+
     def test_mobile_device_records_require_revocation_before_deletion(self):
         source = (TEMPLATE_ROOT / "mobile_devices.html").read_text(
             encoding="utf-8"

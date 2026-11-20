@@ -95,7 +95,7 @@ $code:
                     <tr>
                         <td>
                             <strong>${device['name']}</strong><br>
-                            <span class="mobile-muted">$_('Paired'): ${device['created']}<br>$_('Last active'): ${device['last_seen']}</span>
+                            <span class="mobile-muted">$_('Paired'): ${device['created_display']}<br>$_('Last active'): ${device['last_seen_display']}</span>
                             $if device['revoked']:
                                 <br><strong>$_('Revoked')</strong>
                         </td>
@@ -115,10 +115,10 @@ $code:
                                     <br><button type="submit" class="button submit">$_('Save')</button>
                                 </form>
                                 <div class="mobile-muted">
-                                    $_('Registered'): ${device['push']['registered']}<br>
-                                    $_('Last successful delivery'): ${device['push']['last_success'] or '-'}<br>
+                                    $_('Registered'): ${device['push']['registered_display']}<br>
+                                    $_('Last successful delivery'): ${device['push']['last_success_display'] or '-'}<br>
                                     $if device['push']['last_failure']:
-                                        $_('Last failed delivery'): ${device['push']['last_failure']} — ${device['push'].get('failure_display', device['push']['failure_reason'])}
+                                        $_('Last failed delivery'): ${device['push']['last_failure_display']} — ${device['push'].get('failure_display', device['push']['failure_reason'])}
                                 </div>
                             $else:
                                 <span class="mobile-muted">$_('The mobile application has not registered push notifications for this installation.')</span>

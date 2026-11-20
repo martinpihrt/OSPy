@@ -44745,3 +44745,63 @@ msgstr ""
 
 #~ msgid "Server rejected report: %s"
 #~ msgstr "Отчет об отклонении сервером: %s"
+
+#: ospy/templates/base.html:382
+msgid "WARNING: Debug logging is enabled in OSPy settings. The log file is not rotated and can become extremely large!"
+msgstr "ПРЕДУПРЕЖДЕНИЕ: В настройках OSPy включено ведение журнала отладки. Файл не ротируется и может стать очень большим!"
+
+#: plugins/system_update/__init__.py
+msgid "The safety backup cannot be created because the unrotated debug log is too large."
+msgstr "Невозможно создать резервную копию безопасности, потому что неротируемый журнал отладки слишком велик."
+
+#: plugins/system_update/__init__.py
+msgid "Debug log file"
+msgstr "Файл журнала отладки"
+
+#: plugins/system_update/__init__.py
+msgid "The debug log path is invalid."
+msgstr "Путь к журналу отладки недействителен."
+
+#: plugins/system_update/__init__.py
+msgid "The debug log is not a regular file."
+msgstr "Журнал отладки не является обычным файлом."
+
+#: plugins/system_update/__init__.py
+msgid "The debug log was not deleted."
+msgstr "Журнал отладки не был удален."
+
+#: plugins/system_update/__init__.py
+msgid "The debug log no longer blocks the safety backup. Start the update again."
+msgstr "Журнал отладки больше не блокирует резервную копию безопасности. Запустите обновление еще раз."
+
+#: plugins/system_update/__init__.py
+msgid "Debug logging was disabled and the oversized debug log file was deleted."
+msgstr "Ведение журнала отладки отключено, а слишком большой файл журнала удален."
+
+#: plugins/system_update/__init__.py
+msgid "Debug log cleanup failed:\n"
+msgstr "Не удалось очистить журнал отладки:\n"
+
+#: plugins/system_update/__init__.py
+msgid "The debug log could not be deleted. The update was not started."
+msgstr "Не удалось удалить журнал отладки. Обновление не было запущено."
+
+#: plugins/system_update/templates/system_update_debug_log_cleanup.html
+msgid "Debug log blocks the safety backup"
+msgstr "Журнал отладки блокирует резервную копию безопасности"
+
+#: plugins/system_update/templates/system_update_debug_log_cleanup.html
+msgid "Maximum expanded backup size"
+msgstr "Максимальный размер распакованной резервной копии"
+
+#: plugins/system_update/templates/system_update_debug_log_cleanup.html
+msgid "This action disables debug logging, permanently deletes the debug log file, and then continues the update."
+msgstr "Это действие отключает ведение журнала отладки, безвозвратно удаляет файл журнала и затем продолжает обновление."
+
+#: plugins/system_update/templates/system_update_debug_log_cleanup.html
+msgid "Permanently delete the debug log and continue the update?"
+msgstr "Безвозвратно удалить журнал отладки и продолжить обновление?"
+
+#: plugins/system_update/templates/system_update_debug_log_cleanup.html
+msgid "Delete debug log and continue update"
+msgstr "Удалить журнал отладки и продолжить обновление"

@@ -174,6 +174,30 @@ def _format_display_datetime(value):
     return value
 
 
+def _format_mobile_datetime(value):
+    """Format an API ISO timestamp for the local web interface only."""
+    if not value:
+        return ''
+    try:
+        normalized = str(value)
+        if normalized.endswith('Z'):
+            normalized = normalized[:-1] + '+00:00'
+        parsed = datetime.datetime.fromisoformat(normalized)
+        if parsed.tzinfo is not None:
+            parsed = parsed.astimezone()
+        language = str(options.lang or '')
+        date_format = '%m/%d/%Y' if language == 'en_US' else (
+            '%d. %m. %Y' if language in ('cs_CZ', 'sk_SK') else '%d.%m.%Y'
+        )
+        if options.time_format:
+            clock = parsed.strftime('%H:%M:%S')
+        else:
+            clock = parsed.strftime('%I:%M:%S %p').lstrip('0').lower()
+        return '{} {}'.format(parsed.strftime(date_format), clock)
+    except (TypeError, ValueError, OverflowError):
+        return value
+
+
 loggedin = signal('loggedin')
 def report_login():
     loggedin.send()
@@ -1323,7 +1347,12 @@ class mobile_devices_page(ProtectedPage):
 
         devices = mobile_store.devices_with_push()
         for device in devices:
+            device['created_display'] = _format_mobile_datetime(device.get('created'))
+            device['last_seen_display'] = _format_mobile_datetime(device.get('last_seen'))
             push = device.get('push')
+            if push:
+                for field in ('registered', 'last_success', 'last_failure'):
+                    push[field + '_display'] = _format_mobile_datetime(push.get(field))
             if not push or not push.get('failure_reason'):
                 continue
             reason = push['failure_reason']
