@@ -4,6 +4,11 @@ OSPy Changelog
 Older changelog entries are archived in [Changelog old to 2026-07-02.md](https://github.com/martinpihrt/OSPy/blob/master/ospy/docs/Changelog_old_to_2026-07-02.md).<br/>
 OSPy mobile application for remote monitoring and control of OSPy irrigation systems [Google store](https://play.google.com/store/apps/details?id=com.pihrt.ospy.mobile).<br/>
 
+November 20 2026
+----------------
+(Martin Pihrt)<br>
+Completed the Slovak translation catalog against the current English template and Czech meaning. All active strings are translated, fuzzy markers were removed, technical placeholders were preserved and the compiled MO catalog was regenerated.
+
 November 19 2026
 ----------------
 (Martin Pihrt)<br>
