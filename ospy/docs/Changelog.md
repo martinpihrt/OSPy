@@ -9,6 +9,9 @@ November 20 2026
 (Martin Pihrt)<br>
 Completed the Slovak translation catalog against the current English template and Czech meaning. All active strings are translated, fuzzy markers were removed, technical placeholders were preserved and the compiled MO catalog was regenerated.
 
+(Martin Pihrt)<br>
+Released OSPy 3.0.374. The release adds a persistent orange header warning while unrotated debug logging is enabled, human-readable local timestamps in mobile application administration, and the completed Slovak translation catalog. System Update 1.2.9 now recognizes when the exact `ospy/data/events.log` file prevents creation of the safety backup, explains the problem and can, after explicit confirmation, disable debug logging, delete only that file, retry the backup and continue the update; unattended updates never delete it automatically.
+
 November 19 2026
 ----------------
 (Martin Pihrt)<br>
